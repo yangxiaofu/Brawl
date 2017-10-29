@@ -14,9 +14,13 @@ namespace Game.Core{
 		[SerializeField] float _speed = 5f;
 		[SerializeField] float _groundDistance = 0.2f;
 		[SerializeField] LayerMask _ground;
-		[SerializeField] float _jumpHeight = 10f;
-		[SerializeField] float _dashDistance = 5f;
+		[SerializeField] float _jumpHeight = 5f;
+		public float jumpHeight{get{return _jumpHeight;}}
+		[SerializeField] float _dashDistance = 0.5f;
+		public float dashDistance{get{return _dashDistance;}}
+		Movement _movement;
 		Rigidbody _rb;
+		public Rigidbody rb{get{return _rb;}}
 		Transform _groundChecker;
         bool _isGrounded = true;
 
@@ -26,13 +30,14 @@ namespace Game.Core{
 				_gameController, 
 				"A game controller needs to be referenced in the character control."
 			);
-			
+
 		}
 		void Start()
 		{
 			_rb = GetComponent<Rigidbody>();
 			_groundChecker = transform.GetChild(0);
 			_gameController.RegisterToController(this);
+			_movement = new Movement(this);
 		}
 
 		void Update()
@@ -51,27 +56,12 @@ namespace Game.Core{
         public void OnButtonPressed(PS4_Controller_Input.Button buttonPressed)
         {
 			if (buttonPressed == PS4_Controller_Input.Button.X)
-            {
-                Jump();
-            }
+            	if (_isGrounded) _movement.Jump();
+            
 
 			if (buttonPressed == PS4_Controller_Input.Button.CIRCLE)
-			{
-				Dash();
-			}
-        }
-
-        private void Dash()
-        {
-            Vector3 dashVelocity = Vector3.Scale(transform.forward, _dashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * _rb.drag + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * _rb.drag + 1)) / -Time.deltaTime)));
+				_movement.Dash();
 			
-            _rb.AddForce(dashVelocity, ForceMode.VelocityChange);
-        }
-
-        private void Jump()
-        {
-            if (_isGrounded)
-                _rb.AddForce(Vector3.up * Mathf.Sqrt(_jumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
         }
     }
 }
