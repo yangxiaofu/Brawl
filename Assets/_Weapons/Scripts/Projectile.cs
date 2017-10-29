@@ -13,6 +13,14 @@ namespace Game.Weapons{
 			StartCoroutine(DestroyObject(_timeToDestroy));
 		}
 
+		void OnTriggerEnter(Collider other)
+		{
+			if (other.gameObject.GetComponent<Enemy>())
+			{
+				Destroy(this.gameObject);
+			}
+		}
+
 		IEnumerator DestroyObject(float delay)
 		{
 			yield return new WaitForSeconds(delay);

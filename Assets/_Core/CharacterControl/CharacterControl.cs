@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Game.Core.ControllerInputs;
+using Game.Weapons;
 using System;
 
 namespace Game.Core{
@@ -20,10 +21,8 @@ namespace Game.Core{
 		public float dashDistance{get{return _dashDistance;}}
 
 		[Header("Weapons")]
-		[SerializeField] GameObject _projectile;
-		[SerializeField] float _projectileSpeed = 10f;
-		[SerializeField] float _secondsBetweenShots = 1f;
 		ProjectileSocket _projectileSocket;
+		WeaponSystem _weaponSystem;
 		Movement _movement;
 		Rigidbody _rb;
 		public Rigidbody rb{get{return _rb;}}
@@ -31,13 +30,6 @@ namespace Game.Core{
         bool _isGrounded = true;
 		bool _canShoot = true;
 
-		void Awake()
-		{
-			Assert.IsNotNull(
-				_gameController, 
-				"A game controller needs to be referenced in the character control."
-			);
-		}
 		void Start()
 		{
 			_rb = GetComponent<Rigidbody>();
@@ -46,28 +38,38 @@ namespace Game.Core{
 			_groundChecker = GetComponentInChildren<GroundChecker>().transform;
 			Assert.IsNotNull(_groundChecker);
 
-			_gameController.RegisterToController(this);
+			if (_gameController)
+				_gameController.RegisterToController(this);
+
 			_movement = new Movement(this);
 			_projectileSocket = GetComponentInChildren<ProjectileSocket>();
+
+			_weaponSystem = GetComponent<WeaponSystem>();
+
 		}
 
 		void Update()
 		{
 			_isGrounded = Physics.CheckSphere(_groundChecker.position, _groundDistance, _ground, QueryTriggerInteraction.Ignore);
 
-			if (_gameController.inputs != Vector3.zero)	
+			
+			if (_gameController && _gameController.inputs != Vector3.zero)	
 				transform.forward = _gameController.inputs;
 		}
 
 		void FixedUpdate()
         {
-            _rb.MovePosition(_rb.position + _gameController.inputs * _speed * Time.fixedDeltaTime);
+			if(_gameController)
+            	_rb.MovePosition(_rb.position + _gameController.inputs * _speed * Time.fixedDeltaTime);
 			
 			if (_canShoot){
 				ScanForProjectileShot();
-				StartCoroutine(UpdateCanShoot(_secondsBetweenShots));
+
+				StartCoroutine(
+					UpdateCanShoot(
+						GetComponent<WeaponSystem>()
+							.GetPrimaryWeapon().secondsBetweenShots));
 			}
-            
         }
 
 		IEnumerator UpdateCanShoot(float delay)
@@ -87,31 +89,35 @@ namespace Game.Core{
 
         private void ShootProjectile(Vector3 direction)
         {
-
 			var p = Instantiate(
-				_projectile, 
+				GetComponent<WeaponSystem>().GetPrimaryWeapon().GetProjectilePrefab(), 
 				_projectileSocket.transform.position,
 				Quaternion.identity
 			) as GameObject;
 			
-			p.GetComponent<Rigidbody>().AddForce(direction * _projectileSpeed, ForceMode.VelocityChange);
+			p.GetComponent<Rigidbody>().AddForce(
+				direction * _weaponSystem.GetPrimaryWeapon().projectileSpeed, 
+				ForceMode.VelocityChange
+			);
         }
 
         private Vector3 GetProjectileDirection()
         {
+			float shouldBeZero = 0; //Keeps the projectile shooting at horizontal plane from start.
+			
             return new Vector3(
 				_gameController.GetRightStickHorizontal(),
-				0,
+				shouldBeZero,
 				_gameController.GetRightStickVertical()
 			);
         }
 
         public void OnButtonPressed(PS4_Controller_Input.Button buttonPressed)
         {
-			if (buttonPressed == PS4_Controller_Input.Button.X)
+			if (buttonPressed == PS4_Controller_Input.Button.R2)
             	if (_isGrounded) _movement.Jump();
 
-			if (buttonPressed == PS4_Controller_Input.Button.R2)
+			if (buttonPressed == PS4_Controller_Input.Button.X)
 				_movement.Dash();
         }
     }
