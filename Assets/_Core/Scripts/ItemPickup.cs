@@ -16,14 +16,18 @@ namespace Game.Core{
         }
 
 		void OnTriggerEnter(Collider other)
-		{
-			//Add as a weapon to the player. 
-			if (other.gameObject.GetComponent<CharacterControl>()){
-				other.gameObject.GetComponent<WeaponSystem>().UpdateWeapon(_weapon);
-				Destroy(this.gameObject);
-			}
-			
-		}
+        {
+            ScanOfCharacter(other);
+        }
+
+        private void ScanOfCharacter(Collider other)
+        {
+            if (!other.gameObject.GetComponent<CharacterControl>()) return;
+
+            other.gameObject.GetComponent<WeaponSystem>().UpdateWeapon(_weapon);
+
+            Destroy(this.gameObject);
+        }
 
         private void InstantiateItemPrefab()
         {
