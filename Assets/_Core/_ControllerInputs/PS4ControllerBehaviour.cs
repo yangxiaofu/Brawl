@@ -17,8 +17,8 @@ namespace Game.Core.ControllerInputs{
 		void Update()
 		{
 			_inputs = Vector3.zero;
-			_inputs.x = Input.GetAxis("Horizontal");
-			_inputs.z = Input.GetAxis("Vertical");
+			_inputs.x = Input.GetAxis(HORIZONTAL);
+			_inputs.z = Input.GetAxis(VERTICAL);
 
 			if (ps4Controller.SquarePressed()) {
 
@@ -29,7 +29,6 @@ namespace Game.Core.ControllerInputs{
 			}
 
 			if (ps4Controller.XPressed()) {
-
 				if (OnButtonPressed != null)
 					OnButtonPressed(PS4_Controller_Input.Button.X);
 
@@ -124,7 +123,25 @@ namespace Game.Core.ControllerInputs{
 				return;
 			}
 		}
+        public override float GetRightStickVertical()
+        {
+            return ps4Controller.GetAnalogVertical();
+        }
 
+        public override float GetRightStickHorizontal()
+        {
+            return ps4Controller.GetAnalogHorizontal();
+        }
+
+        public override float GetDigitalPadVertical()
+        {
+            return ps4Controller.GetDPadVertical();
+        }
+
+        public override float GetDigitalPadHorizontal()
+        {
+            return ps4Controller.GetDPadHorizontal();
+        }
     }
 }
 

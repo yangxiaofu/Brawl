@@ -52,10 +52,13 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\_Core\_CharacterControl\CharacterControl.cs" />
+     <Compile Include="Assets\_Core\_CharacterControl\GroundChecker.cs" />
      <Compile Include="Assets\_Core\_CharacterControl\Movement.cs" />
      <Compile Include="Assets\_Core\_ControllerInputs\ControllerBehaviour.cs" />
      <Compile Include="Assets\_Core\_ControllerInputs\PS4_Controller_Input.cs" />
      <Compile Include="Assets\_Core\_ControllerInputs\PS4ControllerBehaviour.cs" />
+     <Compile Include="Assets\_Core\ProjectileSocket.cs" />
+     <Compile Include="Assets\_Weapons\Projectile.cs" />
      <None Include="Assets\Standard Assets\Fonts\OpenSans\License!.txt" />
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
  <Reference Include="UnityEngine.UI">
