@@ -25,15 +25,20 @@ namespace Game.Core{
 		WeaponSystem _weaponSystem;
 		Movement _movement;
 		Rigidbody _rb;
-		public Rigidbody rb{get{return _rb;}}
+		Animator _anim;
+		public Rigidbody rigidBody{get{return _rb;}}
 		Transform _groundChecker;
         bool _isGrounded = true;
 		bool _canShoot = true;
+		const string IS_WALKING = "IsWalking";
 
 		void Start()
 		{
 			_rb = GetComponent<Rigidbody>();
 			Assert.IsNotNull(_rb);
+
+			_anim = GetComponent<Animator>();
+			Assert.IsNotNull(_anim);
 
 			_groundChecker = GetComponentInChildren<GroundChecker>().transform;
 			Assert.IsNotNull(_groundChecker);
@@ -45,16 +50,23 @@ namespace Game.Core{
 			_projectileSocket = GetComponentInChildren<ProjectileSocket>();
 
 			_weaponSystem = GetComponent<WeaponSystem>();
-
 		}
 
 		void Update()
 		{
 			_isGrounded = Physics.CheckSphere(_groundChecker.position, _groundDistance, _ground, QueryTriggerInteraction.Ignore);
-
+			if (!_gameController) return;
 			
-			if (_gameController && _gameController.inputs != Vector3.zero)	
+			if (_gameController.inputs != Vector3.zero)
+			{
 				transform.forward = _gameController.inputs;
+				_anim.SetBool(IS_WALKING, true);
+			} 
+			else
+			{
+				_anim.SetBool(IS_WALKING, false);
+			}
+			
 		}
 
 		void FixedUpdate()
