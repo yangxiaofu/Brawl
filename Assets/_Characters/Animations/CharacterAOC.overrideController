@@ -7,4 +7,8 @@ AnimatorOverrideController:
   m_PrefabInternal: {fileID: 0}
   m_Name: CharacterAOC
   m_Controller: {fileID: 9100000, guid: fdb9c35c1ad8349e8877ad59fd40d8b3, type: 2}
-  m_Clips: []
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 35670b9ad096a40a9877b25b81595dbf, type: 2}
+    m_OverrideClip: {fileID: 7400014, guid: ce448a8080b4e934b8473badd27be402, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: dc4d18985d56947d28f774e613bb77f2, type: 2}
+    m_OverrideClip: {fileID: 7400004, guid: 04f4c7cb5e9914c1aaff9215d330728a, type: 3}

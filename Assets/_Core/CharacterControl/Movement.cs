@@ -1,13 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Game.Characters;
 
 namespace Game.Core{
 	public class Movement{
-
-		private readonly CharacterControl _character;
-
-		public Movement(CharacterControl characterControl)
+		private readonly Character _character;
+		public Movement(Character characterControl)
 		{
 			_character = characterControl;
 		}

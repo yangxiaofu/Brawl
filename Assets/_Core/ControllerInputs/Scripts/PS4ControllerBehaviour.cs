@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Game.Core.ControllerInputs;
+using Game.Characters;
 
 namespace Game.Core.ControllerInputs{
 	public class PS4ControllerBehaviour : ControllerBehaviour
@@ -9,7 +10,7 @@ namespace Game.Core.ControllerInputs{
 		public delegate void ButtonPressed(PS4_Controller_Input.Button button);
 		public event ButtonPressed OnButtonPressed;
 		PS4_Controller_Input ps4Controller = new PS4_Controller_Input();
-        public override void RegisterToController(CharacterControl control)
+        public override void RegisterToController(Player control)
         {
 			OnButtonPressed += control.OnButtonPressed;	
         }

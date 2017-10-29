@@ -2,31 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Game.Weapons;
+using Game.Characters;
 
 namespace Game.Core{
 	[ExecuteInEditMode]
 	public class ItemPickup : MonoBehaviour {
-		[SerializeField] WeaponConfig _weapon;
+		[SerializeField] protected WeaponConfig _weapon;
 
 		void Update()
         {
             if (_weapon == null) return;
+
             DestroyChildren();
+
             InstantiateItemPrefab();
         }
 
 		void OnTriggerEnter(Collider other)
         {
-            ScanOfCharacter(other);
+            if(!IsCharacter(other)) return;
+            
+            AddItemToCharacterInventory(other.GetComponent<Player>());
         }
 
-        private void ScanOfCharacter(Collider other)
+        protected void AddItemToCharacterInventory(Player character)
         {
-            if (!other.gameObject.GetComponent<CharacterControl>()) return;
-
-            other.gameObject.GetComponent<WeaponSystem>().UpdateWeapon(_weapon);
-
+            character.gameObject.GetComponent<WeaponSystem>().UpdateWeapon(_weapon);
             Destroy(this.gameObject);
+        }
+
+        protected bool IsCharacter(Collider other)
+        {
+            if (other.gameObject.GetComponent<Player>()) return true;
+            return false;
         }
 
         private void InstantiateItemPrefab()

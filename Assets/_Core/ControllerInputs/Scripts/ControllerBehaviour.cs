@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Game.Characters;
 
 namespace Game.Core.ControllerInputs{
 	public abstract class ControllerBehaviour : MonoBehaviour {	
@@ -15,7 +16,7 @@ namespace Game.Core.ControllerInputs{
 		public abstract float GetRightStickHorizontal();
 		public abstract float GetDigitalPadVertical();
 		public abstract float GetDigitalPadHorizontal();
-		public abstract void RegisterToController(CharacterControl control);
+		public abstract void RegisterToController(Player control);
 
 	}
 

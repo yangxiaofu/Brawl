@@ -7,10 +7,15 @@ namespace Game.Weapons{
 
 		[SerializeField] float _timeToDestroy = 2f;
 
-		// Use this for initialization
 		void Start () 
 		{
-			StartCoroutine(DestroyObject(_timeToDestroy));
+			StartCoroutine(DestroyObjectAfter(_timeToDestroy));
+		}
+
+		public void SetTimeBeforeDestroying(float seconds)
+		{
+			StopAllCoroutines();
+			StartCoroutine(DestroyObjectAfter(seconds));
 		}
 
 		void OnTriggerEnter(Collider other)
@@ -21,7 +26,7 @@ namespace Game.Weapons{
 			}
 		}
 
-		IEnumerator DestroyObject(float delay)
+		IEnumerator DestroyObjectAfter(float delay)
 		{
 			yield return new WaitForSeconds(delay);
 			Destroy(this.gameObject);
