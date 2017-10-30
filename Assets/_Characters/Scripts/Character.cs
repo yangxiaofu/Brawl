@@ -7,7 +7,7 @@ using Game.Core;
 using Panda;
 
 namespace Game.Characters{
-	public class Character : MonoBehaviour {
+	public abstract class Character : MonoBehaviour {
 		[Header ("Character Movement Parameters")]
 		[SerializeField] protected float _speed = 5f;
 		[SerializeField] protected float _groundDistance = 0.2f;
@@ -29,7 +29,7 @@ namespace Game.Characters{
 		protected bool _characterCanShoot = true;
 		protected const string IS_WALKING = "IsWalking";
 		protected bool _isBlinking = false;
-		protected Renderer enemyRenderer;
+		protected Renderer _characterRenderer;
 		protected bool _isDead = false;
 
 		protected void InitializeVariables()
@@ -81,13 +81,24 @@ namespace Game.Characters{
 				_isBlinking = true;
 				for (int i=0; i<numBlinks*2; i++) 
 				{
-					enemyRenderer.enabled = !enemyRenderer.enabled;	
+					_characterRenderer.enabled = !_characterRenderer.enabled;	
 					yield return new WaitForSeconds(seconds);
 				}
-				enemyRenderer.enabled = true;
+				_characterRenderer.enabled = true;
 				_isBlinking = false;
 			}
 		}
+
+		public void OnCollisionEnter(Collision other)
+		{
+			if (other.gameObject.GetComponent<Projectile>())
+			{
+				StartCoroutine(Blink(0.1f, 20));
+			}			
+
+			
+		}
+		public abstract void OnCollisionEnterAction(Collision other);
 
 		[Task]
 		public bool IsDead()

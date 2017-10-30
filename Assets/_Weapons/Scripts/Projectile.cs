@@ -19,7 +19,7 @@ namespace Game.Weapons{
 			StartCoroutine(DestroyObjectAfter(seconds));
 		}
 
-		void OnTriggerEnter(Collider other)
+		void OnCollisionEnter(Collision other)
 		{
 			if (other.gameObject.GetComponent<Enemy>())
 			{

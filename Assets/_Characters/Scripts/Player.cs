@@ -9,13 +9,17 @@ using System;
 
 namespace Game.Characters{
 	public class Player : Character {
-
+		[SerializeField] float _invincibleLength = 5f;
 		ControllerBehaviour _controller;
 		public void Setup(ControllerBehaviour controller){_controller = controller;}
 
+		[SerializeField] bool _isInvincible = false;
 		void Start()
         {
             InitializeVariables();
+
+			_characterRenderer = GetComponentInChildren<Renderer>();
+			Assert.IsNotNull(_characterRenderer);
         }
 
         void Update()
@@ -79,6 +83,20 @@ namespace Game.Characters{
 				_movement.Dash();
 			}
         }
+
+        public override void OnCollisionEnterAction(Collision other)
+        {
+            _isInvincible = true;
+			
+			StartCoroutine(EndInvincible(_invincibleLength));
+        }
+
+		IEnumerator EndInvincible(float delay)
+		{
+			yield return new WaitForSeconds(delay);
+
+			_isInvincible = false;			
+		}
     }
 }
 
