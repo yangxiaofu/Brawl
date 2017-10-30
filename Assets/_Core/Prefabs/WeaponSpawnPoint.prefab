@@ -51,5 +51,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2c5716532e51464bb6b6f89b93eab5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weapon: {fileID: 0}
   _probabilityOfSpawnPerSecond: 0.1
+  _weapon: {fileID: 11400000, guid: f76a23442c0564876a44a21a8e503bac, type: 2}

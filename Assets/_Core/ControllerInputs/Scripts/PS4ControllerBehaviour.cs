@@ -7,19 +7,22 @@ using Game.Characters;
 namespace Game.Core.ControllerInputs{
 	public class PS4ControllerBehaviour : ControllerBehaviour
 	{
+
+		[SerializeField] PS4_Controller_Input ps4Controller;
+
 		public delegate void ButtonPressed(PS4_Controller_Input.Button button);
 		public event ButtonPressed OnButtonPressed;
-		PS4_Controller_Input ps4Controller = new PS4_Controller_Input();
-        public override void RegisterToController(Player control)
-        {
-			OnButtonPressed += control.OnButtonPressed;	
-        }
+		void Start()
+		{
+			ps4Controller = new PS4_Controller_Input(_prefix);
+			OnButtonPressed += _player.OnButtonPressed;
+		}
 
 		void Update()
 		{
 			_inputs = Vector3.zero;
-			_inputs.x = Input.GetAxis(HORIZONTAL);
-			_inputs.z = Input.GetAxis(VERTICAL);
+			_inputs.x = GetLeftStickHorizontal();
+			_inputs.z = GetLeftStickVertical();
 
 			if (ps4Controller.SquarePressed()) {
 
@@ -29,10 +32,10 @@ namespace Game.Core.ControllerInputs{
 				return;
 			}
 
-			if (ps4Controller.XPressed()) {
+			if (ps4Controller.XPressed()) 
+			{
 				if (OnButtonPressed != null)
 					OnButtonPressed(PS4_Controller_Input.Button.X);
-
 				return;
 			}
 
@@ -126,12 +129,12 @@ namespace Game.Core.ControllerInputs{
 		}
         public override float GetRightStickVertical()
         {
-            return ps4Controller.GetAnalogVertical();
+            return ps4Controller.GetRightAnalogVertical();
         }
 
         public override float GetRightStickHorizontal()
         {
-            return ps4Controller.GetAnalogHorizontal();
+            return ps4Controller.GetRightAnalogHorizontal();
         }
 
         public override float GetDigitalPadVertical()
@@ -142,6 +145,16 @@ namespace Game.Core.ControllerInputs{
         public override float GetDigitalPadHorizontal()
         {
             return ps4Controller.GetDPadHorizontal();
+        }
+
+        public override float GetLeftStickVertical()
+        {
+            return ps4Controller.GetLeftAnalogVertical();
+        }
+
+        public override float GetLeftStickHorizontal()
+        {
+            return ps4Controller.GetLeftAnalogHorizontal();
         }
     }
 }

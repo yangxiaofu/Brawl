@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Game.Characters;
 
 namespace Game.Weapons{
 	public class Projectile : MonoBehaviour {

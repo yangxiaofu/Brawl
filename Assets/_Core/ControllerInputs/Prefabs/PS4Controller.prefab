@@ -33,7 +33,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1076990185638320}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -51,3 +51,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90e8ee7231ae94aa08bd39fc9a9e24cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _prefix: P1
+  _player: {fileID: 0}
+  ps4Controller:
+    DPAD_V: PS4_DPAD_VERTICAL
+    DPAD_H: PS4_DPAD_HORIZONTAL
+    R_ANALOG_V: PS4_R_ANALOG_VERTICAL
+    R_ANALOG_H: PS4_R_ANALOG_HORIZONTAL
+    L_ANALOG_V: PS4_L_ANALOG_VERTICAL
+    L_ANALOG_H: PS4_L_ANALOG_HORIZONTAL
+    SQUARE_BUTTON: PS4_SQUARE
+    X_BUTTON: PS4_X
+    TRIANGLE_BUTTON: PS4_TRIANGLE
+    CIRCLE_BUTTON: PS4_CIRCLE"
+    R1_BUTTON: PS4_R1
+    L1_BUTTON: PS4_L1
+    R2_BUTTON: PS4_R2
+    L2_BUTTON: PS4_L2
+    L3_BUTTON: PS4_L3
+    R3_BUTTON: PS4_R3
+    PS4_BUTTON: PS4_PS4BUTTON
+    OPTIONS_BUTTON: PS4_OPTIONS
+    START_BUTTON: PS4_START

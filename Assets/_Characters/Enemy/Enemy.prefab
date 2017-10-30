@@ -22,8 +22,9 @@ GameObject:
   - component: {fileID: 33537945561980322}
   - component: {fileID: 136026382593049588}
   - component: {fileID: 23810622661289198}
-  - component: {fileID: 65865883416174620}
+  - component: {fileID: 114159585899864954}
   - component: {fileID: 114157011323661620}
+  - component: {fileID: 114721904923680256}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -85,18 +86,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1696645809921002}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65865883416174620
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1696645809921002}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.0000001, y: 2, z: 1.0000002}
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!114 &114157011323661620
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -108,6 +97,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bd8858e7f48f478cb3264048944f080, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _speed: 5
+  _groundDistance: 0.2
+  _jumpHeight: 5
+  _dashDistance: 0.5
+  _ground:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!114 &114159585899864954
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1696645809921002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e655612c74e24d2cb1d8cc45914ca70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _primaryWeapon: {fileID: 0}
+--- !u!114 &114721904923680256
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1696645809921002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17e43e7170fb45b4b81dcd16d0ff55d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scripts:
+  - {fileID: 4900000, guid: b24c9eaddf5824362a64172f89be870e, type: 3}
+  autoReset: 1
+  tickOn: 0
+  sourceInfos:
+  - isFoldout: 1
+    breakPoints: 
+    breakPointStatuses: 
+    collapsedLines: 0b000000
+    btScript: 
 --- !u!136 &136026382593049588
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -115,7 +144,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1696645809921002}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2

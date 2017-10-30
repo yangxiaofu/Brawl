@@ -23,8 +23,8 @@ GameObject:
   - component: {fileID: 135075821701669120}
   - component: {fileID: 23949241637564362}
   - component: {fileID: 54544437868159936}
-  - component: {fileID: 114919286911101116}
   - component: {fileID: 135434846535002522}
+  - component: {fileID: 114919286911101116}
   m_Layer: 0
   m_Name: FastSpeedWeapon
   m_TagString: Untagged

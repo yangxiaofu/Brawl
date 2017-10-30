@@ -1,0 +1,12 @@
+tree("Root")
+	parallel
+		repeat mute tree("BeAlive")
+		repeat mute tree("Kill")
+
+tree("BeAlive")
+	while not IsDead
+		Succeed
+
+tree("Kill")
+	while IsDead
+		Succeed

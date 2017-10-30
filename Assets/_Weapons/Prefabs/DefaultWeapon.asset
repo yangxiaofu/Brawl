@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemPrefab: {fileID: 1443953676885246, guid: bb33d62de5d544e7aaa289480b4669d3,
     type: 2}
-  _projectilePrefab: {fileID: 1443953676885246, guid: bb33d62de5d544e7aaa289480b4669d3,
+  _projectilePrefab: {fileID: 1443953676885246, guid: ce0d0e6af6d3b40768993ba0603ee605,
     type: 2}
-  _projectileSpeed: 50
+  _projectileSpeed: 25
   _secondsBetweenShots: 0.5

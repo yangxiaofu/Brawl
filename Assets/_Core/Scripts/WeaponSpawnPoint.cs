@@ -6,10 +6,10 @@ using Game.Weapons;
 using Game.Characters;
 
 namespace Game.Core{
-	public class WeaponSpawnPoint : ItemPickup {
+	public class WeaponSpawnPoint : MonoBehaviour{
 		[SerializeField] float _probabilityOfSpawnPerSecond;
-
-	    bool _containsSpawnedObject
+		[SerializeField] protected WeaponConfig _weapon;
+		bool _containsSpawnedObject
         {
             get{return this.transform.childCount > 0;}
         }
@@ -32,22 +32,30 @@ namespace Game.Core{
 			return true;
         }
 
-		
-
         private void SpawnObject()
         {
             var weaponObj = Instantiate(_weapon.GetItemPrefab()) as GameObject; ;
-            weaponObj.transform.SetParent(this.transform.parent);
+            weaponObj.transform.SetParent(this.transform);
             weaponObj.transform.localPosition = Vector3.zero;
         }
 
         void OnTriggerEnter(Collider other)
 		{
 			if(!IsCharacter(other)) return;
-			
 			AddItemToCharacterInventory(other.gameObject.GetComponent<Player>());
-			
 		}
+
+		protected bool IsCharacter(Collider other)
+        {
+            if (other.gameObject.GetComponent<Player>()) return true;
+            return false;
+        }
+
+		protected void AddItemToCharacterInventory(Player character)
+        {
+            character.gameObject.GetComponent<WeaponSystem>().UpdateWeapon(_weapon);
+            Destroy(this.gameObject);
+        }
 	}
 
 }

@@ -3,24 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game.Core.ControllerInputs{
+	[System.Serializable]
 	public class PS4_Controller_Input {
-		const string DPAD_V = "PS4_DPAD_VERTICAL";
-		const string DPAD_H = "PS4_DPAD_HORIZONTAL";
-		const string ANALOG_V = "PS4_ANALOG_VERTICAL";
-		const string ANALOG_H = "PS4_ANALOG_HORIZONTAL";
-		const string SQUARE_BUTTON = "PS4_SQUARE";
-		const string X_BUTTON = "PS4_X";
-		const string TRIANGLE_BUTTON = "PS4_TRIANGLE";
-		const string CIRCLE_BUTTON = "PS4_CIRCLE";
-		const string R1_BUTTON = "PS4_R1";
-		const string L1_BUTTON = "PS4_L1";
-		const string R2_BUTTON = "PS4_R2";
-		const string L2_BUTTON = "PS4_L2";
-		const string L3_BUTTON = "PS4_L3";
-		const string R3_BUTTON = "PS4_R3";
-		const string PS4_BUTTON = "PS4_PS4BUTTON";
-		const string OPTIONS_BUTTON = "PS4_OPTIONS";
-		const string START_BUTTON = "PS4_START";		
+		private readonly string _prefix;
+		[SerializeField] string DPAD_V = "PS4_DPAD_VERTICAL";
+		[SerializeField] string DPAD_H = "PS4_DPAD_HORIZONTAL";
+		[SerializeField] string R_ANALOG_V = "PS4_R_ANALOG_VERTICAL";
+		[SerializeField] string R_ANALOG_H = "PS4_R_ANALOG_HORIZONTAL";
+		[SerializeField] string L_ANALOG_V = "PS4_L_ANALOG_VERTICAL";
+		[SerializeField] string L_ANALOG_H = "PS4_L_ANALOG_HORIZONTAL";
+		[SerializeField] string SQUARE_BUTTON = "PS4_SQUARE";
+		[SerializeField] string X_BUTTON = "PS4_X";
+		[SerializeField] string TRIANGLE_BUTTON = "PS4_TRIANGLE";
+		[SerializeField] string CIRCLE_BUTTON = "PS4_CIRCLE";
+		[SerializeField] string R1_BUTTON = "PS4_R1";
+		[SerializeField] string L1_BUTTON = "PS4_L1";
+		[SerializeField] string R2_BUTTON = "PS4_R2";
+		[SerializeField] string L2_BUTTON = "PS4_L2";
+		[SerializeField] string L3_BUTTON = "PS4_L3";
+		[SerializeField] string R3_BUTTON = "PS4_R3";
+		[SerializeField] string PS4_BUTTON = "PS4_PS4BUTTON";
+		[SerializeField] string OPTIONS_BUTTON = "PS4_OPTIONS";
+		[SerializeField] string START_BUTTON = "PS4_START";		
 		public enum Button{
 			TRIANGLE,
 			X,
@@ -36,88 +40,103 @@ namespace Game.Core.ControllerInputs{
 			START,
 			PS
 		}
+
+		public PS4_Controller_Input(string prefix)
+		{
+			_prefix = prefix;
+		}
 		public float GetDPadVertical()
 		{
-			return Input.GetAxis(DPAD_V);
+			return Input.GetAxis(_prefix + "_" + DPAD_V);
 		}
 
 		public float GetDPadHorizontal()
 		{
-			return Input.GetAxis(DPAD_H);
+			return Input.GetAxis(_prefix + "_" + DPAD_H);
 		}
 
-		public float GetAnalogVertical()
+		public float GetLeftAnalogVertical()
 		{
-			return Input.GetAxis(ANALOG_V);
+			return Input.GetAxis(_prefix + "_" + L_ANALOG_V);
 		}
 
-		public float GetAnalogHorizontal()
+		public float GetLeftAnalogHorizontal()
 		{
-			return Input.GetAxis(ANALOG_H);
+			return Input.GetAxis(_prefix + "_" + L_ANALOG_H);
+		}
+
+		public float GetRightAnalogVertical()
+		{
+			return Input.GetAxis(_prefix + "_" + R_ANALOG_V);
+		}
+
+		public float GetRightAnalogHorizontal()
+		{
+			return Input.GetAxis(_prefix + "_" + R_ANALOG_H);
 		}
 
 		public bool SquarePressed()
 		{
-			return Input.GetButton(SQUARE_BUTTON);
+			return Input.GetButtonDown(_prefix + "_" + SQUARE_BUTTON);
 		}
 
 		public bool XPressed()
 		{
-			return Input.GetButton(X_BUTTON);
+			return Input.GetButtonDown(_prefix + "_" + X_BUTTON);
 		}
 
 		public bool TrianglePressed()
 		{
-			return Input.GetButton(TRIANGLE_BUTTON);
+			return Input.GetButtonDown(_prefix + "_" + TRIANGLE_BUTTON);
 		}
 
 		public bool CirclePressed()
 		{
-			return Input.GetButton(CIRCLE_BUTTON);
+			return Input.GetButtonDown(_prefix + "_" + CIRCLE_BUTTON);
 		}
 
 		public bool L1Pressed()
 		{
-			return Input.GetButton(L1_BUTTON);
+			return Input.GetButtonDown(_prefix + "_" + L1_BUTTON);
 		}
 
 		public bool R1Pressed()
 		{
-			return Input.GetButton(R1_BUTTON);
+			return Input.GetButtonDown(_prefix + "_" + R1_BUTTON);
 		}
 
 		public bool PSPressed(){
-			return Input.GetButton(PS4_BUTTON);
+			return Input.GetButtonDown(_prefix + "_" + PS4_BUTTON);
 		}
 
 		public bool L2Pressed()
 		{
-			return Input.GetButton(L2_BUTTON);
+			return Input.GetButtonDown(_prefix + "_" + L2_BUTTON);
 		}
 
 		public bool R2Pressed()
 		{
-			return Input.GetButton(R2_BUTTON);
+			return Input.GetButtonDown(_prefix + "_" + R2_BUTTON);
 		}
 
 		public bool L3Pressed()
 		{
-			return Input.GetButton(L3_BUTTON);
+			return Input.GetButtonDown(_prefix + "_" + L3_BUTTON);
 		}
 
 		public bool R3Pressed()
 		{
-			return Input.GetButton(R3_BUTTON);
+			return Input.GetButtonDown(_prefix + "_" + R3_BUTTON);
 		}
 
 		public bool OptionsPressed()
 		{
-			return Input.GetButton(OPTIONS_BUTTON);
+			return Input.GetButtonDown(_prefix + "_" + OPTIONS_BUTTON);
 		}
 
 		public bool StartPressed()
 		{
-			return Input.GetButton(START_BUTTON);
+			return Input.GetButtonDown(_prefix + "_" + START_BUTTON);
 		}
 	}
 
