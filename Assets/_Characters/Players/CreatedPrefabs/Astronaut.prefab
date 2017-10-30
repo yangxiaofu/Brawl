@@ -818,7 +818,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1668402261212420}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.718, z: 0}
+  m_LocalPosition: {x: 0, y: 2.07, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4429006073196878}
@@ -971,7 +971,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1896606760085640}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.44, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4006286771765626}
@@ -1001,7 +1001,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1339205552405966}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.21, y: 0.443, z: -4.74}
+  m_LocalPosition: {x: -4.21, y: 0, z: -4.74}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4898782678952908}
@@ -1379,7 +1379,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1748645869694726}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.402, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4429006073196878}
@@ -1598,6 +1598,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   _invincibleLength: 5
+  _energyConsumeOnJump: 2
+  _energyToConsumeOnDash: 30
   _isInvincible: 0
 --- !u!114 &114217112843594738
 MonoBehaviour:
@@ -1644,6 +1646,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ebcf000ef58c4e97803de73b9ab2962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _startingEnergy: 100
+  _currentEnergy: 100
+  _increasePerSecond: 25
 --- !u!135 &135048091399971370
 SphereCollider:
   m_ObjectHideFlags: 1

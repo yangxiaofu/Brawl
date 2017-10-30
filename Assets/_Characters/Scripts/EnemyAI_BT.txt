@@ -3,10 +3,39 @@ tree("Root")
 		repeat mute tree("BeAlive")
 		repeat mute tree("Kill")
 
-tree("BeAlive")
-	while not IsDead
-		Succeed
-
 tree("Kill")
 	while IsDead
 		Succeed
+
+tree("BeAlive")
+	while not IsDead
+		fallback
+			tree("Attack")
+			tree("RunForCover")
+			tree("Celebrate")
+
+tree("Attack")
+	sequence
+		DoesCharacterExist
+		ChooseRandomCharacter
+		MoveTowardCharacter
+		Stop
+		tree("BeginAttack")
+		
+
+tree("BeginAttack")
+	while IsAttacking
+		fallback
+			sequence
+				repeat 10	
+					sequence
+						IsTargetWithinShootDistance
+						ShootTarget
+			StopAttacking
+
+tree("RunForCover")
+	Succeed
+
+
+tree("Celebrate")
+	Succeed

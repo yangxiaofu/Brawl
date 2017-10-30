@@ -19,7 +19,6 @@ namespace Game.Characters{
 		protected ProjectileSocket _projectileSocket;
 		protected WeaponSystem _weaponSystem;
 		protected Movement _movement;
-
 		protected Animator _anim;
 		protected Rigidbody _rb;
 		protected EnergySystem _energySystem;
@@ -67,6 +66,8 @@ namespace Game.Characters{
 			yield return new WaitForSeconds(delay);
 			_characterCanShoot = true;
 		}
+
+		[Task]
 		protected void ShootProjectile(Vector3 direction)
         {
 			var projectileObject = Instantiate(

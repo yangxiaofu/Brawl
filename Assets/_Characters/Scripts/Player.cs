@@ -23,7 +23,12 @@ namespace Game.Characters{
 
         void Update()
 		{
-			_isGrounded = Physics.CheckSphere(_groundChecker.position, _groundDistance, _ground, QueryTriggerInteraction.Ignore);
+			_isGrounded = Physics.CheckSphere(
+				_groundChecker.position, 
+				_groundDistance, 
+				_ground, 
+				QueryTriggerInteraction.Ignore
+			);
 
 			float animationThreshold = 0.2f;
 			if (_controller.inputs.magnitude > animationThreshold)
@@ -75,7 +80,12 @@ namespace Game.Characters{
         {
 			if (button == PS4_Controller_Input.Button.X)
 			{
-				if (_isGrounded) Jump();
+
+				if (_isGrounded) {
+					Jump();
+				} else {
+					Debug.Log("Is not grounded");
+				}
 			} 
 
 			if (button == PS4_Controller_Input.Button.CIRCLE)
@@ -83,7 +93,6 @@ namespace Game.Characters{
 				Dash();
 			}
         }
-		
 		
 		public void Jump()
 		{
