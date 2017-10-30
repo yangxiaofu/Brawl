@@ -10,23 +10,23 @@ using System;
 namespace Game.Characters{
 	public class Player : Character {
 		[SerializeField] float _invincibleLength = 5f;
+		[SerializeField] float _energyConsumeOnJump = 10f;
+		[SerializeField] float _energyToConsumeOnDash = 50f;
 		ControllerBehaviour _controller;
 		public void Setup(ControllerBehaviour controller){_controller = controller;}
 
 		[SerializeField] bool _isInvincible = false;
 		void Start()
         {
-            InitializeVariables();
-
-			_characterRenderer = GetComponentInChildren<Renderer>();
-			Assert.IsNotNull(_characterRenderer);
+            InitializeVariables();	
         }
 
         void Update()
 		{
 			_isGrounded = Physics.CheckSphere(_groundChecker.position, _groundDistance, _ground, QueryTriggerInteraction.Ignore);
 
-			if (_controller.inputs != Vector3.zero)
+			float animationThreshold = 0.2f;
+			if (_controller.inputs.magnitude > animationThreshold)
 			{
 				transform.forward = _controller.inputs;
 				_anim.SetBool(IS_WALKING, true);
@@ -75,19 +75,38 @@ namespace Game.Characters{
         {
 			if (button == PS4_Controller_Input.Button.X)
 			{
-				if (_isGrounded) _movement.Jump();
+				if (_isGrounded) Jump();
 			} 
 
 			if (button == PS4_Controller_Input.Button.CIRCLE)
 			{
-				_movement.Dash();
+				Dash();
 			}
         }
+		
+		
+		public void Jump()
+		{
+			if (!_energySystem.HasEnergy(_energyConsumeOnJump)) return;
+
+			_energySystem.ConsumeEnergy(_energyConsumeOnJump);
+
+			_movement.Jump();
+		}
+
+		public void Dash()
+		{
+			if(!_energySystem.HasEnergy(_energyToConsumeOnDash)) return;
+
+			_energySystem.ConsumeEnergy(_energyToConsumeOnDash);
+
+			_movement.Dash();
+		}
 
         public override void OnCollisionEnterAction(Collision other)
         {
             _isInvincible = true;
-			
+
 			StartCoroutine(EndInvincible(_invincibleLength));
         }
 

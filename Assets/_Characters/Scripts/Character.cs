@@ -22,6 +22,7 @@ namespace Game.Characters{
 
 		protected Animator _anim;
 		protected Rigidbody _rb;
+		protected EnergySystem _energySystem;
 		CapsuleCollider _cc;
 		public Rigidbody rigidBody{get{return _rb;}}
 		protected Transform _groundChecker;
@@ -52,6 +53,12 @@ namespace Game.Characters{
             _weaponSystem = GetComponent<WeaponSystem>();
 			Assert.IsNotNull(_weaponSystem);
 
+			_energySystem = GetComponent<EnergySystem>();
+			Assert.IsNotNull(_energySystem);
+
+			_characterRenderer = GetComponentInChildren<Renderer>();
+			Assert.IsNotNull(_characterRenderer);
+			
 			_movement = new Movement(this);
         }
 

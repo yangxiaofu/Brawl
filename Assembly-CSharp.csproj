@@ -53,6 +53,7 @@
   <ItemGroup>
      <Compile Include="Assets\_Characters\Scripts\Character.cs" />
      <Compile Include="Assets\_Characters\Scripts\Enemy.cs" />
+     <Compile Include="Assets\_Characters\Scripts\EnergySystem.cs" />
      <Compile Include="Assets\_Characters\Scripts\Player.cs" />
      <Compile Include="Assets\_Core\CharacterControl\GroundChecker.cs" />
      <Compile Include="Assets\_Core\CharacterControl\Movement.cs" />
