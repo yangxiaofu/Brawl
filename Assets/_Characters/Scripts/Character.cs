@@ -82,48 +82,54 @@ namespace Game.Characters{
 		[Task] public bool IsDead() { return _isDead; }
 
 		void Awake()
-		{
-			if (_isBot)
-			{
-				_agent = this.gameObject.AddComponent<NavMeshAgent>();
-				_agent.speed = _speed;
-				_agent.angularSpeed = _angularSpeed;
-				_agent.stoppingDistance = _stoppingDistance;
-				_agent.updatePosition = false;
-						
-			}
-		}
-		void Start()
+        {
+            if (!_isBot)
+                return;
+
+            SetupNavMeshAgent();
+        }
+
+
+        void Start()
 		{
 			InitializeVariables();
 		}
 
         void Update()
         {
-			if (!_isBot)
-			{
-				CheckGrounded();
-            	UpdateMovementAnimation();
-			} 
+			if (_isBot) 
+				return;
+			
+			CheckGrounded();
+			UpdateMovementAnimation();
         }
 
 		void FixedUpdate()
         {
-			if (!_isBot)
-			{
-				_rb.MovePosition(
-                _rb.position + 
-                _controller.inputs * 
-                _speed * 
-                Time.fixedDeltaTime
-            	);
-			}
-			
-			if (_characterCanShoot)
+            if (_characterCanShoot)
             {
-				ScanForProjetileShotButtonTrigger();
-				StartCoroutine(UpdateCanShoot(_weaponSystem.primaryWeapon.secondsBetweenShots));
-			}
+                ScanForProjetileShotButtonTrigger();
+                StartCoroutine(UpdateCanShoot(_weaponSystem.primaryWeapon.secondsBetweenShots));
+            }
+
+            if (_isBot)
+                return;
+
+            UpdatePlayerMovement();
+        }
+
+        private void UpdatePlayerMovement()
+        {
+            _rb.MovePosition(_rb.position + _controller.inputs * _speed * Time.fixedDeltaTime);
+        }
+
+        private void SetupNavMeshAgent()
+        {
+            _agent = this.gameObject.AddComponent<NavMeshAgent>();
+            _agent.speed = _speed;
+            _agent.angularSpeed = _angularSpeed;
+            _agent.stoppingDistance = _stoppingDistance;
+            _agent.updatePosition = false;
         }
 
 
@@ -194,7 +200,7 @@ namespace Game.Characters{
 			}
         }
 
-		protected void InitializeVariables()
+		private void InitializeVariables()
         {
             _rb = GetComponent<Rigidbody>();
             Assert.IsNotNull(_rb);
@@ -223,8 +229,6 @@ namespace Game.Characters{
 			_movement = new Movement(this);
         }
 
-
-		[Task]
 		public bool Jump()
 		{
 			if (!_energySystem.HasEnergy(_energyConsumeOnJump)) 
@@ -236,7 +240,6 @@ namespace Game.Characters{
 			return true;
 		}
 
-		[Task]
 		public bool Dash()
 		{
 			if(!_energySystem.HasEnergy(_energyToConsumeOnDash)) 
@@ -247,13 +250,13 @@ namespace Game.Characters{
 			return true;
 		}
 
-		protected IEnumerator UpdateCanShoot(float delay)
+		private IEnumerator UpdateCanShoot(float delay)
 		{
 			yield return new WaitForSeconds(delay);
 			_characterCanShoot = true;
 		}
 		
-        protected IEnumerator Blink(float seconds, int numBlinks)
+        private IEnumerator Blink(float seconds, int numBlinks)
 		{
 			if (!_isBlinking)
 			{
@@ -281,7 +284,7 @@ namespace Game.Characters{
 			StartCoroutine(EndInvincible(_invincibleLength));
 		}
 
-		IEnumerator EndInvincible(float delay)
+		private IEnumerator EndInvincible(float delay)
 		{
 			yield return new WaitForSeconds(delay);
 

@@ -31,19 +31,33 @@ namespace Game.Characters{
 		}
 
 		void Update()
+        {
+            if (!_character.isBot) return;
+
+            UpdateBotMovement();
+        }
+
+        private void UpdateBotMovement()
+        {
+            this.transform.position = new Vector3
+            (
+                _agent.nextPosition.x,
+                this.transform.position.y,
+                _agent.nextPosition.z
+            );
+        }
+
+		[Task] bool Jump()
 		{
-			if (_character.isBot)
-			{
-				this.transform.position = new Vector3
-				(
-					_agent.nextPosition.x, 
-					this.transform.position.y, 
-					_agent.nextPosition.z
-				);
-			}
+			return _character.Jump();
 		}
 
-		[Task] bool IsBot()
+		[Task] bool Dash()
+		{
+			return _character.Dash();
+		}
+
+        [Task] bool IsBot()
 		{
 			return _character.isBot;
 		}
