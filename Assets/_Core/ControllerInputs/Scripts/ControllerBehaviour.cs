@@ -6,12 +6,11 @@ using Game.Characters;
 namespace Game.Core.ControllerInputs{
 	public abstract class ControllerBehaviour : MonoBehaviour {	
 		[SerializeField] protected string _prefix;
-		[SerializeField] protected Player _player;
+		[SerializeField] protected Character _character;
 		
-
 		void Awake()
 		{
-			_player.Setup(this);
+			_character.Setup(this);
 		}
 
 		protected Vector3 _inputs = Vector3.zero;

@@ -122,7 +122,7 @@
      <None Include="Assets\PandaBehaviour\Examples\02_PlayTag\Assets\PlayTag.commented.BT.txt" />
      <None Include="Assets\Standard Assets\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />
      <None Include="Assets\Toon Character Pack\Toon Animations\ToonAnimations - Readme.txt" />
-     <None Include="Assets\_Characters\Scripts\EnemyAI_BT.txt" />
+     <None Include="Assets\_Characters\Scripts\BotAI.txt" />
      <None Include="Assets\PandaBehaviour\Examples\02_PlayTag\Assets\PlayTag.BT.txt" />
      <None Include="Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />
      <None Include="Assets\Standard Assets\Characters\RollerBall\RollerBallGuidelines.txt" />

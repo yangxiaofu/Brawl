@@ -15,7 +15,7 @@ namespace Game.Core.ControllerInputs{
 		void Start()
 		{
 			ps4Controller = new PS4_Controller_Input(_prefix);
-			OnButtonPressed += _player.OnButtonPressed;
+			OnButtonPressed += _character.OnButtonPressed;
 		}
 
 		void Update()

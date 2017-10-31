@@ -87,18 +87,18 @@ namespace Game.Core{
 		{
 			if(!IsCharacter(other)) return;
 
-			var player = other.gameObject.GetComponent<Player>();
+			var player = other.gameObject.GetComponent<Character>();
 			AddItemToInventoryOf(player);
 			ClearSpawnedItemFromSpawner();
 		}
 
 		protected bool IsCharacter(Collider other)
         {
-            if (other.gameObject.GetComponent<Player>()) return true;
+            if (other.gameObject.GetComponent<Character>()) return true;
             return false;
         }
 
-		protected void AddItemToInventoryOf(Player character)
+		protected void AddItemToInventoryOf(Character character)
         {
 			if (_spawnedItemConfig.IsWeapon()) 
 			{

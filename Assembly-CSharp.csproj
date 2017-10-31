@@ -52,11 +52,10 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\_CameraAndUI\PlayerUI.cs" />
+     <Compile Include="Assets\_Characters\Scripts\BotAI.cs" />
      <Compile Include="Assets\_Characters\Scripts\Character.cs" />
-     <Compile Include="Assets\_Characters\Scripts\Enemy.cs" />
      <Compile Include="Assets\_Characters\Scripts\EnergySystem.cs" />
      <Compile Include="Assets\_Characters\Scripts\HealthSystem.cs" />
-     <Compile Include="Assets\_Characters\Scripts\Player.cs" />
      <Compile Include="Assets\_Core\CharacterControl\GroundChecker.cs" />
      <Compile Include="Assets\_Core\CharacterControl\Movement.cs" />
      <Compile Include="Assets\_Core\ControllerInputs\Scripts\ControllerBehaviour.cs" />
@@ -164,7 +163,7 @@
      <None Include="Assets\PandaBehaviour\Examples\02_PlayTag\Assets\PlayTag.commented.BT.txt" />
      <None Include="Assets\Standard Assets\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />
      <None Include="Assets\Toon Character Pack\Toon Animations\ToonAnimations - Readme.txt" />
-     <None Include="Assets\_Characters\Scripts\EnemyAI_BT.txt" />
+     <None Include="Assets\_Characters\Scripts\BotAI.txt" />
      <None Include="Assets\PandaBehaviour\Examples\02_PlayTag\Assets\PlayTag.BT.txt" />
      <None Include="Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />
      <None Include="Assets\Standard Assets\Characters\RollerBall\RollerBallGuidelines.txt" />

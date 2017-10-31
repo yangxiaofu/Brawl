@@ -210,13 +210,15 @@ GameObject:
   - component: {fileID: 54211173937792340}
   - component: {fileID: 136666079720308446}
   - component: {fileID: 95522935041648172}
-  - component: {fileID: 114151299812471480}
   - component: {fileID: 114388397563192026}
   - component: {fileID: 114960281451856148}
   - component: {fileID: 114770521822805460}
+  - component: {fileID: 114636995219511694}
+  - component: {fileID: 114756573613836384}
+  - component: {fileID: 114748932235744492}
   m_Layer: 0
   m_Name: Astronaut
-  m_TagString: Untagged
+  m_TagString: Player4
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1580,29 +1582,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114151299812471480
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1339205552405966}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 411074ef56e8b4eca9231647edd00ac2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 5
-  _groundDistance: 1
-  _jumpHeight: 5
-  _dashDistance: 20
-  _ground:
-    serializedVersion: 2
-    m_Bits: 256
-  _isBeingAttacked: 0
-  _energyConsumeOnJump: 2
-  _energyToConsumeOnDash: 30
-  _invincibleLength: 5
-  _isInvincible: 0
 --- !u!114 &114217112843594738
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1637,6 +1616,75 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _primaryWeapon: {fileID: 11400000, guid: f76a23442c0564876a44a21a8e503bac, type: 2}
+--- !u!114 &114636995219511694
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1339205552405966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81e50bcddbfac4cdcaf4a8969298db1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isBot: 0
+  _speed: 5
+  _angularSpeed: 120
+  _stoppingDistance: 3
+  _groundDistance: 1
+  _jumpHeight: 5
+  _dashDistance: 0.5
+  _ground:
+    serializedVersion: 2
+    m_Bits: 256
+  _isBeingAttacked: 0
+  _energyConsumeOnJump: 10
+  _energyToConsumeOnDash: 50
+  _invincibleLength: 5
+  _isInvincible: 0
+  _isGrounded: 1
+  _maxShootingDistance: 10
+  _inDangerThreshold: 0.2
+  _beginAttackThreshold: 0.8
+  isAttacking: 0
+--- !u!114 &114748932235744492
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1339205552405966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17e43e7170fb45b4b81dcd16d0ff55d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scripts:
+  - {fileID: 4900000, guid: b24c9eaddf5824362a64172f89be870e, type: 3}
+  - {fileID: 4900000, guid: 58d5da4fa354947a1a912bd09d30c068, type: 3}
+  autoReset: 1
+  tickOn: 0
+  sourceInfos:
+  - isFoldout: 0
+    breakPoints: 
+    breakPointStatuses: 
+    collapsedLines: 
+    btScript: 
+  - isFoldout: 1
+    breakPoints: 
+    breakPointStatuses: 
+    collapsedLines: 
+    btScript: 
+--- !u!114 &114756573613836384
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1339205552405966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c19b977ea49ee4607b90a5fabd233d5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114770521822805460
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1748,7 +1796,7 @@ CapsuleCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1339205552405966}
-  m_Material: {fileID: 13400000, guid: c2815a7ab32e42c4bb42f59caacb8ec1, type: 2}
+  m_Material: {fileID: 13400000, guid: e52fb17f9b1e7fd48b8955f1391d3688, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5

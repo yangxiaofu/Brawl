@@ -29,7 +29,7 @@ namespace Game.Items{
 
 		void OnCollisionEnter(Collision other)
 		{
-			if (other.gameObject.GetComponent<Enemy>())
+			if (other.gameObject.GetComponent<Character>())
 				Destroy(this.gameObject);
 		}
 

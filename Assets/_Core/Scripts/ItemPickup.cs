@@ -22,10 +22,10 @@ namespace Game.Core{
         {
             if(!IsCharacter(other)) return;
             
-            AddItemToCharacterInventory(other.GetComponent<Player>());
+            AddItemToCharacterInventory(other.GetComponent<Character>());
         }
 
-        protected void AddItemToCharacterInventory(Player character)
+        protected void AddItemToCharacterInventory(Character character)
         {
             character.gameObject.GetComponent<WeaponSystem>().UpdateWeapon(_weapon);
             Destroy(this.gameObject);
@@ -33,7 +33,7 @@ namespace Game.Core{
 
         protected bool IsCharacter(Collider other)
         {
-            if (other.gameObject.GetComponent<Player>()) return true;
+            if (other.gameObject.GetComponent<Character>()) return true;
             return false;
         }
 

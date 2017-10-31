@@ -1,69 +1,63 @@
-﻿using System.Collections;
+﻿using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Assertions;
 using Panda;
 using Game.Items;
+using UnityEngine.Assertions;
 
-namespace Game.Characters
-{
-	public class Enemy : Character
-	{
-		[Header("Enemy Specific")]
-		[Tooltip("This is the distance in which the enemy will stop in front of the player and start shooting. ")]
-		[SerializeField] float _maxShootingDistance = 10f;
-		[Space]
-		[Header("Danger Zone")]
-		[Tooltip("When the amount goes below this, the enemy will run and hide for cover until he has enough health.")]
-		[Range(0, 1)]
-		[SerializeField] float _inDangerThreshold = 0.2f;
-		[Tooltip("Setting this will make the enemy go from hiding to attacking an enemy.")]
-		[Range(0, 1)]
-		[SerializeField] float _beginAttackThreshold = 0.8f;
+namespace Game.Characters{
+	public class BotAI : MonoBehaviour {
 		List<Character> _characters = new List<Character>();
+		Character _character;
 		Character _target;
 		NavMeshAgent _agent;
-		bool _isAttacking = false;
-		
-        void Start()
+		WeaponSystem _weaponSystem;
+
+		void Start()
 		{
-			InitializeVariables();
-			//Finds all characters and removes self.
+			//TODO: Change to Type Get when all merged.
+			_character = GetComponent<Character>();
+
 			_characters = FindObjectsOfType<Character>().ToList();
-			_characters.Remove(this);
+			_characters.Remove(_character);
+
+			_weaponSystem = GetComponent<WeaponSystem>();
+			Assert.IsNotNull(_weaponSystem);
 
 			_agent = GetComponent<NavMeshAgent>();
-			_agent.updatePosition = false;
-
-			Assert.IsNotNull(_agent);
+			
 		}
 
 		void Update()
 		{
-			this.transform.position = new Vector3
-			(
-				_agent.nextPosition.x, 
-				this.transform.position.y, 
-				_agent.nextPosition.z
-			);
+			if (_character.isBot)
+			{
+				this.transform.position = new Vector3
+				(
+					_agent.nextPosition.x, 
+					this.transform.position.y, 
+					_agent.nextPosition.z
+				);
+			}
 		}
 
-		public override void OnCollisionEnterAction(Collision other)
-        {
-			//TODO: Do Ragdoll effect on death.
-        }
+		[Task] bool IsBot()
+		{
+			return _character.isBot;
+		}
 
 		[Task] bool IsInDanger()
 		{
-			return GetComponent<HealthSystem>().healthAsPercentage < _inDangerThreshold;
+			return GetComponent<HealthSystem>().healthAsPercentage < _character.inDangerThreshold;
 		}
+
 
 		[Task] 
 		bool IsAttacking ()
 		{
-			return _isAttacking;
+			return _character.isAttacking;
 		}
 
 		[Task]
@@ -82,7 +76,7 @@ namespace Game.Characters
 		[Task]
 		bool StopAttacking()
 		{
-			_isAttacking = false;
+			_character.isAttacking = false;
 			return true;
 		}
 
@@ -120,15 +114,15 @@ namespace Game.Characters
 			return Vector3.Distance(
 				_target.transform.position, 
 				this.transform.position
-			) < _maxShootingDistance;
+			) < _character.maxShootingDistance;
 		}
 
 		[Task]
 		bool SetIsAttacking()
 		{
-			if (_agent.remainingDistance <= _maxShootingDistance)
+			if (_agent.remainingDistance <= _character.maxShootingDistance)
 			{
-				_isAttacking = true;
+				_character.isAttacking = true;
 			}
 			return true;
 		}
@@ -142,9 +136,8 @@ namespace Game.Characters
 		[Task] 
 		bool ReadyToFight()
 		{
-			return GetComponent<HealthSystem>().healthAsPercentage > _beginAttackThreshold;
+			return GetComponent<HealthSystem>().healthAsPercentage > _character.beginAttackThreshold;
 		}
-
 
 		[Task]
 		void MoveToRandomSpot()
@@ -164,7 +157,6 @@ namespace Game.Characters
 			Task.current.Succeed();
 		}
 
-		
 		float timer = 0;
 		[Task]
 		void ShootTarget()
@@ -182,7 +174,7 @@ namespace Game.Characters
 
 				_weaponSystem.ShootProjectile(
 					direction, 
-					_projectileSocket.transform.position
+					_character.projectileSocket.transform.position
 				);
 				
 				Task.current.Succeed();
@@ -196,13 +188,8 @@ namespace Game.Characters
 				_target.transform.position
 			);
 
-			return distanceFromTarget < _maxShootingDistance;
-		}
-
-		void OnDrawGizmos()
-		{
-			Gizmos.color = Color.green;
-			Gizmos.DrawWireSphere(this.transform.position, _maxShootingDistance);
+			return distanceFromTarget < _character.maxShootingDistance;
 		}
 	}
+
 }

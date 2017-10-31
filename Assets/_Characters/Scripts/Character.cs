@@ -1,21 +1,34 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Assertions;
 using Game.Items;
 using Game.Core;
+using Game.Core.ControllerInputs;
 using Game.UI;
 using Panda;
 
 namespace Game.Characters{
-	public abstract class Character : MonoBehaviour {
+	public class Character : MonoBehaviour {
+		[Tooltip("Configure this to make the player a bot or not.")]
+		[SerializeField] bool _isBot = false;
+		public bool isBot{get{return _isBot;}}
+		public void SetAsBot(){ _isBot = true;}
+		public void SetAsPlayer(){ _isBot = false;}
+
+
+		[Space]
+
 		[Header ("Character Movement Parameters")]
-		[SerializeField] protected float _speed = 5f;
-		[SerializeField] protected float _groundDistance = 0.2f;
-		[SerializeField] protected float _jumpHeight = 5f;
+		[SerializeField] float _speed = 5f;
+		[SerializeField] float _angularSpeed = 120f;
+		[SerializeField] float _stoppingDistance = 3f;
+		[SerializeField] float _groundDistance = 0.2f;
+		[SerializeField] float _jumpHeight = 5f;
 		public float jumpHeight{get{return _jumpHeight;}}
-		[SerializeField] protected float _dashDistance = 0.5f;
-		[SerializeField] protected LayerMask _ground;
+		[SerializeField] float _dashDistance = 0.5f;
+		[SerializeField] LayerMask _ground;
 		[SerializeField] bool _isBeingAttacked = false;
 		public void SetBeingAttacked(bool isBeingAttacked) {_isBeingAttacked = isBeingAttacked;}
 
@@ -25,27 +38,161 @@ namespace Game.Characters{
 
 		[Space]
 		[SerializeField] protected float _invincibleLength = 5f;
+		[SerializeField] protected bool _isInvincible = false;
 		public float dashDistance{get{return _dashDistance;}}
 		protected ProjectileSocket _projectileSocket;
-		protected WeaponSystem _weaponSystem;
-		protected Movement _movement;
-		protected Animator _anim;
-		protected Rigidbody _rb;
-		protected EnergySystem _energySystem;
+		public ProjectileSocket projectileSocket{
+			get{return _projectileSocket;}
+		}
+		WeaponSystem _weaponSystem;
+		Movement _movement;
+		Animator _anim;
+		Rigidbody _rb;
+		EnergySystem _energySystem;
 		CapsuleCollider _cc;
 		public Rigidbody rigidBody{get{return _rb;}}
-		protected Transform _groundChecker;
-        protected bool _isGrounded = true;
-		protected bool _characterCanShoot = true;
-		protected const string IS_WALKING = "IsWalking";
-		protected bool _isBlinking = false;
-		protected Renderer _characterRenderer;
-		protected bool _isDead = false;
-		protected PlayerUI _ui;
-		public PlayerUI uI{get{return _ui;}}
-		public void SetupUI(PlayerUI ui){ _ui = ui;}
+		Transform _groundChecker;
+        [SerializeField] bool _isGrounded = true;
+		bool _characterCanShoot = true;
+		const string IS_WALKING = "IsWalking";
+		bool _isBlinking = false;
+		Renderer _characterRenderer;
+		bool _isDead = false;
+		NavMeshAgent _agent;
 
+		ControllerBehaviour _controller;
+		public void Setup(ControllerBehaviour controller){_controller = controller;}
+
+		[Header("Bot Specific")]
+		[Tooltip("This is the distance in which the enemy will stop in front of the player and start shooting. ")]
+		[SerializeField] float _maxShootingDistance = 10f;
+		public float maxShootingDistance{get{return _maxShootingDistance;}}
+
+		[Space]
+		[Tooltip("When the amount goes below this, the enemy will run and hide for cover until he has enough health.")]
+		[Range(0, 1)]
+		[SerializeField] float _inDangerThreshold = 0.2f;
+		public float inDangerThreshold {get{return _inDangerThreshold;}}
+
+		[Tooltip("Setting this will make the enemy go from hiding to attacking an enemy.")]
+		[Range(0, 1)]
+		[SerializeField] float _beginAttackThreshold = 0.8f;
+		public float beginAttackThreshold{get{return _beginAttackThreshold;}}
+		[HideInInspector] public bool isAttacking = false;
 		[Task] public bool IsDead() { return _isDead; }
+
+		void Awake()
+		{
+			if (_isBot)
+			{
+				_agent = this.gameObject.AddComponent<NavMeshAgent>();
+				_agent.speed = _speed;
+				_agent.angularSpeed = _angularSpeed;
+				_agent.stoppingDistance = _stoppingDistance;
+				_agent.updatePosition = false;
+						
+			}
+		}
+		void Start()
+		{
+			InitializeVariables();
+		}
+
+        void Update()
+        {
+			if (!_isBot)
+			{
+				CheckGrounded();
+            	UpdateMovementAnimation();
+			} 
+        }
+
+		void FixedUpdate()
+        {
+			if (!_isBot)
+			{
+				_rb.MovePosition(
+                _rb.position + 
+                _controller.inputs * 
+                _speed * 
+                Time.fixedDeltaTime
+            	);
+			}
+			
+			if (_characterCanShoot)
+            {
+				ScanForProjetileShotButtonTrigger();
+				StartCoroutine(UpdateCanShoot(_weaponSystem.primaryWeapon.secondsBetweenShots));
+			}
+        }
+
+
+        private void ScanForProjetileShotButtonTrigger()
+        {
+			_characterCanShoot = false;
+			float rightAnalogStickThreshold = 0.2f;
+
+            if (GetProjectileDirection().magnitude >= rightAnalogStickThreshold){
+				_weaponSystem.ShootProjectile(
+					GetProjectileDirection(), 
+					_projectileSocket.transform.position
+				);
+			}	
+        }
+
+		private void CheckGrounded()
+        {
+            _isGrounded = UnityEngine.Physics.CheckSphere(
+				_groundChecker.position,
+				_groundDistance,
+				_ground,
+				QueryTriggerInteraction.Ignore
+			);
+        }
+
+		private void UpdateMovementAnimation()
+        {
+            float animationThreshold = 0.2f;
+            
+            if (_controller.inputs.magnitude > animationThreshold)
+            {
+                transform.forward = _controller.inputs;
+                _anim.SetBool(IS_WALKING, true);
+            }
+            else
+            {
+                _anim.SetBool(IS_WALKING, false);
+            }
+        }
+
+		private Vector3 GetProjectileDirection()
+        {
+			float shouldBeZero = 0; //Keeps the projectile shooting at horizontal plane from start.
+			var projectileDirection = Vector3.zero;
+
+			if (!_isBot)
+			{
+				projectileDirection = new Vector3(
+					_controller.GetRightStickHorizontal(),
+					shouldBeZero,
+					_controller.GetRightStickVertical()
+				);
+			} 
+			return projectileDirection;
+        }
+
+		public void OnButtonPressed(PS4_Controller_Input.Button button)
+        {
+			if (button == PS4_Controller_Input.Button.X)
+			{
+				if (_isGrounded) Jump();
+			} 
+
+			if (button == PS4_Controller_Input.Button.CIRCLE)
+			{
+				Dash();
+			}
+        }
 
 		protected void InitializeVariables()
         {
@@ -76,6 +223,7 @@ namespace Game.Characters{
 			_movement = new Movement(this);
         }
 
+
 		[Task]
 		public bool Jump()
 		{
@@ -94,7 +242,8 @@ namespace Game.Characters{
 			if(!_energySystem.HasEnergy(_energyToConsumeOnDash)) 
 				return false;
 
-			_energySystem.ConsumeEnergy(_energyToConsumeOnDash); _movement.Dash();
+			_energySystem.ConsumeEnergy(_energyToConsumeOnDash); 
+			_movement.Dash();
 			return true;
 		}
 
@@ -119,7 +268,7 @@ namespace Game.Characters{
 			}
 		}
 
-		public void OnCollisionEnter(Collision other)
+		void OnCollisionEnter(Collision other)
 		{
 			if (!other.gameObject.GetComponent<Projectile>()) 
 				return;
@@ -127,11 +276,23 @@ namespace Game.Characters{
 			var p = other.gameObject.GetComponent<Projectile>();
 			GetComponent<HealthSystem>().TakeDamage(p.damagePerHit);
 			StartCoroutine(Blink(0.1f, 20));	
+
+			_isInvincible = true;
+			StartCoroutine(EndInvincible(_invincibleLength));
 		}
 
-		public abstract void OnCollisionEnterAction(Collision other);
+		IEnumerator EndInvincible(float delay)
+		{
+			yield return new WaitForSeconds(delay);
 
-		
+			_isInvincible = false;			
+		}
+
+		void OnDrawGizmos()
+		{
+			Gizmos.color = Color.green;
+			Gizmos.DrawWireSphere(this.transform.position, _maxShootingDistance);
+		}		
 	}
 }
 
