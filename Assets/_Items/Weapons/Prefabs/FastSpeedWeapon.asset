@@ -17,3 +17,4 @@ MonoBehaviour:
     type: 2}
   _projectileSpeed: 100
   _secondsBetweenShots: 0.2
+  _damagePerHit: 3

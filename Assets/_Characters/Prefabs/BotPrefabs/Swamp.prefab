@@ -1645,8 +1645,6 @@ MonoBehaviour:
   _energyConsumeOnJump: 10
   _energyToConsumeOnDash: 50
   _invincibleLength: 5
-  _characters: []
-  _target: {fileID: 0}
   _maxShootingDistance: 10
   _inDangerThreshold: 0.2
   _beginAttackThreshold: 0.8

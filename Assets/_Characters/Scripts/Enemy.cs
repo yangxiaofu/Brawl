@@ -22,8 +22,6 @@ namespace Game.Characters
 		[Tooltip("Setting this will make the enemy go from hiding to attacking an enemy.")]
 		[Range(0, 1)]
 		[SerializeField] float _beginAttackThreshold = 0.8f;
-
-
 		List<Character> _characters = new List<Character>();
 		Character _target;
 		NavMeshAgent _agent;
@@ -178,10 +176,15 @@ namespace Game.Characters
 
 			timer += Time.deltaTime;
 		
-			if (timer >= _weaponSystem.GetPrimaryWeapon().secondsBetweenShots)
+			if (timer >= _weaponSystem.primaryWeapon.secondsBetweenShots)
 			{
 				var direction = (_target.transform.position - this.transform.position).normalized;
-				ShootProjectile(direction);
+
+				_weaponSystem.ShootProjectile(
+					direction, 
+					_projectileSocket.transform.position
+				);
+				
 				Task.current.Succeed();
 			}
 		}

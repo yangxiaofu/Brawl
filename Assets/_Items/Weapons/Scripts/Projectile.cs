@@ -15,6 +15,12 @@ namespace Game.Items{
 			StartCoroutine(DestroyObjectAfter(_timeToDestroy));
 		}
 
+		public void SetDamage(float damage)
+		{
+			_damagePerHit = damage;
+		}
+
+
 		public void SetTimeBeforeDestroying(float seconds)
 		{
 			StopAllCoroutines();

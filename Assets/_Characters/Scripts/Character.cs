@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using Game.Items;
 using Game.Core;
+using Game.UI;
 using Panda;
 
 namespace Game.Characters{
@@ -40,6 +41,10 @@ namespace Game.Characters{
 		protected bool _isBlinking = false;
 		protected Renderer _characterRenderer;
 		protected bool _isDead = false;
+		protected PlayerUI _ui;
+		public PlayerUI uI{get{return _ui;}}
+		public void SetupUI(PlayerUI ui){ _ui = ui;}
+
 		[Task] public bool IsDead() { return _isDead; }
 
 		protected void InitializeVariables()
@@ -98,25 +103,7 @@ namespace Game.Characters{
 			yield return new WaitForSeconds(delay);
 			_characterCanShoot = true;
 		}
-
-		[Task]
-		protected void ShootProjectile(Vector3 direction)
-        {
-            var projectileObject = InstantiateProjectile();
-			var physics = new GamePhysics(direction, _weaponSystem.GetPrimaryWeapon().projectileSpeed);
-			var rigidBody = projectileObject.GetComponent<Rigidbody>();
-            rigidBody.AddForce(physics.GetForce(), ForceMode.VelocityChange );
-        }
-
-        private GameObject InstantiateProjectile()
-        {
-            return Instantiate(
-				_weaponSystem.GetPrimaryWeapon().GetProjectilePrefab(),
-				_projectileSocket.transform.position,
-				Quaternion.identity
-			) as GameObject;
-        }
-
+		
         protected IEnumerator Blink(float seconds, int numBlinks)
 		{
 			if (!_isBlinking)

@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\_CameraAndUI\PlayerUI.cs" />
      <Compile Include="Assets\_Characters\Scripts\Character.cs" />
      <Compile Include="Assets\_Characters\Scripts\Enemy.cs" />
      <Compile Include="Assets\_Characters\Scripts\EnergySystem.cs" />
@@ -66,6 +67,7 @@
      <Compile Include="Assets\_Core\Scripts\Spawner.cs" />
      <Compile Include="Assets\_Items\ItemConfig.cs" />
      <Compile Include="Assets\_Items\Weapons\Scripts\Projectile.cs" />
+     <Compile Include="Assets\_Items\Weapons\Scripts\WeaponBehaviour.cs" />
      <Compile Include="Assets\_Items\Weapons\Scripts\WeaponConfig.cs" />
      <Compile Include="Assets\_Items\Weapons\Scripts\WeaponSystem.cs" />
      <Compile Include="Assets\_Temp\ProjectileSocket.cs" />
