@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
-using Game.Weapons;
+using Game.Items;
 using Game.Core;
 using Panda;
 
@@ -15,6 +15,15 @@ namespace Game.Characters{
 		public float jumpHeight{get{return _jumpHeight;}}
 		[SerializeField] protected float _dashDistance = 0.5f;
 		[SerializeField] protected LayerMask _ground;
+		[SerializeField] bool _isBeingAttacked = false;
+		public void SetBeingAttacked(bool isBeingAttacked) {_isBeingAttacked = isBeingAttacked;}
+
+		[Space] [Header("Energy Consumption")] 
+		[SerializeField] protected float _energyConsumeOnJump = 10f;
+		[SerializeField] protected float _energyToConsumeOnDash = 50f;
+
+		[Space]
+		[SerializeField] protected float _invincibleLength = 5f;
 		public float dashDistance{get{return _dashDistance;}}
 		protected ProjectileSocket _projectileSocket;
 		protected WeaponSystem _weaponSystem;
@@ -31,6 +40,7 @@ namespace Game.Characters{
 		protected bool _isBlinking = false;
 		protected Renderer _characterRenderer;
 		protected bool _isDead = false;
+		[Task] public bool IsDead() { return _isDead; }
 
 		protected void InitializeVariables()
         {
@@ -61,6 +71,28 @@ namespace Game.Characters{
 			_movement = new Movement(this);
         }
 
+		[Task]
+		public bool Jump()
+		{
+			if (!_energySystem.HasEnergy(_energyConsumeOnJump)) 
+				return false;
+
+			_energySystem.ConsumeEnergy(_energyConsumeOnJump);
+			_movement.Jump();
+
+			return true;
+		}
+
+		[Task]
+		public bool Dash()
+		{
+			if(!_energySystem.HasEnergy(_energyToConsumeOnDash)) 
+				return false;
+
+			_energySystem.ConsumeEnergy(_energyToConsumeOnDash); _movement.Dash();
+			return true;
+		}
+
 		protected IEnumerator UpdateCanShoot(float delay)
 		{
 			yield return new WaitForSeconds(delay);
@@ -70,19 +102,22 @@ namespace Game.Characters{
 		[Task]
 		protected void ShootProjectile(Vector3 direction)
         {
-			var projectileObject = Instantiate(
+            var projectileObject = InstantiateProjectile();
+			var physics = new GamePhysics(direction, _weaponSystem.GetPrimaryWeapon().projectileSpeed);
+			var rigidBody = projectileObject.GetComponent<Rigidbody>();
+            rigidBody.AddForce(physics.GetForce(), ForceMode.VelocityChange );
+        }
+
+        private GameObject InstantiateProjectile()
+        {
+            return Instantiate(
 				_weaponSystem.GetPrimaryWeapon().GetProjectilePrefab(),
 				_projectileSocket.transform.position,
 				Quaternion.identity
 			) as GameObject;
-			
-			projectileObject.GetComponent<Rigidbody>().AddForce(
-				direction * _weaponSystem.GetPrimaryWeapon().projectileSpeed, 
-				ForceMode.VelocityChange
-			);
         }
 
-		protected IEnumerator Blink(float seconds, int numBlinks)
+        protected IEnumerator Blink(float seconds, int numBlinks)
 		{
 			if (!_isBlinking)
 			{
@@ -99,21 +134,17 @@ namespace Game.Characters{
 
 		public void OnCollisionEnter(Collision other)
 		{
-			if (other.gameObject.GetComponent<Projectile>())
-			{
-				StartCoroutine(Blink(0.1f, 20));
-			}			
+			if (!other.gameObject.GetComponent<Projectile>()) 
+				return;
 
-			
+			var p = other.gameObject.GetComponent<Projectile>();
+			GetComponent<HealthSystem>().TakeDamage(p.damagePerHit);
+			StartCoroutine(Blink(0.1f, 20));	
 		}
+
 		public abstract void OnCollisionEnterAction(Collision other);
 
-		[Task]
-		public bool IsDead()
-		{
-			return _isDead;
-		}
-	
+		
 	}
 }
 

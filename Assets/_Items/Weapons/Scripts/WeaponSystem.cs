@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Game.Weapons;
 
-namespace Game.Weapons{
+namespace Game.Items{
 	public class WeaponSystem : MonoBehaviour {
 		[SerializeField] WeaponConfig _primaryWeapon;
 		public WeaponConfig GetPrimaryWeapon()

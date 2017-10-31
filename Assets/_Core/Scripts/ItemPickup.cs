@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Game.Weapons;
+using Game.Items;
 using Game.Characters;
 
 namespace Game.Core{

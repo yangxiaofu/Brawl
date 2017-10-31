@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Game.Core.ControllerInputs;
-using Game.Weapons;
+using Game.Items;
 using Game.Core;
 using System;
 
 namespace Game.Characters{
 	public class Player : Character {
-		[SerializeField] float _invincibleLength = 5f;
-		[SerializeField] float _energyConsumeOnJump = 10f;
-		[SerializeField] float _energyToConsumeOnDash = 50f;
+		
 		ControllerBehaviour _controller;
 		public void Setup(ControllerBehaviour controller){_controller = controller;}
 
@@ -23,7 +21,7 @@ namespace Game.Characters{
 
         void Update()
 		{
-			_isGrounded = Physics.CheckSphere(
+			_isGrounded = UnityEngine.Physics.CheckSphere(
 				_groundChecker.position, 
 				_groundDistance, 
 				_ground, 
@@ -80,12 +78,7 @@ namespace Game.Characters{
         {
 			if (button == PS4_Controller_Input.Button.X)
 			{
-
-				if (_isGrounded) {
-					Jump();
-				} else {
-					Debug.Log("Is not grounded");
-				}
+				if (_isGrounded) Jump();
 			} 
 
 			if (button == PS4_Controller_Input.Button.CIRCLE)
@@ -94,23 +87,6 @@ namespace Game.Characters{
 			}
         }
 		
-		public void Jump()
-		{
-			if (!_energySystem.HasEnergy(_energyConsumeOnJump)) return;
-
-			_energySystem.ConsumeEnergy(_energyConsumeOnJump);
-
-			_movement.Jump();
-		}
-
-		public void Dash()
-		{
-			if(!_energySystem.HasEnergy(_energyToConsumeOnDash)) return;
-
-			_energySystem.ConsumeEnergy(_energyToConsumeOnDash);
-
-			_movement.Dash();
-		}
 
         public override void OnCollisionEnterAction(Collision other)
         {

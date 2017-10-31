@@ -24,7 +24,6 @@ GameObject:
   - component: {fileID: 23949241637564362}
   - component: {fileID: 54544437868159936}
   - component: {fileID: 135434846535002522}
-  - component: {fileID: 114919286911101116}
   m_Layer: 0
   m_Name: FastSpeedWeapon
   m_TagString: Untagged
@@ -101,18 +100,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 16
   m_CollisionDetection: 0
---- !u!114 &114919286911101116
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1443953676885246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69f7be93104a843fa9dfb5621eb18b91, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _timeToDestroy: 2
 --- !u!135 &135075821701669120
 SphereCollider:
   m_ObjectHideFlags: 1

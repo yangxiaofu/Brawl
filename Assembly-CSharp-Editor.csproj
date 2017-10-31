@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\_Characters\Scripts\Editor\EnemyEditor.cs" />
      <Compile Include="Assets\PandaBehaviour\Core\Editor\CreatePandaScriptMenu.cs" />
      <Compile Include="Assets\PandaBehaviour\Core\Editor\PandaBehaviourEditor.cs" />
      <Compile Include="Assets\PandaBehaviour\Core\Editor\PandaBehaviourWindow.cs" />
@@ -89,6 +90,7 @@
      <None Include="Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />
      <None Include="Assets\Standard Assets\Characters\RollerBall\RollerBallGuidelines.txt" />
      <None Include="Assets\Toon Character Pack\Shaders\Unlit-Alpha.shader" />
+     <None Include="Assets\_Characters\Scripts\MovementCombinationsBT.txt" />
      <None Include="Assets\PandaBehaviour\ChangeLog.txt" />
      <None Include="Assets\Toon Character Pack\Shaders\Toony-TransparentAdd-Outline.shader" />
  <Reference Include="Assembly-UnityScript">

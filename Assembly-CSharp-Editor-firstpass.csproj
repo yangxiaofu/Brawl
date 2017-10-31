@@ -84,6 +84,7 @@
      <None Include="Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />
      <None Include="Assets\Standard Assets\Characters\RollerBall\RollerBallGuidelines.txt" />
      <None Include="Assets\Toon Character Pack\Shaders\Unlit-Alpha.shader" />
+     <None Include="Assets\_Characters\Scripts\MovementCombinationsBT.txt" />
      <None Include="Assets\PandaBehaviour\ChangeLog.txt" />
      <None Include="Assets\Toon Character Pack\Shaders\Toony-TransparentAdd-Outline.shader" />
  <Reference Include="UnityEngine.UI">

@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Game.Characters;
 
-namespace Game.Weapons{
+namespace Game.Items{
 	public class Projectile : MonoBehaviour {
 
 		[SerializeField] float _timeToDestroy = 2f;
+		[SerializeField] float _damagePerHit = 10f;
+		public float damagePerHit{get{return _damagePerHit;}}
 
 		void Start () 
 		{
@@ -22,9 +24,7 @@ namespace Game.Weapons{
 		void OnCollisionEnter(Collision other)
 		{
 			if (other.gameObject.GetComponent<Enemy>())
-			{
 				Destroy(this.gameObject);
-			}
 		}
 
 		IEnumerator DestroyObjectAfter(float delay)

@@ -9,33 +9,54 @@ tree("Kill")
 
 tree("BeAlive")
 	while not IsDead
-		fallback
-			tree("Attack")
-			tree("RunForCover")
-			tree("Celebrate")
+		parallel
+			tree("RandomMovementSelection")
+			fallback 
+				tree("Attack")
+				tree("ScanForCharacter")
+				tree("RunForCover")
+				tree("Celebrate")
 
 tree("Attack")
 	sequence
-		DoesCharacterExist
-		ChooseRandomCharacter
-		MoveTowardCharacter
-		Stop
-		tree("BeginAttack")
-		
+		not IsInDanger
+		DoCharactersExist
+		ChooseRandomTarget
+		IsTargetWithinShootDistance
+		tree("ShootTarget")
 
-tree("BeginAttack")
-	while IsAttacking
-		fallback
+tree("ScanForCharacter")
+	sequence
+		not IsInDanger
+		DoCharactersExist
+		ChooseRandomTarget
+		tree("MoveTowardTarget")
+
+tree("MoveTowardTarget")
+	repeat 5.0
+		sequence
+			MoveTowardTarget	
+			IsTargetWithinShootDistance
+			tree("ShootTarget")
+
+tree("ShootTarget")
+	sequence
+		repeat 3.0
 			sequence
-				repeat 10	
-					sequence
-						IsTargetWithinShootDistance
-						ShootTarget
-			StopAttacking
-
+				not IsInDanger
+				IsTargetWithinShootDistance
+				ShootTarget
+	
 tree("RunForCover")
-	Succeed
-
+	sequence
+		MoveToRandomSpot
+		repeat
+			tree("RecoverHealth")
+			
+tree("RecoverHealth")
+	sequence
+		not IsBeingAttack
+		not ReadyToFight
 
 tree("Celebrate")
 	Succeed
