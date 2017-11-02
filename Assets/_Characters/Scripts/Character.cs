@@ -17,7 +17,6 @@ namespace Game.Characters{
 		public void SetAsBot(){ _isBot = true;}
 		public void SetAsPlayer(){ _isBot = false;}
 
-
 		[Space]
 
 		[Header ("Character Movement Parameters")]
@@ -39,6 +38,9 @@ namespace Game.Characters{
 		[Space]
 		[SerializeField] protected float _invincibleLength = 5f;
 		[SerializeField] protected bool _isInvincible = false;
+
+		public Character target;
+		
 		public float dashDistance{get{return _dashDistance;}}
 		protected ProjectileSocket _projectileSocket;
 		public ProjectileSocket projectileSocket{
@@ -295,7 +297,31 @@ namespace Game.Characters{
 		{
 			Gizmos.color = Color.green;
 			Gizmos.DrawWireSphere(this.transform.position, _maxShootingDistance);
-		}		
+		}
+
+		void OnAnimatorIK(int layerIndex)
+		{
+			float ikPositionGoal = 0.5f;
+			float yOffset = 1f;
+			
+			if (_anim == null) return;
+
+			if (_isBot)
+			{
+				if (target == null) return;
+				_anim.SetIKPosition(AvatarIKGoal.RightHand, target.transform.position);
+				_anim.SetIKPositionWeight(AvatarIKGoal.RightHand, ikPositionGoal);
+			} 
+			else if (!_isBot)
+			{
+				var direction = new Vector3(_controller.GetRightStickHorizontal(), 0, _controller.GetRightStickVertical());
+				var pointDirection = new Vector3(this.transform.position.x + direction.x, this.transform.position.y + yOffset, this.transform.position.z + direction.z);
+				_anim.SetIKPosition(AvatarIKGoal.RightHand, pointDirection);
+				_anim.SetIKPositionWeight(AvatarIKGoal.RightHand, ikPositionGoal);
+			}
+			
+			
+		}
 	}
 }
 

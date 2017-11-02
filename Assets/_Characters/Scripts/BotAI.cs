@@ -11,7 +11,6 @@ namespace Game.Characters{
 	public class BotAI : MonoBehaviour {
 		List<Character> _characters = new List<Character>();
 		Character _character;
-		Character _target;
 		NavMeshAgent _agent;
 		WeaponSystem _weaponSystem;
 
@@ -67,15 +66,12 @@ namespace Game.Characters{
 			return GetComponent<HealthSystem>().healthAsPercentage < _character.inDangerThreshold;
 		}
 
-
-		[Task] 
-		bool IsAttacking ()
+		[Task] bool IsAttacking ()
 		{
 			return _character.isAttacking;
 		}
 
-		[Task]
-		bool DoCharactersExist()
+		[Task] bool DoCharactersExist()
 		{
 			for(int i = 0; i < _characters.Count; i++)
 			{
@@ -87,32 +83,32 @@ namespace Game.Characters{
 			return false;
 		}
 
-		[Task]
-		bool StopAttacking()
+		
+		[Task] bool StopAttacking()
 		{
 			_character.isAttacking = false;
 			return true;
 		}
 
-		[Task]
-		void ChooseRandomTarget()
+		
+		[Task] void ChooseRandomTarget()
 		{
 			var r = UnityEngine.Random.Range(0, _characters.Count);
 
-			if (_target != null)
-				_target.SetBeingAttacked(false);
+			if (_character.target != null)
+				_character.target.SetBeingAttacked(false);
 
-			_target = _characters[r];
-			_target.SetBeingAttacked(true);
+			_character.target = _characters[r];
+			_character.target.SetBeingAttacked(true);
 			
 			Task.current.Succeed();
 		}
 
-		[Task]
-		void MoveTowardTarget()
+		
+		[Task] void MoveTowardTarget()
 		{
 			_agent.isStopped = false;
-			_agent.SetDestination(_target.transform.position);
+			_agent.SetDestination(_character.target.transform.position);
 
 			SetIsAttacking();
 
@@ -122,17 +118,17 @@ namespace Game.Characters{
 			}	
 		}
 
-		[Task]
-		bool TargetIsInAttackDistance()
+		
+		[Task] bool TargetIsInAttackDistance()
 		{
 			return Vector3.Distance(
-				_target.transform.position, 
+				_character.target.transform.position, 
 				this.transform.position
 			) < _character.maxShootingDistance;
 		}
 
-		[Task]
-		bool SetIsAttacking()
+		
+		[Task] bool SetIsAttacking()
 		{
 			if (_agent.remainingDistance <= _character.maxShootingDistance)
 			{
@@ -141,20 +137,20 @@ namespace Game.Characters{
 			return true;
 		}
 
-		[Task]
-		bool IsBeingAttack()
+		
+		[Task]bool IsBeingAttack()
 		{
 			return true;
 		}
 
-		[Task] 
-		bool ReadyToFight()
+		 
+		[Task]bool ReadyToFight()
 		{
 			return GetComponent<HealthSystem>().healthAsPercentage > _character.beginAttackThreshold;
 		}
 
-		[Task]
-		void MoveToRandomSpot()
+		
+		[Task]void MoveToRandomSpot()
 		{
 			var xRandom = UnityEngine.Random.Range(-100, 100);
 			var yRandom = UnityEngine.Random.Range(-100, 100);
@@ -163,8 +159,8 @@ namespace Game.Characters{
 			Task.current.Succeed();
 		}
 
-		[Task]
-		void Stop()
+		
+		[Task] void Stop()
 		{
 			_agent.isStopped = true;
 			_agent.SetDestination(this.transform.position);
@@ -172,8 +168,8 @@ namespace Game.Characters{
 		}
 
 		float timer = 0;
-		[Task]
-		void ShootTarget()
+		
+		[Task] void ShootTarget()
 		{
 			if (Task.current.isStarting)
 			{
@@ -184,7 +180,7 @@ namespace Game.Characters{
 		
 			if (timer >= _weaponSystem.primaryWeapon.secondsBetweenShots)
 			{
-				var direction = (_target.transform.position - this.transform.position).normalized;
+				var direction = (_character.target.transform.position - this.transform.position).normalized;
 
 				_weaponSystem.ShootProjectile(
 					direction, 
@@ -199,7 +195,7 @@ namespace Game.Characters{
 		{
 			var distanceFromTarget = Vector3.Distance(
 				this.transform.position, 
-				_target.transform.position
+				_character.target.transform.position
 			);
 
 			return distanceFromTarget < _character.maxShootingDistance;
