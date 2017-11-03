@@ -13,6 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemPrefab: {fileID: 1941197294200684, guid: 90bb0cc24f783435d964c9f422708207,
     type: 2}
+  _isWeapon: 1
   _projectilePrefab: {fileID: 1443953676885246, guid: ce0d0e6af6d3b40768993ba0603ee605,
     type: 2}
   _weaponGripTransform: {fileID: 4047349831995096, guid: 1e8d80f52d3c74a7ea25bd9f83508d41,

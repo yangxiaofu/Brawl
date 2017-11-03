@@ -291,7 +291,7 @@ namespace Game.Characters{
 				if (target != null)
                 {
                     LookAtTarget(target.transform.position);
-                    SetIKPosition();
+                    SetIKPosition(target.transform.position);
                 }
                 else
                 {
@@ -310,7 +310,7 @@ namespace Game.Characters{
 						this.transform.position.z + direction.z
 					);
 					LookAtTarget(pointDirection);
-					SetIKPosition();
+					SetIKPosition(pointDirection);
 				} 
 				else 
 				{
@@ -326,20 +326,18 @@ namespace Game.Characters{
             _anim.SetLookAtWeight(0);
         }
 
-        private void SetIKPosition()
+        private void SetIKPosition(Vector3 target)
         {
-			if (target == null) return;
-			
 			float ikPositionGoal = 1.0f;
-            _anim.SetIKPosition(AvatarIKGoal.RightHand, target.transform.position);
+            _anim.SetIKPosition(AvatarIKGoal.RightHand, target);
             _anim.SetIKPositionWeight(AvatarIKGoal.RightHand, ikPositionGoal);
         }
 
-        private void LookAtTarget(Vector3 target)
+        private void LookAtTarget(Vector3 targetPos)
         {
 			float lookAtWeight = 1;
             _anim.SetLookAtWeight(lookAtWeight);
-            _anim.SetLookAtPosition(target);
+            _anim.SetLookAtPosition(targetPos);
         }
 
     }
