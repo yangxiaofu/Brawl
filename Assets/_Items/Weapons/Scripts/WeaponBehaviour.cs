@@ -10,7 +10,6 @@ namespace Game.Items{
 		public int remainingAmmo{get{return _remainingAmmo;}}
 		[SerializeField] int _startingAmmo;
 		public int startingAmmo {get{return _startingAmmo;}}
-
 		WeaponConfig _config;
 		WeaponSystem _weaponSystem;
 		
@@ -44,13 +43,25 @@ namespace Game.Items{
 
 		private void InstantiateProjectile(Vector3 direction)
         {
+			if (!_weaponSystem) 
+				return;
+
+			if (!_weaponSystem.primaryWeaponBehaviour) 
+				return;
+			
+			if (!_weaponSystem.primaryWeaponBehaviour.GetComponentInChildren<ProjectileSocket>()) 
+				return;
+
             var projectileObject = Instantiate(
 				_config.GetProjectilePrefab()) as GameObject;
-
 			var character = GetComponent<Character>();
-			projectileObject.GetComponent<Projectile>().SetupCharacter(character);
-			var socket = _weaponSystem.primaryWeaponBehaviour.GetComponentInChildren<ProjectileSocket>();
 
+			projectileObject.GetComponent<Projectile>()
+				.SetupCharacter(character);
+
+			var socket = _weaponSystem
+				.primaryWeaponBehaviour
+				.GetComponentInChildren<ProjectileSocket>();
 
 			projectileObject.transform.position = new Vector3(
 				socket.transform.position.x, 

@@ -45,7 +45,10 @@ namespace Game.Characters{
                 _agent.nextPosition.z
             );
         }
-
+		[Task] bool IsDead()
+		{
+			return _character.IsDead();
+		}
 		[Task] bool Jump()
 		{
 			return _character.Jump();

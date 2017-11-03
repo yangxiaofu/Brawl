@@ -38,28 +38,6 @@ namespace Game.Characters{
 		[Space]
 		[SerializeField] protected float _invincibleLength = 5f;
 		[SerializeField] protected bool _isInvincible = false;
-		public Character target;
-		public float dashDistance{get{return _dashDistance;}}
-		WeaponSystem _weaponSystem;
-
-		Movement _movement;
-		Animator _anim;
-		Rigidbody _rb;
-		EnergySystem _energySystem;
-		CapsuleCollider _cc;
-		public Rigidbody rigidBody{get{return _rb;}}
-		Transform _groundChecker;
-        [SerializeField] bool _isGrounded = true;
-		bool _characterCanShoot = true;
-		const string IS_WALKING = "IsWalking";
-		bool _isBlinking = false;
-		Renderer _characterRenderer;
-		bool _isDead = false;
-		NavMeshAgent _agent;
-
-		ControllerBehaviour _controller;
-		public void Setup(ControllerBehaviour controller){_controller = controller;}
-
 		[Header("Bot Specific")]
 		[Tooltip("This is the distance in which the enemy will stop in front of the player and start shooting. ")]
 		[SerializeField] float _maxShootingDistance = 10f;
@@ -75,8 +53,27 @@ namespace Game.Characters{
 		[Range(0, 1)]
 		[SerializeField] float _beginAttackThreshold = 0.8f;
 		public float beginAttackThreshold{get{return _beginAttackThreshold;}}
+		public Character target;
+		public float dashDistance{get{return _dashDistance;}}
+		WeaponSystem _weaponSystem;
+		Movement _movement;
+		Animator _anim;
+		Rigidbody _rb;
+		EnergySystem _energySystem;
+		CapsuleCollider _cc;
+		public Rigidbody rigidBody{get{return _rb;}}
+		Transform _groundChecker;
+        bool _isGrounded = true;
+		bool _characterCanShoot = true;
+		const string IS_WALKING = "IsWalking";
+		bool _isBlinking = false;
+		Renderer _characterRenderer;
+		bool _isDead = false;
+		NavMeshAgent _agent;
+		ControllerBehaviour _controller;
+		public void Setup(ControllerBehaviour controller){_controller = controller;}
 		[HideInInspector] public bool isAttacking = false;
-		[Task] public bool IsDead() { return _isDead; }
+		public bool IsDead() { return _isDead; }
 
 		void Awake()
         {
@@ -112,8 +109,11 @@ namespace Game.Characters{
         {
             if (_characterCanShoot)
             {
-                ScanForProjetileShotButtonTrigger();
-                StartCoroutine(UpdateCanShoot(_weaponSystem.primaryWeapon.secondsBetweenShots));
+                if(_weaponSystem.ShotIsFired(_isBot, _controller)){		
+					_characterCanShoot = false;
+					var secondsToDelayUpdate = _weaponSystem.primaryWeapon.secondsBetweenShots;
+					StartCoroutine(UpdateCharacterCanShootAfter(secondsToDelayUpdate));
+				}
             }
 
             if (_isBot)
@@ -122,6 +122,13 @@ namespace Game.Characters{
             UpdatePlayerMovement();
         }
 
+		private IEnumerator UpdateCharacterCanShootAfter(float delay)
+		{
+			yield return new WaitForSeconds(delay);
+			_characterCanShoot = true;
+			yield return null;
+		}
+		
         private void UpdatePlayerMovement()
         {
             _rb.MovePosition(_rb.position + _controller.inputs * _speed * Time.fixedDeltaTime);
@@ -134,21 +141,6 @@ namespace Game.Characters{
             _agent.angularSpeed = _angularSpeed;
             _agent.stoppingDistance = _stoppingDistance;
             _agent.updatePosition = false;
-        }
-
-
-        private void ScanForProjetileShotButtonTrigger()
-        {
-			_characterCanShoot = false;
-			float rightAnalogStickThreshold = 0.2f;
-			var projectileDirection = _weaponSystem.GetProjectileDirection(_isBot, _controller);
-
-            if (projectileDirection.magnitude >= rightAnalogStickThreshold) //TODO: Delay in seconds.  What to triger right away when the stick is pulle.d
-			{	
-				_weaponSystem.ShootProjectile(
-					projectileDirection
-				);
-			}	
         }
 
 		private void CheckGrounded()
@@ -238,12 +230,6 @@ namespace Game.Characters{
 			return true;
 		}
 
-		private IEnumerator UpdateCanShoot(float delay)
-		{
-			yield return new WaitForSeconds(delay);
-			_characterCanShoot = true;
-		}
-		
         private IEnumerator Blink(float seconds, int numBlinks)
 		{
 			if (!_isBlinking)
@@ -265,16 +251,22 @@ namespace Game.Characters{
 				return;
 
 			var shootingCharacter = other.gameObject.GetComponent<Projectile>().shootingCharacter;
-			print("Shootin gCharacter " + shootingCharacter);
 			if (shootingCharacter == this) 
 				return;
 
-			var p = other.gameObject.GetComponent<Projectile>();
-			GetComponent<HealthSystem>().TakeDamage(p.damagePerHit);
-			StartCoroutine(Blink(0.1f, 20));	 //TODO: Remove Magic Numbers. 
+			DamageCharacter(other.gameObject.GetComponent<Projectile>());
+
+			float secondsBetweenBlinks = 0.1f;
+			int totalNumberOfBlinks = 20;
+			StartCoroutine(Blink(secondsBetweenBlinks, totalNumberOfBlinks));
 
 			_isInvincible = true;
 			StartCoroutine(EndInvincible(_invincibleLength));
+		}
+
+		private void DamageCharacter(Projectile projectile)
+		{
+			GetComponent<HealthSystem>().TakeDamage(projectile.damagePerHit);
 		}
 
 		private IEnumerator EndInvincible(float delay)
@@ -292,58 +284,64 @@ namespace Game.Characters{
 
 		void OnAnimatorIK(int layerIndex)
 		{
-			float ikPositionGoal = 1.0f;
-			float yOffset = 1f;
-			
 			if (_anim == null) return;
 
 			if (_isBot)
 			{
-				if (target != null) 
-				{
-					_anim.SetLookAtWeight(1);
-					_anim.SetLookAtPosition(target.transform.position);
-
-					_anim.SetIKPosition(AvatarIKGoal.RightHand, target.transform.position);
-					_anim.SetIKPositionWeight(AvatarIKGoal.RightHand, ikPositionGoal);
-				} 
-				else 
-				{
-					_anim.SetIKPositionWeight(AvatarIKGoal.RightHand,0);
-                	_anim.SetIKRotationWeight(AvatarIKGoal.RightHand,0); 
-                	_anim.SetLookAtWeight(0);
-				}
-
-				
-			} 
+				if (target != null)
+                {
+                    LookAtTarget(target.transform.position);
+                    SetIKPosition();
+                }
+                else
+                {
+                    ResetLookAtWeight();
+                }
+            } 
 			else if (!_isBot)
 			{
 				var direction = new Vector3(_controller.GetRightStickHorizontal(), 0, _controller.GetRightStickVertical());
-
 				if (direction.magnitude > 0.2f)
 				{
+					float yOffset = 1f;
 					var pointDirection = new Vector3(
 						this.transform.position.x + direction.x, 
 						this.transform.position.y + yOffset, 
 						this.transform.position.z + direction.z
 					);
-
-					_anim.SetLookAtWeight(1);
-					_anim.SetLookAtPosition(pointDirection);
-
-					_anim.SetIKPosition(AvatarIKGoal.RightHand, pointDirection);
-					_anim.SetIKPositionWeight(AvatarIKGoal.RightHand, ikPositionGoal);
-				} else {
-					_anim.SetIKPositionWeight(AvatarIKGoal.RightHand,0);
-                	_anim.SetIKRotationWeight(AvatarIKGoal.RightHand,0); 
-                	_anim.SetLookAtWeight(0);
-
-				}
-				
+					LookAtTarget(pointDirection);
+					SetIKPosition();
+				} 
+				else 
+				{
+					ResetLookAtWeight();
+				}	
 			}
 		}
 
-       
-	}
+        private void ResetLookAtWeight()
+        {
+            _anim.SetIKPositionWeight(AvatarIKGoal.RightHand, 0);
+            _anim.SetIKRotationWeight(AvatarIKGoal.RightHand, 0);
+            _anim.SetLookAtWeight(0);
+        }
+
+        private void SetIKPosition()
+        {
+			if (target == null) return;
+			
+			float ikPositionGoal = 1.0f;
+            _anim.SetIKPosition(AvatarIKGoal.RightHand, target.transform.position);
+            _anim.SetIKPositionWeight(AvatarIKGoal.RightHand, ikPositionGoal);
+        }
+
+        private void LookAtTarget(Vector3 target)
+        {
+			float lookAtWeight = 1;
+            _anim.SetLookAtWeight(lookAtWeight);
+            _anim.SetLookAtPosition(target);
+        }
+
+    }
 }
 
