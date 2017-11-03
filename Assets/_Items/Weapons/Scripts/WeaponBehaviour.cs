@@ -31,6 +31,7 @@ namespace Game.Items{
 				return;
 				
 			InstantiateProjectile(direction);
+			print("Firing the weapon");
 			ReduceAmmoBy(1);				
 		}
 
