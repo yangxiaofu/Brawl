@@ -9,12 +9,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f8d1115ceb8d4d27bd41e2fc43c26c4, type: 3}
-  m_Name: DefaultWeapon
+  m_Name: Gun
   m_EditorClassIdentifier: 
-  _itemPrefab: {fileID: 1443953676885246, guid: bb33d62de5d544e7aaa289480b4669d3,
+  _itemPrefab: {fileID: 1941197294200684, guid: 90bb0cc24f783435d964c9f422708207,
     type: 2}
   _projectilePrefab: {fileID: 1443953676885246, guid: ce0d0e6af6d3b40768993ba0603ee605,
     type: 2}
-  _projectileSpeed: 50
-  _secondsBetweenShots: 0.5
-  _damagePerHit: 15
+  _weaponGripTransform: {fileID: 4047349831995096, guid: 1e8d80f52d3c74a7ea25bd9f83508d41,
+    type: 2}
+  _startingAmmo: 10
+  _projectileSpeed: 10
+  _secondsBetweenShots: 1
+  _damagePerHit: 10

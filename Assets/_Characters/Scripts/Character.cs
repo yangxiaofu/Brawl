@@ -47,6 +47,7 @@ namespace Game.Characters{
 			get{return _projectileSocket;}
 		}
 		WeaponSystem _weaponSystem;
+		WeaponGrip[] _weaponGrip;
 		Movement _movement;
 		Animator _anim;
 		Rigidbody _rb;
@@ -93,8 +94,37 @@ namespace Game.Characters{
 
 
         void Start()
+        {
+            InitializeVariables();
+            FindWeaponGripTranform();
+
+            if (GunOnStart()) 
+				PutGunInHand();
+        }
+
+        private void FindWeaponGripTranform()
+        {
+            _weaponGrip = GetComponentsInChildren<WeaponGrip>();
+            if (_weaponGrip.Length > 1) Debug.LogError("There should only be one weapon Grip transform in the child.");
+            if (_weaponGrip.Length == 0) Debug.LogError("You need to add a weaponGrip Transform as a child of " + name);
+        }
+
+        private bool GunOnStart()
 		{
-			InitializeVariables();
+			return _weaponSystem.primaryWeapon != null;
+		}
+
+		private void PutGunInHand()
+		{
+			//Detect whether weapon is equipped. 
+			var weapon = _weaponSystem.primaryWeapon;
+			var weaponPrefab = weapon.GetItemPrefab();
+			var weaponObject = Instantiate(weaponPrefab) as GameObject;
+
+			//Set the weapon Grip Transform.
+			weaponObject.transform.SetParent(_weaponGrip[0].transform);
+			weaponObject.transform.localPosition = weapon.weaponGripTransform.position;
+			weaponObject.transform.localRotation = weapon.weaponGripTransform.rotation;
 		}
 
         void Update()
