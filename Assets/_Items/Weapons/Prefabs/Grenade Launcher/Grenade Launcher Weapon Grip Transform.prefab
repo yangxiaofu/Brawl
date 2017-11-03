@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4047349831995096}
   m_Layer: 8
-  m_Name: WeaponGripTransform
+  m_Name: Grenade Launcher Weapon Grip Transform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1610367755851054}
-  m_LocalRotation: {x: -0.5444462, y: 0.409589, z: 0.44840857, w: 0.5785716}
+  m_LocalRotation: {x: -0.5444461, y: 0.40958893, z: 0.4484085, w: 0.57857156}
   m_LocalPosition: {x: -0.038, y: 0.11, z: 0.062}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []

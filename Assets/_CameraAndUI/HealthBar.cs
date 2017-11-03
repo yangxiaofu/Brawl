@@ -25,7 +25,8 @@ namespace Game.UI
 		void Update()
 		{
 			_healthBarImage.fillAmount = _character
-				.GetComponent<HealthSystem>().healthAsPercentage;
+				.GetComponent<HealthSystem>()
+				.healthAsPercentage;
 		}
 	}
 }
