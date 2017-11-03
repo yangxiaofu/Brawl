@@ -16,11 +16,23 @@ namespace Game.UI{
 		[SerializeField] Text _secondaryWeaponText;
 		[SerializeField] Text _specialAbilityText;
 		[SerializeField] PLAYER_TAG _playerTag;
+		
+		HealthBar _healthBar;
+		EnergyBar _energyBar;
 		Character _character;
+		
 		void Start()
         {
 			FindPlayerTag();
             InitializeVariables();
+
+			_healthBar = gameObject.GetComponentInChildren<HealthBar>();
+			Assert.IsNotNull(_healthBar);
+			_healthBar.SetupCharacter(_character);
+
+			_energyBar = gameObject.GetComponentInChildren<EnergyBar>();
+			Assert.IsNotNull(_energyBar);
+			_energyBar.SetupCharacter(_character);
         }
 
         private void InitializeVariables()
@@ -36,6 +48,9 @@ namespace Game.UI{
 
         void Update()
         {
+			if (_character.isActive == false) 
+				return; 
+
             UpdatePrimaryAmmoText();
         }
 

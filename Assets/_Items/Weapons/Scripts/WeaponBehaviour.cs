@@ -29,7 +29,7 @@ namespace Game.Items{
 		{
 			if (_remainingAmmo <= 0) 
 				return;
-
+				
 			InstantiateProjectile(direction);
 			ReduceAmmoBy(1);				
 		}

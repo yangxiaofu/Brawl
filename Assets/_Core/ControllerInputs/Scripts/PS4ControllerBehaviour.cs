@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Game.Core.ControllerInputs;
 using Game.Characters;
+using System;
 
 namespace Game.Core.ControllerInputs{
 	public class PS4ControllerBehaviour : ControllerBehaviour
@@ -19,7 +20,21 @@ namespace Game.Core.ControllerInputs{
 			OnButtonPressed += _character.OnButtonPressed;
 		}
 
-		void Update()
+        public void DeactivateCharacter()
+        {
+            _character.gameObject.SetActive(false);
+			_character.SetIsActive(false);
+			this.enabled = false;
+        }
+
+		public void ActivateCharacter()
+		{
+			_character.gameObject.SetActive(true);
+			_character.SetIsActive(true);
+			this.enabled = true;
+		}
+
+        void Update()
 		{
 			_inputs = Vector3.zero;
 			_inputs.x = GetLeftStickHorizontal();

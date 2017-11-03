@@ -79,6 +79,9 @@ namespace Game.Characters{
 		public void Setup(ControllerBehaviour controller){_controller = controller;}
 		[HideInInspector] public bool isAttacking = false;
 		public bool IsDead() { return _isDead; }
+		bool _isActive = false; //USED FOR DEBUGGING PURPOSESS. '
+		public bool isActive{get{return _isActive;}}
+		public void SetIsActive(bool active){ _isActive = active;}
 
 		void Awake()
         {
