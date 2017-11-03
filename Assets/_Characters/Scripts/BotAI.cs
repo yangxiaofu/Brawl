@@ -183,8 +183,7 @@ namespace Game.Characters{
 				var direction = (_character.target.transform.position - this.transform.position).normalized;
 
 				_weaponSystem.ShootProjectile(
-					direction, 
-					_character.projectileSocket.transform.position
+					direction
 				);
 				
 				Task.current.Succeed();

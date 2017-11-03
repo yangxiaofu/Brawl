@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Game.Characters;
+using System;
 
 namespace Game.Items{
 	[CreateAssetMenu(menuName = "Game/Weapon")]
 	public class WeaponConfig : ItemConfig {
+		[SerializeField] bool _isWeapon = false;
 		[SerializeField] GameObject _projectilePrefab;
 		[SerializeField] Transform _weaponGripTransform;
 		public Transform weaponGripTransform{get{return _weaponGripTransform;}}
@@ -26,7 +28,7 @@ namespace Game.Items{
 		}
         public override bool IsWeapon()
         {
-            return true;
+            return _isWeapon;
         }
     }
 }

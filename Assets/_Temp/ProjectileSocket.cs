@@ -2,15 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileSocket : MonoBehaviour {
+namespace Game.Items{
+	public class ProjectileSocket : MonoBehaviour { //this is used as a placeholder. 
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
 	}
 }

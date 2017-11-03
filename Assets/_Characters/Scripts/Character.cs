@@ -38,16 +38,10 @@ namespace Game.Characters{
 		[Space]
 		[SerializeField] protected float _invincibleLength = 5f;
 		[SerializeField] protected bool _isInvincible = false;
-
 		public Character target;
-		
 		public float dashDistance{get{return _dashDistance;}}
-		protected ProjectileSocket _projectileSocket;
-		public ProjectileSocket projectileSocket{
-			get{return _projectileSocket;}
-		}
 		WeaponSystem _weaponSystem;
-		WeaponGrip[] _weaponGrip;
+
 		Movement _movement;
 		Animator _anim;
 		Rigidbody _rb;
@@ -92,40 +86,18 @@ namespace Game.Characters{
             SetupNavMeshAgent();
         }
 
-
         void Start()
         {
-            InitializeVariables();
-            FindWeaponGripTranform();
-
-            if (GunOnStart()) 
-				PutGunInHand();
+            InitializeCharacterVariables();
+            InitializeCharacterWeaponSystem();
         }
 
-        private void FindWeaponGripTranform()
+        private void InitializeCharacterWeaponSystem()
         {
-            _weaponGrip = GetComponentsInChildren<WeaponGrip>();
-            if (_weaponGrip.Length > 1) Debug.LogError("There should only be one weapon Grip transform in the child.");
-            if (_weaponGrip.Length == 0) Debug.LogError("You need to add a weaponGrip Transform as a child of " + name);
+            _weaponSystem.SetupPrimaryWeapon();
+            if (_weaponSystem.GunOnStart())
+                _weaponSystem.PutGunInHand();
         }
-
-        private bool GunOnStart()
-		{
-			return _weaponSystem.primaryWeapon != null;
-		}
-
-		private void PutGunInHand()
-		{
-			//Detect whether weapon is equipped. 
-			var weapon = _weaponSystem.primaryWeapon;
-			var weaponPrefab = weapon.GetItemPrefab();
-			var weaponObject = Instantiate(weaponPrefab) as GameObject;
-
-			//Set the weapon Grip Transform.
-			weaponObject.transform.SetParent(_weaponGrip[0].transform);
-			weaponObject.transform.localPosition = weapon.weaponGripTransform.position;
-			weaponObject.transform.localRotation = weapon.weaponGripTransform.rotation;
-		}
 
         void Update()
         {
@@ -169,11 +141,12 @@ namespace Game.Characters{
         {
 			_characterCanShoot = false;
 			float rightAnalogStickThreshold = 0.2f;
+			var projectileDirection = _weaponSystem.GetProjectileDirection(_isBot, _controller);
 
-            if (GetProjectileDirection().magnitude >= rightAnalogStickThreshold){
+            if (projectileDirection.magnitude >= rightAnalogStickThreshold) //TODO: Delay in seconds.  What to triger right away when the stick is pulle.d
+			{	
 				_weaponSystem.ShootProjectile(
-					GetProjectileDirection(), 
-					_projectileSocket.transform.position
+					projectileDirection
 				);
 			}	
         }
@@ -203,24 +176,10 @@ namespace Game.Characters{
             }
         }
 
-		private Vector3 GetProjectileDirection()
-        {
-			float shouldBeZero = 0; //Keeps the projectile shooting at horizontal plane from start.
-			var projectileDirection = Vector3.zero;
-
-			if (!_isBot)
-			{
-				projectileDirection = new Vector3(
-					_controller.GetRightStickHorizontal(),
-					shouldBeZero,
-					_controller.GetRightStickVertical()
-				);
-			} 
-			return projectileDirection;
-        }
 
 		public void OnButtonPressed(PS4_Controller_Input.Button button)
         {
+			//TODO: Change to interface for controllers. 
 			if (button == PS4_Controller_Input.Button.X)
 			{
 				if (_isGrounded) Jump();
@@ -232,7 +191,7 @@ namespace Game.Characters{
 			}
         }
 
-		private void InitializeVariables()
+		private void InitializeCharacterVariables()
         {
             _rb = GetComponent<Rigidbody>();
             Assert.IsNotNull(_rb);
@@ -245,9 +204,6 @@ namespace Game.Characters{
 
             _groundChecker = GetComponentInChildren<GroundChecker>().transform;
             Assert.IsNotNull(_groundChecker);
-
-            _projectileSocket = GetComponentInChildren<ProjectileSocket>();
-			Assert.IsNotNull(_projectileSocket);
 
             _weaponSystem = GetComponent<WeaponSystem>();
 			Assert.IsNotNull(_weaponSystem);
@@ -308,9 +264,14 @@ namespace Game.Characters{
 			if (!other.gameObject.GetComponent<Projectile>()) 
 				return;
 
+			var shootingCharacter = other.gameObject.GetComponent<Projectile>().shootingCharacter;
+			print("Shootin gCharacter " + shootingCharacter);
+			if (shootingCharacter == this) 
+				return;
+
 			var p = other.gameObject.GetComponent<Projectile>();
 			GetComponent<HealthSystem>().TakeDamage(p.damagePerHit);
-			StartCoroutine(Blink(0.1f, 20));	
+			StartCoroutine(Blink(0.1f, 20));	 //TODO: Remove Magic Numbers. 
 
 			_isInvincible = true;
 			StartCoroutine(EndInvincible(_invincibleLength));
@@ -331,27 +292,58 @@ namespace Game.Characters{
 
 		void OnAnimatorIK(int layerIndex)
 		{
-			float ikPositionGoal = 0.5f;
+			float ikPositionGoal = 1.0f;
 			float yOffset = 1f;
 			
 			if (_anim == null) return;
 
 			if (_isBot)
 			{
-				if (target == null) return;
-				_anim.SetIKPosition(AvatarIKGoal.RightHand, target.transform.position);
-				_anim.SetIKPositionWeight(AvatarIKGoal.RightHand, ikPositionGoal);
+				if (target != null) 
+				{
+					_anim.SetLookAtWeight(1);
+					_anim.SetLookAtPosition(target.transform.position);
+
+					_anim.SetIKPosition(AvatarIKGoal.RightHand, target.transform.position);
+					_anim.SetIKPositionWeight(AvatarIKGoal.RightHand, ikPositionGoal);
+				} 
+				else 
+				{
+					_anim.SetIKPositionWeight(AvatarIKGoal.RightHand,0);
+                	_anim.SetIKRotationWeight(AvatarIKGoal.RightHand,0); 
+                	_anim.SetLookAtWeight(0);
+				}
+
+				
 			} 
 			else if (!_isBot)
 			{
 				var direction = new Vector3(_controller.GetRightStickHorizontal(), 0, _controller.GetRightStickVertical());
-				var pointDirection = new Vector3(this.transform.position.x + direction.x, this.transform.position.y + yOffset, this.transform.position.z + direction.z);
-				_anim.SetIKPosition(AvatarIKGoal.RightHand, pointDirection);
-				_anim.SetIKPositionWeight(AvatarIKGoal.RightHand, ikPositionGoal);
+
+				if (direction.magnitude > 0.2f)
+				{
+					var pointDirection = new Vector3(
+						this.transform.position.x + direction.x, 
+						this.transform.position.y + yOffset, 
+						this.transform.position.z + direction.z
+					);
+
+					_anim.SetLookAtWeight(1);
+					_anim.SetLookAtPosition(pointDirection);
+
+					_anim.SetIKPosition(AvatarIKGoal.RightHand, pointDirection);
+					_anim.SetIKPositionWeight(AvatarIKGoal.RightHand, ikPositionGoal);
+				} else {
+					_anim.SetIKPositionWeight(AvatarIKGoal.RightHand,0);
+                	_anim.SetIKRotationWeight(AvatarIKGoal.RightHand,0); 
+                	_anim.SetLookAtWeight(0);
+
+				}
+				
 			}
-			
-			
 		}
+
+       
 	}
 }
 
