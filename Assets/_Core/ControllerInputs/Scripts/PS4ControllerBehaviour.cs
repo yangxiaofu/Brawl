@@ -7,13 +7,14 @@ using Game.Characters;
 namespace Game.Core.ControllerInputs{
 	public class PS4ControllerBehaviour : ControllerBehaviour
 	{
-
 		[SerializeField] PS4_Controller_Input ps4Controller;
-
+		
 		public delegate void ButtonPressed(PS4_Controller_Input.Button button);
 		public event ButtonPressed OnButtonPressed;
 		void Start()
 		{
+			InitializeControllerPrefix();
+
 			ps4Controller = new PS4_Controller_Input(_prefix);
 			OnButtonPressed += _character.OnButtonPressed;
 		}

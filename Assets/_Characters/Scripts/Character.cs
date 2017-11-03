@@ -10,12 +10,16 @@ using Game.UI;
 using Panda;
 
 namespace Game.Characters{
-	public class Character : MonoBehaviour {
+	public class Character : MonoBehaviour 
+	{
+
 		[Tooltip("Configure this to make the player a bot or not.")]
-		[SerializeField] bool _isBot = false;
-		public bool isBot{get{return _isBot;}}
-		public void SetAsBot(){ _isBot = true;}
-		public void SetAsPlayer(){ _isBot = false;}
+		bool _isBot = false;
+		public bool isBot
+		{
+			get{return _isBot;}
+			set{_isBot = value;}
+		}
 
 		[Space]
 
@@ -29,7 +33,8 @@ namespace Game.Characters{
 		[SerializeField] float _dashDistance = 0.5f;
 		[SerializeField] LayerMask _ground;
 		[SerializeField] bool _isBeingAttacked = false;
-		public void SetBeingAttacked(bool isBeingAttacked) {_isBeingAttacked = isBeingAttacked;}
+		public void SetBeingAttacked(bool isBeingAttacked) 
+			{_isBeingAttacked = isBeingAttacked;}
 
 		[Space] [Header("Energy Consumption")] 
 		[SerializeField] protected float _energyConsumeOnJump = 10f;
