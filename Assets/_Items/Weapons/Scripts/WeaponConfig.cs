@@ -9,6 +9,11 @@ namespace Game.Items{
 	public class WeaponConfig : ItemConfig {
 		[SerializeField] bool _isWeapon = false;
 		[SerializeField] GameObject _projectilePrefab;
+		[SerializeField] GameObject _particleSystemPrefab;
+		public GameObject GetParticleSystemPrefab()
+		{
+			return _particleSystemPrefab;
+		}
 		[SerializeField] Transform _weaponGripTransform;
 		public Transform weaponGripTransform{get{return _weaponGripTransform;}}
 
@@ -19,8 +24,9 @@ namespace Game.Items{
 		public float projectileSpeed {get{return _projectileSpeed;}}
 		[SerializeField] float _secondsBetweenShots = 1f;
 		public float secondsBetweenShots {get{return _secondsBetweenShots;}}
-		
 		[SerializeField] float _damagePerHit = 10f;
+		[SerializeField] float _blastRadius = 20f;
+		public float blastRadius{get{return _blastRadius;}}
 		public GameObject GetProjectilePrefab()
 		{
 			_projectilePrefab.GetComponent<Projectile>().SetDamage(_damagePerHit);

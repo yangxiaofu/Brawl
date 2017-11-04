@@ -63,10 +63,12 @@
      <Compile Include="Assets\_Core\ControllerInputs\Scripts\ControllerBehaviour.cs" />
      <Compile Include="Assets\_Core\ControllerInputs\Scripts\PS4_Controller_Input.cs" />
      <Compile Include="Assets\_Core\ControllerInputs\Scripts\PS4ControllerBehaviour.cs" />
+     <Compile Include="Assets\_Core\Scripts\Explosion.cs" />
      <Compile Include="Assets\_Core\Scripts\ItemPickup.cs" />
      <Compile Include="Assets\_Core\Scripts\Physics.cs" />
      <Compile Include="Assets\_Core\Scripts\PLAYER_TAG.cs" />
      <Compile Include="Assets\_Core\Scripts\Spawner.cs" />
+     <Compile Include="Assets\_Core\Tests\PhysicsApplyForce.cs" />
      <Compile Include="Assets\_Items\ItemConfig.cs" />
      <Compile Include="Assets\_Items\Weapons\Scripts\Projectile.cs" />
      <Compile Include="Assets\_Items\Weapons\Scripts\WeaponBehaviour.cs" />
@@ -813,10 +815,13 @@
      <None Include="Assets\Toon Character Pack\Shaders\Toony-BasicOutline-Transparent.shader" />
      <None Include="Assets\Octave3D World Builder\Docs\Version History.txt" />
      <None Include="Assets\Toon Character Pack\Shaders\Toony-BasicOutline.shader" />
+     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAlpha.shader" />
      <None Include="Assets\PandaBehaviour\Examples\02_PlayTag\Assets\Computer.BT.txt" />
      <None Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\GameController.BT.txt" />
+     <None Include="Assets\Standard Assets\ParticleSystems\ParticleSystemsGuidelines.txt" />
      <None Include="Assets\Standard Assets\Fonts\OpenSans\License!.txt" />
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
+     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAddSoft.shader" />
      <None Include="Assets\Toon Character Pack\Shaders\Toony-LightedOutline.shader" />
      <None Include="Assets\Toon Character Pack\Shaders\Toony-Lighted.shader" />
      <None Include="Assets\Toon Character Pack\_Toon Character Pack.txt" />
@@ -830,6 +835,7 @@
      <None Include="Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />
      <None Include="Assets\Octave3D World Builder\Resources\XZGrid.shader" />
      <None Include="Assets\Standard Assets\Characters\RollerBall\RollerBallGuidelines.txt" />
+     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />
      <None Include="Assets\Toon Character Pack\Shaders\Unlit-Alpha.shader" />
      <None Include="Assets\_Characters\Scripts\MovementCombinationsBT.txt" />
      <None Include="Assets\PandaBehaviour\ChangeLog.txt" />

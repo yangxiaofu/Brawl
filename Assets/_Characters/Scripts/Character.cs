@@ -97,13 +97,6 @@ namespace Game.Characters{
             InitializeCharacterWeaponSystem();
         }
 
-        private void InitializeCharacterWeaponSystem()
-        {
-            _weaponSystem.SetupPrimaryWeapon();
-            if (_weaponSystem.GunOnStart())
-                _weaponSystem.PutGunInHand();
-        }
-
         void Update()
         {
 			if (_isBot) 
@@ -114,10 +107,14 @@ namespace Game.Characters{
         }
 
 		void FixedUpdate()
-        {
+        {	
+			if (!_controller) 
+				return;
+
             if (_characterCanShoot)
             {
-                if(_weaponSystem.ShotIsFired(_isBot, _controller)){		
+                if(_weaponSystem.ShotIsFired(_isBot, _controller))
+				{		
 					_characterCanShoot = false;
 					var secondsToDelayUpdate = _weaponSystem.primaryWeapon.secondsBetweenShots;
 					StartCoroutine(UpdateCharacterCanShootAfter(secondsToDelayUpdate));
@@ -128,6 +125,13 @@ namespace Game.Characters{
                 return;
 
             UpdatePlayerMovement();
+        }
+
+        private void InitializeCharacterWeaponSystem()
+        {
+            _weaponSystem.SetupPrimaryWeapon();
+            if (_weaponSystem.GunOnStart())
+                _weaponSystem.PutGunInHand();
         }
 
 		private IEnumerator UpdateCharacterCanShootAfter(float delay)
@@ -163,6 +167,9 @@ namespace Game.Characters{
 
 		private void UpdateMovementAnimation()
         {
+			if (!_controller)
+				return;
+
             float animationThreshold = 0.2f;
             
             if (_controller.inputs.magnitude > animationThreshold)
@@ -237,22 +244,6 @@ namespace Game.Characters{
 			_movement.Dash();
 			return true;
 		}
-
-        private IEnumerator Blink(float seconds, int numBlinks)
-		{
-			if (!_isBlinking)
-			{
-				_isBlinking = true;
-				for (int i=0; i<numBlinks*2; i++) 
-				{
-					_characterRenderer.enabled = !_characterRenderer.enabled;	
-					yield return new WaitForSeconds(seconds);
-				}
-				_characterRenderer.enabled = true;
-				_isBlinking = false;
-			}
-		}
-
 		void OnCollisionEnter(Collision other)
 		{
 			if (!other.gameObject.GetComponent<Projectile>()) 
@@ -270,6 +261,21 @@ namespace Game.Characters{
 
 			_isInvincible = true;
 			StartCoroutine(EndInvincible(_invincibleLength));
+		}
+
+        private IEnumerator Blink(float seconds, int numBlinks)
+		{
+			if (!_isBlinking)
+			{
+				_isBlinking = true;
+				for (int i=0; i<numBlinks*2; i++) 
+				{
+					_characterRenderer.enabled = !_characterRenderer.enabled;	
+					yield return new WaitForSeconds(seconds);
+				}
+				_characterRenderer.enabled = true;
+				_isBlinking = false;
+			}
 		}
 
 		private void DamageCharacter(Projectile projectile)
@@ -292,8 +298,12 @@ namespace Game.Characters{
 
 		void OnAnimatorIK(int layerIndex)
 		{
-			if (_anim == null) return;
+			if (_anim == null) 
+				return;
 
+			if (!_controller) 
+				return;
+				
 			if (_isBot)
 			{
 				if (target != null)

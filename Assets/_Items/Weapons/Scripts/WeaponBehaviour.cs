@@ -52,16 +52,15 @@ namespace Game.Items{
 			if (!_weaponSystem.primaryWeaponBehaviour.GetComponentInChildren<ProjectileSocket>()) 
 				return;
 
-            var projectileObject = Instantiate(
-				_config.GetProjectilePrefab()) as GameObject;
+            var projectileObject = Instantiate(_config.GetProjectilePrefab()) as GameObject;
 			var character = GetComponent<Character>();
+			var projectile = projectileObject.GetComponent<Projectile>();
+			var particleEffect = _config.GetParticleSystemPrefab();
 
-			projectileObject.GetComponent<Projectile>()
-				.SetupCharacter(character);
+			var args = new ProjectileArgs(character, direction, particleEffect);
+			projectile.Setup(args);
 
-			var socket = _weaponSystem
-				.primaryWeaponBehaviour
-				.GetComponentInChildren<ProjectileSocket>();
+			var socket = _weaponSystem.primaryWeaponBehaviour.GetComponentInChildren<ProjectileSocket>();
 
 			projectileObject.transform.position = new Vector3(
 				socket.transform.position.x, 

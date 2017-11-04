@@ -10,7 +10,6 @@ using Panda;
 namespace Game.Items{
 	public class WeaponSystem : MonoBehaviour {
 		[SerializeField] WeaponConfig _primaryWeapon;
-
 		float rightAnalogStickThreshold = 0.9f;
 		WeaponBehaviour _primaryWeaponBehaviour;
 		public WeaponBehaviour primaryWeaponBehaviour{get{return _primaryWeaponBehaviour;}}
@@ -84,6 +83,8 @@ namespace Game.Items{
 
 		public Vector3 GetProjectileDirection(bool isBot, ControllerBehaviour controller)
         {
+				
+
 			float shouldBeZero = 0; //Keeps the projectile shooting at horizontal plane from start.
 			var projectileDirection = Vector3.zero;
 

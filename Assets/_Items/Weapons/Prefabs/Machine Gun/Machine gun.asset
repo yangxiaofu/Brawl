@@ -16,7 +16,8 @@ MonoBehaviour:
   _isWeapon: 1
   _projectilePrefab: {fileID: 1443953676885246, guid: ce0d0e6af6d3b40768993ba0603ee605,
     type: 2}
-  _weaponGripTransform: {fileID: 0}
+  _weaponGripTransform: {fileID: 4047349831995096, guid: 8402fb04a465d45c69c6a87ca9f9dbe0,
+    type: 2}
   _startingAmmo: 100
   _projectileSpeed: 100
   _secondsBetweenShots: 0.2
