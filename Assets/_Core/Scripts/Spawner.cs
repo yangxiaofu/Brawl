@@ -100,6 +100,13 @@ namespace Game.Core{
 
 		protected void AddItemToInventoryOf(Character character)
         {
+			if (_spawnedItemConfig == null) 
+			{
+				Debug.LogWarning("The Spawned was null.  This is something to look at later. ");
+				return;
+			}
+
+
 			if (_spawnedItemConfig.IsWeapon()) 
 			{
 				var weaponSystem = character.gameObject.GetComponent<WeaponSystem>();

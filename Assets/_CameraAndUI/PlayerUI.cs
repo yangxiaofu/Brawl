@@ -5,7 +5,9 @@ using UnityEngine.UI;
 using UnityEngine.Assertions;
 using Game.Characters;
 using Game.Items;
+using Game.Core;
 using Game.Core.ControllerInputs;
+using System;
 
 namespace Game.UI{
 	public class PlayerUI : MonoBehaviour 
@@ -15,24 +17,48 @@ namespace Game.UI{
 		[SerializeField] Text _primaryWeaponText;
 		[SerializeField] Text _secondaryWeaponText;
 		[SerializeField] Text _specialAbilityText;
+		[SerializeField] Text _scoringSystemText;
 		[SerializeField] PLAYER_TAG _playerTag;
 		
 		HealthBar _healthBar;
 		EnergyBar _energyBar;
 		Character _character;
-		
+		ScoringSystem _scoringSystem;
+		ControllerBehaviour _controller;
+
 		void Start()
         {
-			FindPlayerTag();
+            SetupCharacter();
+            SetupScoringSystem();
             InitializeVariables();
+            SetupHealthBar();
+            SetupEnergyBar();
+        }
 
-			_healthBar = gameObject.GetComponentInChildren<HealthBar>();
-			Assert.IsNotNull(_healthBar);
-			_healthBar.SetupCharacter(_character);
+        void Update()
+        {
+            UpdatePrimaryAmmoText();
+			UpdateCharacterScore();
+        }
 
-			_energyBar = gameObject.GetComponentInChildren<EnergyBar>();
-			Assert.IsNotNull(_energyBar);
-			_energyBar.SetupCharacter(_character);
+        private void SetupEnergyBar()
+        {
+            _energyBar = gameObject.GetComponentInChildren<EnergyBar>();
+            Assert.IsNotNull(_energyBar);
+            _energyBar.SetupCharacter(_character);
+        }
+
+        private void SetupHealthBar()
+        {
+            _healthBar = gameObject.GetComponentInChildren<HealthBar>();
+            Assert.IsNotNull(_healthBar);
+            _healthBar.SetupCharacter(_character);
+        }
+
+        private void SetupScoringSystem()
+        {
+            _scoringSystem = _controller.GetComponent<ScoringSystem>();
+            Assert.IsNotNull(_scoringSystem, "You need to add a scoring system component to the character " + _controller.name);
         }
 
         private void InitializeVariables()
@@ -44,14 +70,11 @@ namespace Game.UI{
             Assert.IsNotNull(_primaryWeaponText);
             Assert.IsNotNull(_secondaryWeaponText);
             Assert.IsNotNull(_specialAbilityText);
+			Assert.IsNotNull(_scoringSystemText);
         }
-
-        void Update()
+        private void UpdateCharacterScore()
         {
-			if (_character.isActive == false) 
-				return; 
-
-            UpdatePrimaryAmmoText();
+            _scoringSystemText.text = _scoringSystem.points.ToString();
         }
 
         private void UpdatePrimaryAmmoText()
@@ -62,7 +85,7 @@ namespace Game.UI{
 			_primaryWeaponText.text = remainingAmmo + "/" + startingAmmo;
         }
 
-		void FindPlayerTag()
+		void SetupCharacter()
 		{
 			var controllers = GameObject.FindObjectsOfType<ControllerBehaviour>();	
 			for (int i = 0; i < controllers.Length; i++)
@@ -70,6 +93,7 @@ namespace Game.UI{
 				if (controllers[i].playerTag == _playerTag)
 				{
 					_character = controllers[i].character;
+					_controller = controllers[i];
 					break;
 				}
 			}

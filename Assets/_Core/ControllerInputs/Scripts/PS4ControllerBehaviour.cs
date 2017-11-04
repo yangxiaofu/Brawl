@@ -20,20 +20,6 @@ namespace Game.Core.ControllerInputs{
 			OnButtonPressed += _character.OnButtonPressed;
 		}
 
-        public void DeactivateCharacter()
-        {
-            _character.gameObject.SetActive(false);
-			_character.SetIsActive(false);
-			this.enabled = false;
-        }
-
-		public void ActivateCharacter()
-		{
-			_character.gameObject.SetActive(true);
-			_character.SetIsActive(true);
-			this.enabled = true;
-		}
-
         void Update()
 		{
 			_inputs = Vector3.zero;

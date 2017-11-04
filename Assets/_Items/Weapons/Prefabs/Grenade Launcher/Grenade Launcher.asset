@@ -14,7 +14,9 @@ MonoBehaviour:
   _itemPrefab: {fileID: 1987765333524248, guid: d1dd3f549f54145778d84c16d7efa0e9,
     type: 2}
   _isWeapon: 1
-  _projectilePrefab: {fileID: 1443953676885246, guid: ce0d0e6af6d3b40768993ba0603ee605,
+  _projectilePrefab: {fileID: 1443953676885246, guid: 52b9dbc0d68f04869a536388eb74e989,
+    type: 2}
+  _particleSystemPrefab: {fileID: 1129565400138064, guid: 9980ae1ad1a764e638b4c6973eb398d3,
     type: 2}
   _weaponGripTransform: {fileID: 4047349831995096, guid: 4e5136e3500494f188f100680887ec11,
     type: 2}
@@ -22,3 +24,4 @@ MonoBehaviour:
   _projectileSpeed: 10
   _secondsBetweenShots: 2
   _damagePerHit: 100
+  _blastRadius: 20
