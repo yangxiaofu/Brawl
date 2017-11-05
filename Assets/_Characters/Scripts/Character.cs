@@ -1,17 +1,14 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Assertions;
 using Game.Items;
 using Game.Core;
 using Game.Core.ControllerInputs;
-using Game.UI;
-using Panda;
-using System;
 
-namespace Game.Characters{
-	public class Character : MonoBehaviour 
+namespace Game.Characters
+{
+    public class Character : MonoBehaviour 
 	{
 
 		[Tooltip("Configure this to make the player a bot or not.")]
@@ -34,8 +31,7 @@ namespace Game.Characters{
 		[SerializeField] float _dashDistance = 0.5f;
 		[SerializeField] LayerMask _ground;
 		[SerializeField] bool _isBeingAttacked = false;
-		public void SetBeingAttacked(bool isBeingAttacked) 
-			{_isBeingAttacked = isBeingAttacked;}
+		public void SetBeingAttacked(bool isBeingAttacked) {_isBeingAttacked = isBeingAttacked;}
 
 		[Space] [Header("Energy Consumption")] 
 		[SerializeField] protected float _energyConsumeOnJump = 10f;
@@ -244,14 +240,14 @@ namespace Game.Characters{
 		}
 		void OnCollisionEnter(Collision other)
 		{
-			if (!other.gameObject.GetComponent<Projectile>()) 
+			if (!other.gameObject.GetComponent<ProjectileBehaviour>()) 
 				return;
 
-			var shootingCharacter = other.gameObject.GetComponent<Projectile>().shootingCharacter;
+			var shootingCharacter = other.gameObject.GetComponent<ProjectileBehaviour>().shootingCharacter;
 			if (shootingCharacter == this) 
 				return;
 
-			DamageCharacter(other.gameObject.GetComponent<Projectile>());
+			DamageCharacter(other.gameObject.GetComponent<ProjectileBehaviour>());
 
 			float secondsBetweenBlinks = 0.1f;
 			int totalNumberOfBlinks = 20;
@@ -276,9 +272,10 @@ namespace Game.Characters{
 			}
 		}
 
-		private void DamageCharacter(Projectile projectile)
+		private void DamageCharacter(ProjectileBehaviour projectile)
 		{
-			GetComponent<HealthSystem>().TakeDamage(projectile.GetProjectileDamage());
+			var damage = projectile.GetComponent<BlastBehaviour>().GetDamage();
+			GetComponent<HealthSystem>().TakeDamage(damage);
 		}
 
 		private IEnumerator EndInvincible(float delay)
