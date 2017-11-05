@@ -18,7 +18,7 @@ MonoBehaviour:
     type: 2}
   _weaponGripTransform: {fileID: 4047349831995096, guid: 1e8d80f52d3c74a7ea25bd9f83508d41,
     type: 2}
-  _projectileConfig: {fileID: 11400000, guid: 0a2c244dcf4ca45ab8f9f924e96b297b, type: 2}
+  _projectileConfig: {fileID: 11400000, guid: 77b1e192fd7814c38ab11fc336f154a8, type: 2}
   _startingAmmo: 6
   _projectileSpeed: 10
   _secondsBetweenShots: 1

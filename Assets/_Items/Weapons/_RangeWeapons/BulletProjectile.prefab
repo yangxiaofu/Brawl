@@ -24,7 +24,6 @@ GameObject:
   - component: {fileID: 54544437868159936}
   - component: {fileID: 135434846535002522}
   - component: {fileID: 96755311272355726}
-  - component: {fileID: 114414822462701984}
   m_Layer: 0
   m_Name: BulletProjectile
   m_TagString: Untagged
@@ -194,17 +193,6 @@ TrailRenderer:
     generateLightingData: 1
   m_MinVertexDistance: 0.01
   m_Autodestruct: 1
---- !u!114 &114414822462701984
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1443953676885246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b6f748dd1e0541beb64acdfc6ef811b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!135 &135434846535002522
 SphereCollider:
   m_ObjectHideFlags: 1

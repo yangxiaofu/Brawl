@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Game.Items{
-	public class MeleeWeaponConfig : MonoBehaviour
-	{
-
+namespace Game.Core{
+	public interface ICalculate{
+		float Calculate();
 	}
 }
-

@@ -5,7 +5,7 @@ using Game.Characters;
 using System;
 
 namespace Game.Items{
-	public class WeaponConfig : ItemConfig {
+	public abstract class WeaponConfig : ItemConfig {
 		[Header("Weapon Config Specific")]
 		[SerializeField] bool _isWeapon = false;
 		public override bool IsWeapon() { return _isWeapon;}
@@ -14,6 +14,7 @@ namespace Game.Items{
 		public GameObject GetParticleSystemPrefab() { return _particleSystemPrefab;}
 		[SerializeField] Transform _weaponGripTransform;
 		public Transform weaponGripTransform{get{return _weaponGripTransform;}}
+		public abstract void Use();
     }
 }
 

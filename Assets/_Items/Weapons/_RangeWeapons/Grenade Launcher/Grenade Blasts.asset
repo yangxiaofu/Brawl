@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Name: Grenade Blasts
   m_EditorClassIdentifier: 
   _timeToDestroy: 2
-  _secondsToDestroyProjectileAfterCollision: 0.2
+  _secondsToDestroyProjectileAfterCollision: 1.2
   _navMeshAgentDelay: 1
-  _projectilePrefab: {fileID: 0}
-  _damagePerHit: 10
-  _projectileCollisionForce: 200
-  _particleSystemPrefab: {fileID: 0}
+  _projectilePrefab: {fileID: 1443953676885246, guid: ce0d0e6af6d3b40768993ba0603ee605,
+    type: 2}
+  _damagePerHit: 100
+  _particleSystemPrefab: {fileID: 1129565400138064, guid: 9980ae1ad1a764e638b4c6973eb398d3,
+    type: 2}
+  _blastRadius: 2
+  _delayBeforeExplosion: 1

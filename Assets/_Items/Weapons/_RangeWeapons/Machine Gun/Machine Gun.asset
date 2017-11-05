@@ -11,11 +11,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d166a93308864c2e9ccdd57dd6433ee, type: 3}
   m_Name: Machine Gun
   m_EditorClassIdentifier: 
-  _itemPrefab: {fileID: 0}
-  _isWeapon: 0
-  _particleSystemPrefab: {fileID: 0}
-  _weaponGripTransform: {fileID: 0}
-  _projectileConfig: {fileID: 0}
-  _startingAmmo: 6
-  _projectileSpeed: 10
-  _secondsBetweenShots: 1
+  _itemPrefab: {fileID: 1079323616086324, guid: 04149fecffd0a42bfbb69fa42d0f2698,
+    type: 2}
+  _isWeapon: 1
+  _particleSystemPrefab: {fileID: 1773120417003876, guid: 9c3945cc8535b4fa8a535dd630fb6ef9,
+    type: 2}
+  _weaponGripTransform: {fileID: 4047349831995096, guid: 8402fb04a465d45c69c6a87ca9f9dbe0,
+    type: 2}
+  _projectileConfig: {fileID: 11400000, guid: 9cb6a01a2edfe46d28febdf6194976a4, type: 2}
+  _startingAmmo: 100
+  _projectileSpeed: 50
+  _secondsBetweenShots: 0.2

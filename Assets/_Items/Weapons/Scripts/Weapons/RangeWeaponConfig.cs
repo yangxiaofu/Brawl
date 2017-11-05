@@ -23,6 +23,10 @@ namespace Game.Items{
 			_projectileConfig.AddComponentTo(projectileGameObject, args);
 		}
 
-	}
+        public override void Use()
+        {
+            throw new System.NotImplementedException();
+        }
+    }
 }
 

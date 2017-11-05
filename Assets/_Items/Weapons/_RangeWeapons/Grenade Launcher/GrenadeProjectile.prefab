@@ -24,7 +24,6 @@ GameObject:
   - component: {fileID: 54544437868159936}
   - component: {fileID: 135434846535002522}
   - component: {fileID: 96755311272355726}
-  - component: {fileID: 114316899687535692}
   m_Layer: 0
   m_Name: GrenadeProjectile
   m_TagString: Untagged
@@ -194,24 +193,6 @@ TrailRenderer:
     generateLightingData: 1
   m_MinVertexDistance: 0.01
   m_Autodestruct: 1
---- !u!114 &114316899687535692
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1443953676885246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e3eca0ebafe24dcab784c9c9fd3fd9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _timeToDestroy: 2
-  _secondsToDestroyProjectileAfterCollision: 1
-  _damagePerHit: 10
-  _navMeshAgentDelay: 1
-  _projectileCollisionForce: 200
-  _delayBeforeExplosion: 1
-  _explosionRadius: 2
 --- !u!135 &135434846535002522
 SphereCollider:
   m_ObjectHideFlags: 1

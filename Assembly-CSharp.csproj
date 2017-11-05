@@ -58,6 +58,9 @@
      <Compile Include="Assets\_Characters\Scripts\Character.cs" />
      <Compile Include="Assets\_Characters\Scripts\EnergySystem.cs" />
      <Compile Include="Assets\_Characters\Scripts\HealthSystem.cs" />
+     <Compile Include="Assets\_Core\Calculator\Calculator.cs" />
+     <Compile Include="Assets\_Core\Calculator\ICalculate.cs" />
+     <Compile Include="Assets\_Core\Calculator\TotalPointsCalculator.cs" />
      <Compile Include="Assets\_Core\CharacterControl\GroundChecker.cs" />
      <Compile Include="Assets\_Core\CharacterControl\Movement.cs" />
      <Compile Include="Assets\_Core\ControllerInputs\Scripts\ControllerBehaviour.cs" />
@@ -71,6 +74,7 @@
      <Compile Include="Assets\_Core\Scripts\ScoreSettings.cs" />
      <Compile Include="Assets\_Core\Scripts\ScoringSystem.cs" />
      <Compile Include="Assets\_Core\Scripts\Spawner.cs" />
+     <Compile Include="Assets\_Core\Scripts\ThrowSocket.cs" />
      <Compile Include="Assets\_Core\Tests\PhysicsApplyForce.cs" />
      <Compile Include="Assets\_Items\ItemConfig.cs" />
      <Compile Include="Assets\_Items\Weapons\Scripts\Projectiles\BlastProjectileConfig.cs" />
@@ -83,6 +87,7 @@
      <Compile Include="Assets\_Items\Weapons\Scripts\WeaponGrip.cs" />
      <Compile Include="Assets\_Items\Weapons\Scripts\Weapons\MeleeWeaponConfig.cs" />
      <Compile Include="Assets\_Items\Weapons\Scripts\Weapons\RangeWeaponConfig.cs" />
+     <Compile Include="Assets\_Items\Weapons\Scripts\Weapons\ThrowableWeaponBehaviour.cs" />
      <Compile Include="Assets\_Items\Weapons\Scripts\Weapons\ThrowableWeaponConfig.cs" />
      <Compile Include="Assets\_Items\Weapons\Scripts\Weapons\WeaponConfig.cs" />
      <Compile Include="Assets\_Items\Weapons\Scripts\WeaponSystem.cs" />

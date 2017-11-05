@@ -127,11 +127,6 @@ namespace Game.Characters{
             UpdatePlayerMovement();
         }
 
-        private void InitializeCharacterWeaponSystem()
-        {
-            
-        }
-
 		private IEnumerator UpdateCharacterCanShootAfter(float delay)
 		{
 			yield return new WaitForSeconds(delay);

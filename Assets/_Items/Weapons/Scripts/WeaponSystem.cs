@@ -13,10 +13,20 @@ namespace Game.Items{
 		[SerializeField] WeaponConfig _primaryWeapon;
 		public WeaponConfig primaryWeapon{get{return _primaryWeapon;}}
 		[SerializeField] WeaponConfig _secondaryWeapon;
+		[SerializeField] float _throwPower = 10f;
+		[Tooltip("Increase or Decrease this in order to adjust the throwing angle of the player.")]
+		[SerializeField] float _throwAngle = 1f;
 		float rightAnalogStickThreshold = 0.9f;
 		WeaponBehaviour _primaryWeaponBehaviour;
 		public WeaponBehaviour primaryWeaponBehaviour{get{return _primaryWeaponBehaviour;}}
 		WeaponGrip[] _weaponGrip;
+
+		ThrowSocket _throwSocket;
+		void Start()
+		{
+			_throwSocket = GetComponentInChildren<ThrowSocket>();
+			Assert.IsNotNull(_throwSocket, "Please add a throw socket game object to the child of " + this.gameObject.name);
+		}
 		public void InitializeWeaponSystem()
 		{
 			SetupPrimaryWeapon();
@@ -40,11 +50,31 @@ namespace Game.Items{
 
 		public void UseSecondaryWeapon() //Shoots in the direction of the transform. 
 		{
-			Debug.Log("Shoot from secondary weapon");
-			var projectilePrefab = (_secondaryWeapon as RangeWeaponConfig).projectileConfig.GetProjectilePrefab();
-		}
-		
-		public void UsePrimaryWeapon(Vector3 direction)
+			if (_secondaryWeapon is ThrowableWeaponConfig)
+        		ThrowWeapon();
+            
+        }
+
+        private void ThrowWeapon()
+        {
+            var weaponPrefab = _secondaryWeapon.GetItemPrefab();
+            var weaponObject = Instantiate(weaponPrefab, _throwSocket.transform.position, Quaternion.identity) as GameObject;
+
+			var behaviour = weaponObject.AddComponent<ThrowableWeaponBehaviour>();
+			behaviour.Setup(_secondaryWeapon as ThrowableWeaponConfig, GetComponent<Character>());
+
+            var rb = weaponObject.GetComponent<Rigidbody>();
+			
+            var throwDirection = new Vector3(
+				this.transform.forward.x, 
+				_throwAngle, 
+				this.transform.forward.z
+			).normalized;
+
+            rb.AddForce(throwDirection * _throwPower, ForceMode.Impulse);
+        }
+
+        public void UsePrimaryWeapon(Vector3 direction)
         {
 			_primaryWeaponBehaviour.Fire(direction);
         }

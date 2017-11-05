@@ -14,7 +14,9 @@ MonoBehaviour:
   _timeToDestroy: 2
   _secondsToDestroyProjectileAfterCollision: 0.2
   _navMeshAgentDelay: 1
-  _projectilePrefab: {fileID: 0}
-  _damagePerHit: 10
-  _projectileCollisionForce: 200
-  _particleSystemPrefab: {fileID: 0}
+  _projectilePrefab: {fileID: 1443953676885246, guid: ce0d0e6af6d3b40768993ba0603ee605,
+    type: 2}
+  _damagePerHit: 2
+  _particleSystemPrefab: {fileID: 1773120417003876, guid: 9c3945cc8535b4fa8a535dd630fb6ef9,
+    type: 2}
+  _projectileCollisionForce: 10
