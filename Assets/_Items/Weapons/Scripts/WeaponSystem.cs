@@ -8,30 +8,43 @@ using Game.Core.ControllerInputs;
 using Panda;
 
 namespace Game.Items{
+	
 	public class WeaponSystem : MonoBehaviour {
 		[SerializeField] WeaponConfig _primaryWeapon;
+		public WeaponConfig primaryWeapon{get{return _primaryWeapon;}}
+		[SerializeField] WeaponConfig _secondaryWeapon;
 		float rightAnalogStickThreshold = 0.9f;
 		WeaponBehaviour _primaryWeaponBehaviour;
 		public WeaponBehaviour primaryWeaponBehaviour{get{return _primaryWeaponBehaviour;}}
 		WeaponGrip[] _weaponGrip;
-		public WeaponConfig primaryWeapon{get{return _primaryWeapon;}}
+		public void InitializeWeaponSystem()
+		{
+			SetupPrimaryWeapon();
 
-        public void SetupPrimaryWeapon()  //TODO: remove to the main character code. 
+            if (GunOnStart())
+                PutGunInHand();
+		}
+        private void SetupPrimaryWeapon()  //TODO: remove to the main character code. 
         {
 			if (GetComponent<WeaponBehaviour>()) 
 				Destroy(GetComponent<WeaponBehaviour>());
 	
             _primaryWeaponBehaviour = this.gameObject.AddComponent<WeaponBehaviour>();
-            _primaryWeaponBehaviour.Setup(_primaryWeapon);
+            _primaryWeaponBehaviour.Setup(_primaryWeapon as WeaponConfig);
         }
 
         public void UpdateWeapon(WeaponConfig weaponConfig)
 		{
-			_primaryWeapon = weaponConfig;
-			SetupPrimaryWeapon();
+			_secondaryWeapon = weaponConfig;
+		}
+
+		public void UseSecondaryWeapon() //Shoots in the direction of the transform. 
+		{
+			Debug.Log("Shoot from secondary weapon");
+			var projectilePrefab = (_secondaryWeapon as RangeWeaponConfig).projectileConfig.GetProjectilePrefab();
 		}
 		
-		public void ShootProjectile(Vector3 direction)
+		public void UsePrimaryWeapon(Vector3 direction)
         {
 			_primaryWeaponBehaviour.Fire(direction);
         }
@@ -56,17 +69,17 @@ namespace Game.Items{
 			if (projectileDirection.magnitude < rightAnalogStickThreshold)
 				return false;
 
-			ShootProjectile(projectileDirection);
+			UsePrimaryWeapon(projectileDirection);
 
 			return true;
 		}
 
-        public bool GunOnStart()
+        private bool GunOnStart()
 		{
 			return _primaryWeapon != null;
 		}
 
-		public void PutGunInHand()
+		private void PutGunInHand()
 		{
 			FindWeaponGripTranform();
 

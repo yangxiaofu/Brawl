@@ -181,11 +181,11 @@ namespace Game.Characters{
 
 			timer += Time.deltaTime;
 		
-			if (timer >= _weaponSystem.primaryWeapon.secondsBetweenShots)
+			if (timer >= (_weaponSystem.primaryWeapon as RangeWeaponConfig).secondsBetweenShots)
 			{
 				var direction = (_character.target.transform.position - this.transform.position).normalized;
 
-				_weaponSystem.ShootProjectile(
+				_weaponSystem.UsePrimaryWeapon(
 					direction
 				);
 				

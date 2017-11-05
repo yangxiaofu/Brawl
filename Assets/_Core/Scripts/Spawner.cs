@@ -34,17 +34,8 @@ namespace Game.Core{
 
             InitializeBoxCollider();
         }
-        private void InitializeBoxCollider()
-        {
-            var boxCollider = GetComponent<BoxCollider>();
-            if (!boxCollider)
-            {
-                var bc = this.gameObject.AddComponent<BoxCollider>();
-                bc.isTrigger = true;
-            }
-        }
 
-        void Update()
+		void Update()
 		{
 			if (_containsSpawnedObject) return;
 
@@ -56,6 +47,16 @@ namespace Game.Core{
 			var randomDestroyTime = UnityEngine.Random.Range(_minSpawnTime, _maxSpawnTime);
 			StartCoroutine(DestroySpawnedItemAfter(randomDestroyTime));
 		}
+
+        private void InitializeBoxCollider()
+        {
+            var boxCollider = GetComponent<BoxCollider>();
+            if (!boxCollider)
+            {
+                var bc = this.gameObject.AddComponent<BoxCollider>();
+                bc.isTrigger = true;
+            }
+        }
 
 		private IEnumerator DestroySpawnedItemAfter(float delay)
 		{
@@ -92,20 +93,19 @@ namespace Game.Core{
 			ClearSpawnedItemFromSpawner();
 		}
 
-		protected bool IsCharacter(Collider other)
+		private bool IsCharacter(Collider other)
         {
             if (other.gameObject.GetComponent<Character>()) return true;
             return false;
         }
 
-		protected void AddItemToInventoryOf(Character character)
+		private void AddItemToInventoryOf(Character character)
         {
 			if (_spawnedItemConfig == null) 
 			{
 				Debug.LogWarning("The Spawned was null.  This is something to look at later. ");
 				return;
 			}
-
 
 			if (_spawnedItemConfig.IsWeapon()) 
 			{

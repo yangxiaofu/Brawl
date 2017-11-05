@@ -5,12 +5,8 @@ using UnityEngine;
 namespace Game.Core{
 	public class ScoringSystem : MonoBehaviour 
 	{
-		[SerializeField] float _points = 0;
-		public float points{get{return _points;}}
-		void Start()
-		{
-			_points = 0;
-		}
+		private float _points = 0;
+		public float points{ get{return _points;}}
 
 		public void AddPoints(float pointsToAdd)
 		{

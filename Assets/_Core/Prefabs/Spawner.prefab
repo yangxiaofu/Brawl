@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4686998081655764}
   - component: {fileID: 114705838420597424}
   - component: {fileID: 65973417513320506}
+  - component: {fileID: 65366343313380828}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -35,12 +36,24 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1231307269817356}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.93, y: 0.53, z: -1.85}
+  m_LocalPosition: {x: 15.38, y: 0.53, z: -9.64}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &65366343313380828
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1231307269817356}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65973417513320506
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -65,9 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _itemsToPotentiallySpawn:
-  - {fileID: 11400000, guid: f76a23442c0564876a44a21a8e503bac, type: 2}
-  - {fileID: 11400000, guid: 3acd3bd196bd84969b2c4f8b681371ba, type: 2}
-  - {fileID: 11400000, guid: f11ad4b4c0a964f0a9b5b9c739f3131b, type: 2}
-  _probabilityOfSpawnPerSecond: 0.05
+  - {fileID: 11400000, guid: 6f114a0f0ecbb41139d0618a9f8f43bc, type: 2}
+  _probabilityOfSpawnPerSecond: 1
   _maxSpawnTime: 10
   _minSpawnTime: 5

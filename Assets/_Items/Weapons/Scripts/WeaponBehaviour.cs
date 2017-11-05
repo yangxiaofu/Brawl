@@ -21,8 +21,8 @@ namespace Game.Items{
 		public void Setup(WeaponConfig config)
 		{
 			_config = config;
-			_remainingAmmo = config.startingAmmo;
-			_startingAmmo = config.startingAmmo;
+			_remainingAmmo = (config as RangeWeaponConfig).startingAmmo;
+			_startingAmmo = (config as RangeWeaponConfig).startingAmmo;
 		}
 
 		public void Fire(Vector3 direction)
@@ -52,13 +52,12 @@ namespace Game.Items{
 			if (!_weaponSystem.primaryWeaponBehaviour.GetComponentInChildren<ProjectileSocket>()) 
 				return;
 
-            var projectileObject = Instantiate(_config.GetProjectilePrefab()) as GameObject;
+			var rangeWeaponConfig = (_config as RangeWeaponConfig);
+            var projectileObject = Instantiate(rangeWeaponConfig.projectileConfig.GetProjectilePrefab()) as GameObject;
 			var character = GetComponent<Character>();
 			var projectile = projectileObject.GetComponent<Projectile>();
 			var particleEffect = _config.GetParticleSystemPrefab();
-
-			var args = new ProjectileArgs(character, direction, particleEffect);
-			projectile.Setup(args);
+			rangeWeaponConfig.AddComponentTo(projectileObject, character, direction);			
 
 			var socket = _weaponSystem.primaryWeaponBehaviour.GetComponentInChildren<ProjectileSocket>();
 
@@ -68,7 +67,7 @@ namespace Game.Items{
 				socket.transform.position.z
 			);
 
-			var physics = new GamePhysics(direction, _config.projectileSpeed);
+			var physics = new GamePhysics(direction, (_config as RangeWeaponConfig).projectileSpeed);
 			var rigidBody = projectileObject.GetComponent<Rigidbody>();
             rigidBody.AddForce(physics.GetForce(), ForceMode.VelocityChange );
         }

@@ -8,6 +8,7 @@ using Game.Core;
 using Game.Core.ControllerInputs;
 using Game.UI;
 using Panda;
+using System;
 
 namespace Game.Characters{
 	public class Character : MonoBehaviour 
@@ -92,7 +93,8 @@ namespace Game.Characters{
         void Start()
         {
             InitializeCharacterVariables();
-            InitializeCharacterWeaponSystem();
+			_weaponSystem.InitializeWeaponSystem();
+            
         }
 
         void Update()
@@ -114,7 +116,7 @@ namespace Game.Characters{
                 if(_weaponSystem.ShotIsFired(_isBot, _controller))
 				{		
 					_characterCanShoot = false;
-					var secondsToDelayUpdate = _weaponSystem.primaryWeapon.secondsBetweenShots;
+					var secondsToDelayUpdate = (_weaponSystem.primaryWeapon as RangeWeaponConfig).secondsBetweenShots;
 					StartCoroutine(UpdateCharacterCanShootAfter(secondsToDelayUpdate));
 				}
             }
@@ -127,9 +129,7 @@ namespace Game.Characters{
 
         private void InitializeCharacterWeaponSystem()
         {
-            _weaponSystem.SetupPrimaryWeapon();
-            if (_weaponSystem.GunOnStart())
-                _weaponSystem.PutGunInHand();
+            
         }
 
 		private IEnumerator UpdateCharacterCanShootAfter(float delay)
@@ -194,9 +194,14 @@ namespace Game.Characters{
 			{
 				Dash();
 			}
-        }
 
-		private void InitializeCharacterVariables()
+			if (button == PS4_Controller_Input.Button.SQUARE)
+			{
+				_weaponSystem.UseSecondaryWeapon();
+			}
+        }
+		
+        private void InitializeCharacterVariables()
         {
             _rb = GetComponent<Rigidbody>();
             Assert.IsNotNull(_rb);
@@ -278,7 +283,7 @@ namespace Game.Characters{
 
 		private void DamageCharacter(Projectile projectile)
 		{
-			GetComponent<HealthSystem>().TakeDamage(projectile.damagePerHit);
+			GetComponent<HealthSystem>().TakeDamage(projectile.GetProjectileDamage());
 		}
 
 		private IEnumerator EndInvincible(float delay)

@@ -7,7 +7,7 @@ using Game.Characters;
 namespace Game.Core{
 	[ExecuteInEditMode]
 	public class ItemPickup : MonoBehaviour {
-		[SerializeField] protected WeaponConfig _weapon;
+		[SerializeField] protected ItemConfig _weapon;
 
 		void Update()
         {
@@ -27,7 +27,7 @@ namespace Game.Core{
 
         protected void AddItemToCharacterInventory(Character character)
         {
-            character.gameObject.GetComponent<WeaponSystem>().UpdateWeapon(_weapon);
+            character.gameObject.GetComponent<WeaponSystem>().UpdateWeapon(_weapon as WeaponConfig);
             Destroy(this.gameObject);
         }
 

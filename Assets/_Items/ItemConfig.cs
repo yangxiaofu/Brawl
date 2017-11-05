@@ -5,10 +5,7 @@ using UnityEngine;
 namespace Game.Items{
 	public abstract class ItemConfig : ScriptableObject {
 		[SerializeField] protected GameObject _itemPrefab;
-		public GameObject GetItemPrefab()
-		{
-			return _itemPrefab;
-		}
+		public GameObject GetItemPrefab() { return _itemPrefab;}
 		public abstract bool IsWeapon();
 	}
 }
