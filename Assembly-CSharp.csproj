@@ -80,6 +80,8 @@
      <Compile Include="Assets\_Items\_Weapons\Scripts\Blast\BlastConfig.cs" />
      <Compile Include="Assets\_Items\_Weapons\Scripts\Blast\ExplosionBlastBehaviour.cs" />
      <Compile Include="Assets\_Items\_Weapons\Scripts\Blast\ExplosionBlastConfig.cs" />
+     <Compile Include="Assets\_Items\_Weapons\Scripts\Blast\FreezeBlastBehaviour.cs" />
+     <Compile Include="Assets\_Items\_Weapons\Scripts\Blast\FreezeBlastConfig.cs" />
      <Compile Include="Assets\_Items\_Weapons\Scripts\Projectiles\ProjectileBehaviour.cs" />
      <Compile Include="Assets\_Items\_Weapons\Scripts\Projectiles\ProjectileConfig.cs" />
      <Compile Include="Assets\_Items\_Weapons\Scripts\WeaponBehaviour.cs" />

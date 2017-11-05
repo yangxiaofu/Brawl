@@ -10,6 +10,7 @@ namespace Game.Items{
 		protected Character _character;
 		protected BlastConfig _blastConfig;
         protected WeaponConfig _weaponConfig;
+        protected List<Character> _charactersImpactedOnBlast = new List<Character>();
 		public void Setup(WeaponConfig weaponConfig, Character character){
 			_character = character;
 			_blastConfig = weaponConfig.GetBlastConfig();
@@ -69,19 +70,36 @@ namespace Game.Items{
             return totalPoints;
         }
 
-		protected void ApplyForce(GameObject characterObject)
-        {
-             var forceDirection = (characterObject.transform.position - this.transform.position).normalized;
-             var force = _blastConfig.blastForce;
-             characterObject.GetComponent<Rigidbody>().AddForce(forceDirection * force, ForceMode.Impulse);
-        }
-
 		IEnumerator DestroyParticleSystem(float delay){
 			yield return new WaitForSeconds(delay);
 			Destroy(this.gameObject);
 		}
 
-		public abstract int PerformBlast();
+		public int PerformBlast()
+        {
+            var totalHits = 0;
+            var hits = Physics.SphereCastAll(this.transform.position, _blastConfig.blastRadius, Vector3.up);
+
+            foreach (RaycastHit hit in hits)
+            {
+                if (hit.collider.gameObject.GetComponent<Character>())
+                {
+                    var hitCharacter = hit.collider.gameObject.GetComponent<Character>();
+                    _charactersImpactedOnBlast.Add(hitCharacter);
+
+                    if (hitCharacter != _character)
+                    {
+						totalHits += 1;
+                    }
+                }
+            }
+
+            DoBlastSpecificBehaviour();
+
+            return totalHits;
+        }
+
+        public abstract void DoBlastSpecificBehaviour();
 	}
 }
 
