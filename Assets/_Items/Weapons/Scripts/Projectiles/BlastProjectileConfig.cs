@@ -7,7 +7,6 @@ namespace Game.Items{
     public class BlastProjectileConfig : ProjectileConfig
     {
         [Header("Blast Projectile Specific")]
-		
         [SerializeField] float _blastRadius = 2f;
         public float blastRadius{get{return _blastRadius;}}
         [Tooltip("This is the amount of time it takes for the grenade to explode once it hits any collider.")]

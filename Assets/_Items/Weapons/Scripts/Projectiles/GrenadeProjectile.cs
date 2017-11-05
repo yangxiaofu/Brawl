@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 using Game.Characters;
 
 namespace Game.Items{
@@ -14,7 +15,8 @@ namespace Game.Items{
 
         public override void PerformCollisionTasks(Collision other)
         {
-
+			Assert.IsTrue(_config.secondsToDestroyProjectileAfterCollision > (_config as BlastProjectileConfig).delayBeforeExplosion, "This will prompt the projectile object to disappear before the delayed explosion which may cause the particle effect to not player.  Make sure that the seconds to Destroy the projectile is greater than the delay before explosion.");
+			
             StartCoroutine(PlayParticleEffect((_config as BlastProjectileConfig).delayBeforeExplosion));
 			StartCoroutine(DestroyProjectileAfter(_config.secondsToDestroyProjectileAfterCollision));
         }
