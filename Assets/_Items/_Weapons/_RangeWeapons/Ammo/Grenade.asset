@@ -9,11 +9,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9076ba734cd14fdc8e3a8436cc155ea, type: 3}
-  m_Name: GrenadeProjectile
+  m_Name: Grenade
   m_EditorClassIdentifier: 
   _timeToDestroy: 2
   _secondsToDestroyProjectileAfterCollision: 0.2
-  _projectilePrefab: {fileID: 1443953676885246, guid: 52b9dbc0d68f04869a536388eb74e989,
+  _projectilePrefab: {fileID: 1443953676885246, guid: ce0d0e6af6d3b40768993ba0603ee605,
     type: 2}
-  _damagePerHit: 10
-  _blastConfig: {fileID: 11400000, guid: d796f22224d1946dc889d8d81d4a71b9, type: 2}
+  _damagePerHit: 50
+  _blastConfig: {fileID: 11400000, guid: 716878002caf24394826a0b4cb0212d7, type: 2}

@@ -13,6 +13,10 @@ namespace Game.Items{
 		[SerializeField] WeaponConfig _primaryWeapon;
 		public WeaponConfig primaryWeapon{get{return _primaryWeapon;}}
 		[SerializeField] WeaponConfig _secondaryWeapon;
+
+		[Space]
+		[Header("Throwing Items")]
+		[Tooltip("This is the strength at which the player will be able to throw the item in which they are throwing.")]
 		[SerializeField] float _throwPower = 10f;
 		[Tooltip("Increase or Decrease this in order to adjust the throwing angle of the player.")]
 		[SerializeField] float _throwAngle = 1f;
@@ -34,7 +38,7 @@ namespace Game.Items{
             if (GunOnStart())
                 PutGunInHand();
 		}
-        private void SetupPrimaryWeapon()  //TODO: remove to the main character code. 
+        private void SetupPrimaryWeapon()
         {
 			if (GetComponent<WeaponBehaviour>()) 
 				Destroy(GetComponent<WeaponBehaviour>());
@@ -48,11 +52,21 @@ namespace Game.Items{
 			_secondaryWeapon = weaponConfig;
 		}
 
-		public void UseSecondaryWeapon() //Shoots in the direction of the transform. 
-		{
-			if (_secondaryWeapon is ThrowableWeaponConfig)
-        		ThrowWeapon();
-            
+		//The secondary weapon can only be used if it exists.  This means that it's only used once. 
+		public void UseSecondaryWeapon()
+        {
+			if (_secondaryWeapon == null)
+				return;
+
+            if (_secondaryWeapon is ThrowableWeaponConfig)
+                ThrowWeapon();
+
+			ReduceSecondaryWeaponQuantity();
+        }
+
+        private void ReduceSecondaryWeaponQuantity()
+        {
+			_secondaryWeapon = null;
         }
 
         private void ThrowWeapon()

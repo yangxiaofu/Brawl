@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33221516466695452}
   - component: {fileID: 23594217108221010}
   m_Layer: 0
-  m_Name: SciFiGunLightYellow
+  m_Name: Machine Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
