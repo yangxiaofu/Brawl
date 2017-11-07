@@ -190,7 +190,14 @@ namespace Game.Characters
 			{
 				_weaponSystem.UseSecondaryWeapon();
 			}
+
+			if (button == PS4_Controller_Input.Button.TRIANGLE)
+			{
+		
+				_weaponSystem.UseSpecialAbility();
+			}
         }
+		
 		
         private void InitializeCharacterVariables()
         {

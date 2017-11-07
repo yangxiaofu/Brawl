@@ -73,9 +73,14 @@
      <Compile Include="Assets\_Core\Scripts\PLAYER_TAG.cs" />
      <Compile Include="Assets\_Core\Scripts\ScoreSettings.cs" />
      <Compile Include="Assets\_Core\Scripts\ScoringSystem.cs" />
+     <Compile Include="Assets\_Core\Scripts\SkySpecialAbilitySocket.cs" />
      <Compile Include="Assets\_Core\Scripts\Spawner.cs" />
      <Compile Include="Assets\_Core\Scripts\ThrowSocket.cs" />
      <Compile Include="Assets\_Core\Tests\PhysicsApplyForce.cs" />
+     <Compile Include="Assets\_Items\_Weapons\_SpecialAbilities\_FallingItems\FallingItemBehaviour.cs" />
+     <Compile Include="Assets\_Items\_Weapons\_SpecialAbilities\_FallingItems\FallingItemsBehaviour.cs" />
+     <Compile Include="Assets\_Items\_Weapons\_SpecialAbilities\_FallingItems\FallingItemsSpecialAbilityConfig.cs" />
+     <Compile Include="Assets\_Items\_Weapons\_SpecialAbilities\SpecialAbilityConfig.cs" />
      <Compile Include="Assets\_Items\_Weapons\Scripts\Blast\BlastBehaviour.cs" />
      <Compile Include="Assets\_Items\_Weapons\Scripts\Blast\BlastConfig.cs" />
      <Compile Include="Assets\_Items\_Weapons\Scripts\Blast\ExplosionBlastBehaviour.cs" />

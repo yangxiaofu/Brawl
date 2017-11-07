@@ -13,6 +13,7 @@ namespace Game.Items{
 		[SerializeField] WeaponConfig _primaryWeapon;
 		public WeaponConfig primaryWeapon{get{return _primaryWeapon;}}
 		[SerializeField] WeaponConfig _secondaryWeapon;
+		[SerializeField] SpecialAbilityConfig _specialAbilty;
 
 		[Space]
 		[Header("Throwing Items")]
@@ -24,7 +25,6 @@ namespace Game.Items{
 		WeaponBehaviour _primaryWeaponBehaviour;
 		public WeaponBehaviour primaryWeaponBehaviour{get{return _primaryWeaponBehaviour;}}
 		WeaponGrip[] _weaponGrip;
-
 		ThrowSocket _throwSocket;
 		void Start()
 		{
@@ -38,19 +38,17 @@ namespace Game.Items{
             if (GunOnStart())
                 PutGunInHand();
 		}
-        private void SetupPrimaryWeapon()
-        {
-			if (GetComponent<WeaponBehaviour>()) 
-				Destroy(GetComponent<WeaponBehaviour>());
-	
-            _primaryWeaponBehaviour = this.gameObject.AddComponent<WeaponBehaviour>();
-            _primaryWeaponBehaviour.Setup(_primaryWeapon as WeaponConfig);
-        }
 
         public void UpdateWeapon(WeaponConfig weaponConfig)
 		{
 			_secondaryWeapon = weaponConfig;
 		}
+
+		public void UsePrimaryWeapon(Vector3 direction)
+        {
+			_primaryWeaponBehaviour.Fire(direction);
+        }
+
 
 		//The secondary weapon can only be used if it exists.  This means that it's only used once. 
 		public void UseSecondaryWeapon()
@@ -64,6 +62,38 @@ namespace Game.Items{
 			ReduceSecondaryWeaponQuantity();
         }
 
+		public void UseSpecialAbility()
+		{
+			if (EnergyLevelExists())
+				_specialAbilty.Use();
+		}
+
+        private void SetupPrimaryWeapon()
+        {
+			if (GetComponent<WeaponBehaviour>()) 
+				Destroy(GetComponent<WeaponBehaviour>());
+	
+            _primaryWeaponBehaviour = this.gameObject.AddComponent<WeaponBehaviour>();
+            _primaryWeaponBehaviour.Setup(_primaryWeapon as WeaponConfig);
+        }
+
+		private bool EnergyLevelExists()
+		{
+			var energySystem = GetComponent<EnergySystem>();
+			Assert.IsNotNull(energySystem);
+
+			if (energySystem.energyAsPercentage < _specialAbilty.energyToConsume)
+			{
+				return false;
+			} 
+			else 
+			{
+				energySystem.ConsumeEnergy(_specialAbilty.energyToConsume);
+				return true;
+			}
+		}
+
+
         private void ReduceSecondaryWeaponQuantity()
         {
 			_secondaryWeapon = null;
@@ -73,7 +103,6 @@ namespace Game.Items{
         {
             var weaponPrefab = _secondaryWeapon.GetItemPrefab();
             var weaponObject = Instantiate(weaponPrefab, _throwSocket.transform.position, Quaternion.identity) as GameObject;
-
 	
 			var throwableWeaponConfig = _secondaryWeapon as ThrowableWeaponConfig;
 			var behaviour = throwableWeaponConfig.blastConfig.AddComponentTo(weaponObject);
@@ -90,11 +119,7 @@ namespace Game.Items{
             rb.AddForce(throwDirection * _throwPower, ForceMode.Impulse);
         }
 
-        public void UsePrimaryWeapon(Vector3 direction)
-        {
-			_primaryWeaponBehaviour.Fire(direction);
-        }
-
+     
 		private void FindWeaponGripTranform()
         {
             _weaponGrip = GetComponentsInChildren<WeaponGrip>();

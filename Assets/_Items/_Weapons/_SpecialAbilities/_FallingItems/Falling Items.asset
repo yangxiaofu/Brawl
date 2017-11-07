@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8754020d5be642889202444bf6539eb, type: 3}
+  m_Name: Falling Items
+  m_EditorClassIdentifier: 
+  _fallingItemsSocketPrefab: {fileID: 1064498883108452, guid: b7a45cb51942c407d8a58ba87fc049f6,
+    type: 2}
+  _delayExplosionAfterFirstCollision: 3
+  _fallingObjectPrefab: {fileID: 1467168963394766, guid: 2db1fb5a378d34710a5e026d9d1b2a77,
+    type: 2}
+  _explosionParticleEffectPrefab: {fileID: 1129565400138064, guid: 9980ae1ad1a764e638b4c6973eb398d3,
+    type: 2}
