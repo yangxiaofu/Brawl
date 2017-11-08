@@ -56,14 +56,11 @@ namespace Game.Characters
 		[SerializeField] float _beginAttackThreshold = 0.8f;
 		public float beginAttackThreshold{get{return _beginAttackThreshold;}}
 		public Character target;
-		public float dashDistance{get{return _dashDistance;}}
 		WeaponSystem _weaponSystem;
-		Movement _movement;
 		Animator _anim;
 		Rigidbody _rb;
 		EnergySystem _energySystem;
 		CapsuleCollider _cc;
-		public Rigidbody rigidBody{get{return _rb;}}
 		Transform _groundChecker;
         bool _isGrounded = true;
 		bool _characterCanShoot = true;
@@ -193,7 +190,6 @@ namespace Game.Characters
 
 			if (button == PS4_Controller_Input.Button.TRIANGLE)
 			{
-		
 				_weaponSystem.UseSpecialAbility();
 			}
         }
@@ -222,7 +218,6 @@ namespace Game.Characters
 			_characterRenderer = GetComponentInChildren<Renderer>();
 			Assert.IsNotNull(_characterRenderer);
 			
-			_movement = new Movement(this);
         }
 
 		public bool Jump()
@@ -231,7 +226,14 @@ namespace Game.Characters
 				return false;
 
 			_energySystem.ConsumeEnergy(_energyConsumeOnJump);
-			_movement.Jump();
+			
+			var physics = new GamePhysics();
+			var appliedForce = physics.GetAppliedForceWithGravity(Vector3.up, _jumpHeight);
+
+			_rb.AddForce
+			(
+				appliedForce, ForceMode.VelocityChange
+			);
 
 			return true;
 		}
@@ -242,7 +244,10 @@ namespace Game.Characters
 				return false;
 
 			_energySystem.ConsumeEnergy(_energyToConsumeOnDash); 
-			_movement.Dash();
+
+			Vector3 dashVelocity = Vector3.Scale(this.transform.forward, _dashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * _rb.drag + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * _rb.drag + 1)) / -Time.deltaTime)));
+            _rb.AddForce(dashVelocity, ForceMode.VelocityChange);
+			
 			return true;
 		}
 		void OnCollisionEnter(Collision other)

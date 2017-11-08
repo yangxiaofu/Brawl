@@ -13,7 +13,6 @@ namespace Game.Characters{
 		Character _character;
 		NavMeshAgent _agent;
 		WeaponSystem _weaponSystem;
-
 		void Start()
 		{
 			//TODO: Change to Type Get when all merged.
@@ -26,7 +25,6 @@ namespace Game.Characters{
 			Assert.IsNotNull(_weaponSystem);
 
 			_agent = GetComponent<NavMeshAgent>();
-			
 		}
 
 		void Update()

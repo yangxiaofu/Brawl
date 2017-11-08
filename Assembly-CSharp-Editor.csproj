@@ -51,8 +51,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\_Characters\Scripts\Editor\EnergySystemLogicTests.cs" />
      <Compile Include="Assets\_Core\Calculator\Editor\TotalPointsCalculatorTests.cs" />
      <Compile Include="Assets\_Core\ControllerInputs\Editor\ControllerBehaviourEditor.cs" />
+     <Compile Include="Assets\_Core\Tests\Editor\GamePhysicsTests.cs" />
      <Compile Include="Assets\_Core\Tests\Editor\PhysicsApplyForceEditor.cs" />
      <Compile Include="Assets\HealthBar\Editor\ADInspector.cs" />
      <Compile Include="Assets\HealthBar\Editor\HealthBarInspector.cs" />

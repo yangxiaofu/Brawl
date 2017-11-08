@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using NUnit.Framework;
 
-namespace Game.Core.CalculatorTests{
+namespace Game.Core.UnitTests{
 
 	[TestFixture]
 	public class TotalPointsCalculatorTests {

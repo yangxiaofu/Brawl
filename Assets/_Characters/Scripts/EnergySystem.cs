@@ -21,9 +21,10 @@ namespace Game.Characters{
 			_currentEnergy = Mathf.Clamp(_currentEnergy, 0, _startingEnergy);
 		}
 
-		public bool HasEnergy(float energy)
+		public bool HasEnergy(float energyToConsume)
 		{
-			return (_currentEnergy > energy);
+			var logic = new EnergySystemLogic();
+			return logic.HasEnergy(_currentEnergy, energyToConsume);
 		}
 
 	}

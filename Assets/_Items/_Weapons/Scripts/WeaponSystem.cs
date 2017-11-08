@@ -49,8 +49,6 @@ namespace Game.Items{
 			_primaryWeaponBehaviour.Fire(direction);
         }
 
-
-		//The secondary weapon can only be used if it exists.  This means that it's only used once. 
 		public void UseSecondaryWeapon()
         {
 			if (_secondaryWeapon == null)
