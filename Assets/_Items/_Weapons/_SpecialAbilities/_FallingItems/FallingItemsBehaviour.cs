@@ -24,6 +24,7 @@ namespace Game.Items{
 
         public void BeginFallingItems(GameObject fallingItemsPrefab)
         {
+            Debug.Log("Begin Falling Items");
             GetChildrenSockets();
             DropItems(fallingItemsPrefab);
         }
@@ -42,7 +43,8 @@ namespace Game.Items{
                 
 				bombBehaviour.Setup(
                     _config.delayExplosionAfterFirstCollision, 
-                    _config.explosionParticleEffectPrefab
+                    _config.explosionParticleEffectPrefab, 
+                    _config.GetAudioClip()
                 );
             }
         }

@@ -15,9 +15,10 @@ namespace Game.Items{
 		public float blastForce{get{return _blastForce;}}
 		[SerializeField] float _delayBeforeExplosion = 2f;
 		public float delayBeforeExplosion{get{return _delayBeforeExplosion;}}
-
-		public float _damage = 10f;
+		[SerializeField] float _damage = 10f;
 		public float GetDamage(){return _damage;}
+		[SerializeField] AudioClip _audio;
+		public AudioClip GetAudio(){ return _audio;}
 		public abstract BlastBehaviour AddComponentTo(GameObject gameObjectToAddTo);
 	}
 }

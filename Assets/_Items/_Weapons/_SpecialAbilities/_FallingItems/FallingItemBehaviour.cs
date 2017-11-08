@@ -4,16 +4,28 @@ using UnityEngine;
 
 namespace Game.Items{
 	public class FallingItemBehaviour : MonoBehaviour {
-		[SerializeField] float _delayAfterFirstCollision = 0f;
-		[SerializeField] GameObject _explosionParticleEffectPrefab;
+		float _delayAfterFirstCollision = 0f;
+		GameObject _explosionParticleEffectPrefab;
+		AudioClip _audioClip;
+		AudioSource _audioSource;
+		public void Setup(float delayAfterFirstCollision, GameObject explosionParticleEffect, AudioClip audioClip)
+        {
+            _delayAfterFirstCollision = delayAfterFirstCollision;
+            _explosionParticleEffectPrefab = explosionParticleEffect;
+            _audioClip = audioClip;
 
-		public void Setup(float delayAfterFirstCollision, GameObject explosionParticleEffect)
-		{
-			_delayAfterFirstCollision = delayAfterFirstCollision;	
-			_explosionParticleEffectPrefab = explosionParticleEffect;
-		}
+            SetupAudioSource(audioClip);
+        }
 
-		void OnCollisionEnter(Collision other)
+        private void SetupAudioSource(AudioClip audioClip)
+        {
+            _audioSource = this.gameObject.AddComponent<AudioSource>();
+            _audioSource.loop = false;
+            _audioSource.playOnAwake = false;
+            _audioSource.clip = audioClip;
+        }
+
+        void OnCollisionEnter(Collision other)
 		{
 			StartCoroutine(BeginExplosionTimer());
 		}
@@ -30,9 +42,10 @@ namespace Game.Items{
 			);
 
 			var particleSystem = particleEffectObject.GetComponent<ParticleSystem>();
-
 			var duration = particleSystem.main.duration;
+			
 			particleSystem.Play();
+			_audioSource.Play();
 
 			Destroy(this.gameObject);
 		}

@@ -26,10 +26,14 @@ namespace Game.Items{
 		public WeaponBehaviour primaryWeaponBehaviour{get{return _primaryWeaponBehaviour;}}
 		WeaponGrip[] _weaponGrip;
 		ThrowSocket _throwSocket;
+		EnergySystem _energySystem;
 		void Start()
 		{
 			_throwSocket = GetComponentInChildren<ThrowSocket>();
 			Assert.IsNotNull(_throwSocket, "Please add a throw socket game object to the child of " + this.gameObject.name);
+			
+			_energySystem = GetComponent<EnergySystem>();
+			Assert.IsNotNull(_energySystem);
 		}
 		public void InitializeWeaponSystem()
 		{
@@ -60,11 +64,19 @@ namespace Game.Items{
 			ReduceSecondaryWeaponQuantity();
         }
 
-		public void UseSpecialAbility()
-		{
-			if (EnergyLevelExists())
-				_specialAbilty.Use();
-		}
+		public void AttemptSpecialAbility()
+        {
+            if (!EnergyLevelExists())
+                return;
+
+            UseSpecialAbility();
+        }
+
+        private void UseSpecialAbility()
+        {	
+            _energySystem.ConsumeEnergy(_specialAbilty.energyToConsume);
+            _specialAbilty.Use();
+        }
 
         private void SetupPrimaryWeapon()
         {
@@ -79,16 +91,7 @@ namespace Game.Items{
 		{
 			var energySystem = GetComponent<EnergySystem>();
 			Assert.IsNotNull(energySystem);
-
-			if (energySystem.energyAsPercentage < _specialAbilty.energyToConsume)
-			{
-				return false;
-			} 
-			else 
-			{
-				energySystem.ConsumeEnergy(_specialAbilty.energyToConsume);
-				return true;
-			}
+			return energySystem.HasEnergy(_specialAbilty.energyToConsume) ? true : false;
 		}
 
 

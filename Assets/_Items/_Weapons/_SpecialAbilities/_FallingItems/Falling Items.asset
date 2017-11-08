@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Name: Falling Items
   m_EditorClassIdentifier: 
   _energyToConsume: 50
+  _audioClip: {fileID: 8300000, guid: 5526d4d6cbdf84ecfb8c89918aef8952, type: 3}
   _fallingItemsSocketPrefab: {fileID: 1064498883108452, guid: b7a45cb51942c407d8a58ba87fc049f6,
     type: 2}
   _delayExplosionAfterFirstCollision: 1

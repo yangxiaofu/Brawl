@@ -191,7 +191,7 @@ namespace Game.Characters
 
 			if (button == PS4_Controller_Input.Button.TRIANGLE)
 			{
-				_weaponSystem.UseSpecialAbility();
+				_weaponSystem.AttemptSpecialAbility();
 			}
         }
 		

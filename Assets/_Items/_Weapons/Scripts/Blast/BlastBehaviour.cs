@@ -24,7 +24,6 @@ namespace Game.Items{
 
 		void OnCollisionEnter(Collision other)
 		{
-			//Start the timer for exploseion.
 			if (other.gameObject.GetComponent<Character>() == _character)
 				return;
 
@@ -34,32 +33,37 @@ namespace Game.Items{
 		IEnumerator StartExplosionTimer(float delay)
         {
             yield return new WaitForSeconds(delay);
-            PlayParticleSystem();
 
+            UpdateScore();
+
+            GameObject particleSystemObject = HandleParticleSystem();
+
+            Destroy(this.gameObject);
+            
+        }
+
+        private void UpdateScore()
+        {
             float totalPoints = CalculateTotalPoints();
             var scoringSystem = _character.controller.GetComponent<ScoringSystem>();
             scoringSystem.AddPoints(totalPoints);
-
-            Destroy(this.gameObject);
         }
 
-		private void PlayParticleSystem()
+        private GameObject HandleParticleSystem()
         {
             var particleSystemPrefab = _blastConfig.GetImpactParticleSystemPrefab();
-
-            var particleSystemObject = Instantiate(
-                particleSystemPrefab,
-                this.transform.position,
-                _blastConfig.GetImpactParticleSystemPrefab().transform.rotation
-            ) as GameObject;
-
+            var particleSystemObject = Instantiate(particleSystemPrefab, this.transform.position, _blastConfig.GetImpactParticleSystemPrefab().transform.rotation) as GameObject;
             var particleSystem = particleSystemObject.GetComponent<ParticleSystem>();
             particleSystem.Play();
 
-			StartCoroutine(DestroyParticleSystem(particleSystem.main.duration));            
+            var destroyTimer = particleSystemObject.AddComponent<DestroyTimer>();
+            destroyTimer.SetupTimer(particleSystem.main.duration);
+            destroyTimer.Begin();
+
+            return particleSystemObject;
         }
 
-		private float CalculateTotalPoints()
+        private float CalculateTotalPoints()
         {
             var pointsPerHit = GameManager.Instance().scoreSettings.GetPointsPerHit();
 			var totalHits = PerformBlast();
@@ -70,12 +74,7 @@ namespace Game.Items{
             return totalPoints;
         }
 
-		IEnumerator DestroyParticleSystem(float delay){
-			yield return new WaitForSeconds(delay);
-			Destroy(this.gameObject);
-		}
-
-		public int PerformBlast()
+		private int PerformBlast()
         {
             var totalHits = 0;
             var hits = Physics.SphereCastAll(this.transform.position, _blastConfig.blastRadius, Vector3.up);
