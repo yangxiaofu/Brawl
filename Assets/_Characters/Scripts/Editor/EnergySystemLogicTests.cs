@@ -10,8 +10,11 @@ namespace Game.Characters.UnitTests{
 		EnergySystemLogic _sut;
 
 		[SetUp]
-		public void Setup(){
-			_sut = new EnergySystemLogic();
+		public void Setup()
+		{
+			float minEnergy = 0;
+			float maxEnergy = 100f;
+			_sut = new EnergySystemLogic(minEnergy, maxEnergy);
 		}
 
 		[Test]
@@ -36,12 +39,12 @@ namespace Game.Characters.UnitTests{
 		}
 
 		[Test]
-		[TestCase(50, 10, 100, 60)]
-		[TestCase(50, 100, 100, 100)]
-		[TestCase(50, 50, 100, 100)]
-		public void EnergySystemLogic_IncreaseEnergy_ReturnsCorrectEnergyTotalAfterIncrease(float currentEnergyLevel, float energyToAdd, float maxEnergy, float response)
+		[TestCase(50, 10, 60)]
+		[TestCase(50, 100, 100)]
+		[TestCase(50, 50, 100)]
+		public void EnergySystemLogic_IncreaseEnergy_ReturnsCorrectEnergyTotalAfterIncrease(float currentEnergyLevel, float energyToAdd, float response)
 		{
-			Assert.AreEqual(response, _sut.IncreaseEnergy(currentEnergyLevel, energyToAdd, maxEnergy));
+			Assert.AreEqual(response, _sut.IncreaseEnergy(currentEnergyLevel, energyToAdd));
 		}
 	}
 
