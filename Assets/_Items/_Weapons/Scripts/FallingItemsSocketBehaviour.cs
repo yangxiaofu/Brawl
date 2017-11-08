@@ -1,18 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Game.Characters;
 using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace Game.Items{
-	public class FallingItemsBehaviour : MonoBehaviour 
+	public class FallingItemsSocketBehaviour : SocketBehaviour
 	{
 		List<GameObject> _fallingItemSockets = new List<GameObject>();
-		FallingItemsSpecialAbilityConfig _config;
-
-		public void SetupConfig(FallingItemsSpecialAbilityConfig config)
-		{
-			_config = config;
-		}
 
         private void GetChildrenSockets()
         {
@@ -24,7 +19,6 @@ namespace Game.Items{
 
         public void BeginFallingItems(GameObject fallingItemsPrefab)
         {
-            Debug.Log("Begin Falling Items");
             GetChildrenSockets();
             DropItems(fallingItemsPrefab);
         }
@@ -39,13 +33,8 @@ namespace Game.Items{
                     Quaternion.identity
                 );
                 fallingItemObject.transform.SetParent(_fallingItemSockets[i].transform);
-				var bombBehaviour = fallingItemObject.AddComponent<FallingItemBehaviour>();
-                
-				bombBehaviour.Setup(
-                    _config.delayExplosionAfterFirstCollision, 
-                    _config.explosionParticleEffectPrefab, 
-                    _config.GetAudioClip()
-                );
+			    var bombBehaviour = fallingItemObject.AddComponent<FallingItemBehaviour>();
+                bombBehaviour.SetupConfig((_config as FallingItemsSpecialAbilityConfig), _character);
             }
         }
     }

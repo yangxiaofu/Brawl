@@ -75,7 +75,10 @@ namespace Game.Items{
         private void UseSpecialAbility()
         {	
             _energySystem.ConsumeEnergy(_specialAbilty.energyToConsume);
-            _specialAbilty.Use();
+			var socketObject = _specialAbilty.SetupSocket();
+			var behaviour = _specialAbilty.AddComponentTo(socketObject);
+			behaviour.SetupConfig(_specialAbilty, GetComponent<Character>());
+            _specialAbilty.Use(behaviour);
         }
 
         private void SetupPrimaryWeapon()

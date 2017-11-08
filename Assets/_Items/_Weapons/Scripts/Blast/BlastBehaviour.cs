@@ -36,10 +36,7 @@ namespace Game.Items{
 
             UpdateScore();
 
-            GameObject particleSystemObject = HandleParticleSystem();
-
-            Destroy(this.gameObject);
-            
+            HandleParticleSystem();
         }
 
         private void UpdateScore()
@@ -49,18 +46,34 @@ namespace Game.Items{
             scoringSystem.AddPoints(totalPoints);
         }
 
-        private GameObject HandleParticleSystem()
+        private void HandleParticleSystem() //TODO: Refactor out to some form of delegation.  The other similar script is in FallingItemBehaviour
         {
-            var particleSystemPrefab = _blastConfig.GetImpactParticleSystemPrefab();
-            var particleSystemObject = Instantiate(particleSystemPrefab, this.transform.position, _blastConfig.GetImpactParticleSystemPrefab().transform.rotation) as GameObject;
+            //Instantiate the object.
+            var particleSystemObject = Instantiate(_blastConfig.GetImpactParticleSystemPrefab(), this.transform.position, _blastConfig.GetImpactParticleSystemPrefab().transform.rotation) as GameObject;
+
+            //Play Particle System
             var particleSystem = particleSystemObject.GetComponent<ParticleSystem>();
             particleSystem.Play();
 
+            //Play Audio Sound.
+            PlayExplosionAudioOn(particleSystemObject);
+
+            //SetupTimer
             var destroyTimer = particleSystemObject.AddComponent<DestroyTimer>();
             destroyTimer.SetupTimer(particleSystem.main.duration);
             destroyTimer.Begin();
 
-            return particleSystemObject;
+            //DestroyGameObject
+            Destroy(this.gameObject);
+        }
+
+        private void PlayExplosionAudioOn(GameObject particleSystemObject)
+        {
+            var audioSource = particleSystemObject.AddComponent<AudioSource>();
+            audioSource.loop = false;
+            audioSource.playOnAwake = false;
+            audioSource.clip = _weaponConfig.GetBlastConfig().GetAudio();
+            audioSource.Play();
         }
 
         private float CalculateTotalPoints()

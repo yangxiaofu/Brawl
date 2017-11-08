@@ -80,9 +80,6 @@
      <Compile Include="Assets\_Core\Scripts\Spawner.cs" />
      <Compile Include="Assets\_Core\Scripts\ThrowSocket.cs" />
      <Compile Include="Assets\_Core\Tests\PhysicsApplyForce.cs" />
-     <Compile Include="Assets\_Items\_Weapons\_SpecialAbilities\_FallingItems\FallingItemBehaviour.cs" />
-     <Compile Include="Assets\_Items\_Weapons\_SpecialAbilities\_FallingItems\FallingItemsBehaviour.cs" />
-     <Compile Include="Assets\_Items\_Weapons\_SpecialAbilities\_FallingItems\FallingItemsSpecialAbilityConfig.cs" />
      <Compile Include="Assets\_Items\_Weapons\_SpecialAbilities\SpecialAbilityConfig.cs" />
      <Compile Include="Assets\_Items\_Weapons\Scripts\Blast\BlastBehaviour.cs" />
      <Compile Include="Assets\_Items\_Weapons\Scripts\Blast\BlastConfig.cs" />
@@ -90,8 +87,12 @@
      <Compile Include="Assets\_Items\_Weapons\Scripts\Blast\ExplosionBlastConfig.cs" />
      <Compile Include="Assets\_Items\_Weapons\Scripts\Blast\FreezeBlastBehaviour.cs" />
      <Compile Include="Assets\_Items\_Weapons\Scripts\Blast\FreezeBlastConfig.cs" />
+     <Compile Include="Assets\_Items\_Weapons\Scripts\FallingItemBehaviour.cs" />
+     <Compile Include="Assets\_Items\_Weapons\Scripts\FallingItemsSocketBehaviour.cs" />
+     <Compile Include="Assets\_Items\_Weapons\Scripts\FallingItemsSpecialAbilityConfig.cs" />
      <Compile Include="Assets\_Items\_Weapons\Scripts\Projectiles\ProjectileBehaviour.cs" />
      <Compile Include="Assets\_Items\_Weapons\Scripts\Projectiles\ProjectileConfig.cs" />
+     <Compile Include="Assets\_Items\_Weapons\Scripts\SocketBehaviour.cs" />
      <Compile Include="Assets\_Items\_Weapons\Scripts\WeaponBehaviour.cs" />
      <Compile Include="Assets\_Items\_Weapons\Scripts\WeaponGrip.cs" />
      <Compile Include="Assets\_Items\_Weapons\Scripts\Weapons\MeleeWeaponConfig.cs" />

@@ -18,5 +18,4 @@ MonoBehaviour:
   _delayExplosionAfterFirstCollision: 1
   _fallingObjectPrefab: {fileID: 1869771151815354, guid: e8265a58de2624a0c98d8e087d65510e,
     type: 2}
-  _explosionParticleEffectPrefab: {fileID: 1129565400138064, guid: 9980ae1ad1a764e638b4c6973eb398d3,
-    type: 2}
+  _blastConfig: {fileID: 11400000, guid: d796f22224d1946dc889d8d81d4a71b9, type: 2}
