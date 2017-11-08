@@ -8,22 +8,25 @@ namespace Game.Characters{
 		[SerializeField] float _currentEnergy = 100f;
 		[SerializeField] float _increasePerSecond = 1f;
 		public float energyAsPercentage{ get{return _currentEnergy / _startingEnergy;}}
+		EnergySystemLogic logic;
+
+		void Start()
+		{
+			logic = new EnergySystemLogic();
+		}
 
 		void Update()
 		{
-			_currentEnergy += _increasePerSecond * Time.deltaTime;
-			_currentEnergy = Mathf.Clamp(_currentEnergy, 0, _startingEnergy);
+			_currentEnergy = logic.IncreaseEnergy(_currentEnergy, Time.deltaTime * _increasePerSecond, _startingEnergy);
 		}
 
 		public void ConsumeEnergy(float energyToConsume)
 		{
-			_currentEnergy -= energyToConsume;
-			_currentEnergy = Mathf.Clamp(_currentEnergy, 0, _startingEnergy);
+			_currentEnergy = logic.ConsumeEnergy(_currentEnergy, energyToConsume);
 		}
 
 		public bool HasEnergy(float energyToConsume)
 		{
-			var logic = new EnergySystemLogic();
 			return logic.HasEnergy(_currentEnergy, energyToConsume);
 		}
 
