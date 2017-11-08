@@ -21,16 +21,13 @@ namespace Game.Items
 
 		private void ApplyBlastForce()
         {
-            foreach(Character character in _charactersImpactedOnBlast){
-                 var forceDirection = (character.gameObject.transform.position - this.transform.position).normalized;
-                 var force = _blastConfig.blastForce;
-                 character.gameObject.GetComponent<Rigidbody>()
-                    .AddForce(forceDirection * force, ForceMode.Impulse);
+            foreach(Character character in _charactersImpactedOnBlast)
+            {
+                var forceDirection = (character.gameObject.transform.position - this.transform.position).normalized;
+                var rigidBody = character.gameObject.GetComponent<Rigidbody>();                 
+                rigidBody.AddForce(forceDirection * _blastConfig.blastForce, ForceMode.Impulse);
             }
-            
         }
-
-
     }
 }
 
