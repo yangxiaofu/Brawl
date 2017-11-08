@@ -56,6 +56,7 @@
      <Compile Include="Assets\_CameraAndUI\PlayerUI.cs" />
      <Compile Include="Assets\_Characters\Scripts\BotAI.cs" />
      <Compile Include="Assets\_Characters\Scripts\Character.cs" />
+     <Compile Include="Assets\_Characters\Scripts\CharacterLogic.cs" />
      <Compile Include="Assets\_Characters\Scripts\EnergySystem.cs" />
      <Compile Include="Assets\_Characters\Scripts\EnergySystemLogic.cs" />
      <Compile Include="Assets\_Characters\Scripts\HealthSystem.cs" />

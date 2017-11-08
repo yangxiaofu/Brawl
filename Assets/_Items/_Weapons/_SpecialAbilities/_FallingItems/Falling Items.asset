@@ -11,10 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8754020d5be642889202444bf6539eb, type: 3}
   m_Name: Falling Items
   m_EditorClassIdentifier: 
+  _energyToConsume: 50
   _fallingItemsSocketPrefab: {fileID: 1064498883108452, guid: b7a45cb51942c407d8a58ba87fc049f6,
     type: 2}
-  _delayExplosionAfterFirstCollision: 3
-  _fallingObjectPrefab: {fileID: 1467168963394766, guid: 2db1fb5a378d34710a5e026d9d1b2a77,
+  _delayExplosionAfterFirstCollision: 1
+  _fallingObjectPrefab: {fileID: 1869771151815354, guid: e8265a58de2624a0c98d8e087d65510e,
     type: 2}
   _explosionParticleEffectPrefab: {fileID: 1129565400138064, guid: 9980ae1ad1a764e638b4c6973eb398d3,
     type: 2}

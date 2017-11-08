@@ -74,6 +74,7 @@ namespace Game.Characters
 		public void Setup(ControllerBehaviour controller){_controller = controller;}
 		[HideInInspector] public bool isAttacking = false;
 		public bool IsDead() { return _isDead; }
+		CharacterLogic _characterLogic;
 		
 		void Awake()
         {
@@ -87,7 +88,7 @@ namespace Game.Characters
         {
             InitializeCharacterVariables();
 			_weaponSystem.InitializeWeaponSystem();
-            
+			_characterLogic = new CharacterLogic(this);
         }
 
         void Update()
@@ -250,24 +251,26 @@ namespace Game.Characters
 			
 			return true;
 		}
-		void OnCollisionEnter(Collision other)
-		{
-			if (!other.gameObject.GetComponent<ProjectileBehaviour>()) 
-				return;
+		void OnCollisionEnter(Collision collision)
+        {
+            DetermineIfCharacterDamagedFrom(collision);
+        }
 
-			var shootingCharacter = other.gameObject.GetComponent<ProjectileBehaviour>().shootingCharacter;
-			if (shootingCharacter == this) 
-				return;
+        private void DetermineIfCharacterDamagedFrom(Collision other)
+        {
+			if (_characterLogic.WillTakeDamageFrom(other.gameObject)) 
+			{
+				DamageCharacter(other.gameObject.GetComponent<ProjectileBehaviour>());
 
-			DamageCharacter(other.gameObject.GetComponent<ProjectileBehaviour>());
+				var secondsBetweenBlinks = 0.1f;
+				var totalNumberOfBlinks = 20;
 
-			float secondsBetweenBlinks = 0.1f;
-			int totalNumberOfBlinks = 20;
-			StartCoroutine(Blink(secondsBetweenBlinks, totalNumberOfBlinks));
+				StartCoroutine(Blink(secondsBetweenBlinks, totalNumberOfBlinks));
 
-			_isInvincible = true;
-			StartCoroutine(EndInvincible(_invincibleLength));
-		}
+				_isInvincible = true;
+				StartCoroutine(EndInvincible(_invincibleLength));
+			}         
+        }
 
         private IEnumerator Blink(float seconds, int numBlinks)
 		{

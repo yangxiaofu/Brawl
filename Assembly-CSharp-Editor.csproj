@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\_Characters\Scripts\Editor\CharacterLogicTests.cs" />
      <Compile Include="Assets\_Characters\Scripts\Editor\EnergySystemLogicTests.cs" />
      <Compile Include="Assets\_Characters\Scripts\Editor\HealthSystemLogicTests.cs" />
      <Compile Include="Assets\_Core\Calculator\Editor\TotalPointsCalculatorTests.cs" />
