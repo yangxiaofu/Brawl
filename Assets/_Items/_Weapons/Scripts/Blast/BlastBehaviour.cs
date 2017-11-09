@@ -11,6 +11,7 @@ namespace Game.Items{
 		protected BlastConfig _blastConfig;
         protected WeaponConfig _weaponConfig;
         protected List<Character> _charactersImpactedOnBlast = new List<Character>();
+        protected List<GameObject> _objectsImpactedOnBlast = new List<GameObject>();
 		public void Setup(WeaponConfig weaponConfig, Character character){
 			_character = character;
 			_blastConfig = weaponConfig.GetBlastConfig();
@@ -94,7 +95,8 @@ namespace Game.Items{
 
             foreach (RaycastHit hit in hits)
             {
-                if (hit.collider.gameObject.GetComponent<Character>())
+                var hitObject = hit.collider.gameObject;
+                if (hitObject.GetComponent<Character>())
                 {
                     var hitCharacter = hit.collider.gameObject.GetComponent<Character>();
                     _charactersImpactedOnBlast.Add(hitCharacter);
@@ -104,11 +106,25 @@ namespace Game.Items{
 						totalHits += 1;
                     }
                 }
+                else 
+                {
+                    _objectsImpactedOnBlast.Add(hitObject);
+                }
             }
 
             DoBlastSpecificBehaviour();
 
             return totalHits;
+        }
+
+        protected void ApplyBlastForceTo(GameObject characterObject)
+        {
+            if (characterObject.GetComponent<Rigidbody>())
+            {
+                var forceDirection = (characterObject.transform.position - this.transform.position).normalized;
+                var rigidBody = characterObject.gameObject.GetComponent<Rigidbody>();                 
+                rigidBody.AddForce(forceDirection * _blastConfig.blastForce, ForceMode.Impulse);
+            }   
         }
 
         public abstract void DoBlastSpecificBehaviour();

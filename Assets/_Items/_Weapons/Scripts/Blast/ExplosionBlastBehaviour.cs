@@ -7,7 +7,7 @@ using Game.Core;
 namespace Game.Items
 {
 	public class ExplosionBlastBehaviour : BlastBehaviour 
-    {
+    {   
 		void OnDrawGizmos()
         {
             Gizmos.color = Color.green;
@@ -16,18 +16,18 @@ namespace Game.Items
 
         public override void DoBlastSpecificBehaviour()
         {
-            foreach(Character character in _charactersImpactedOnBlast)
+            for(int i = 0; i < _charactersImpactedOnBlast.Count; i++)
             {
-                ApplyBlastForceTo(character);
+                ApplyBlastForceTo(_charactersImpactedOnBlast[i].gameObject);
+            }
+
+            for(int i = 0; i < _objectsImpactedOnBlast.Count; i++)
+            {
+                ApplyBlastForceTo(_objectsImpactedOnBlast[i]);
             }
         }
 
-		private void ApplyBlastForceTo(Character character)
-        {
-            var forceDirection = (character.gameObject.transform.position - this.transform.position).normalized;
-            var rigidBody = character.gameObject.GetComponent<Rigidbody>();                 
-            rigidBody.AddForce(forceDirection * _blastConfig.blastForce, ForceMode.Impulse);
-        }
+		
     }
 }
 
