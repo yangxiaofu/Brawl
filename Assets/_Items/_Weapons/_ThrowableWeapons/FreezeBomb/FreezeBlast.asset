@@ -11,10 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fef0dd1a10a14201a322f3af678231b, type: 3}
   m_Name: FreezeBlast
   m_EditorClassIdentifier: 
-  _blastImpactParticleSystemPrefab: {fileID: 1129565400138064, guid: 9980ae1ad1a764e638b4c6973eb398d3,
+  _blastImpactParticleSystemPrefab: {fileID: 1631041055441926, guid: bbccbe494104e4753a0c3c2aa1b25654,
     type: 2}
   _blastRadius: 2
   _blastForce: 50
   _delayBeforeExplosion: 2
   _damage: 10
+  _audio: {fileID: 8300000, guid: 5526d4d6cbdf84ecfb8c89918aef8952, type: 3}
   _freezeTime: 5

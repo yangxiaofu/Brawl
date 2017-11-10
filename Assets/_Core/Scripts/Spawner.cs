@@ -92,18 +92,13 @@ namespace Game.Core{
 
 		void OnTriggerEnter(Collider other)
 		{
-			if(IsCharacter(other)) 
+			if(other.gameObject.GetComponent<Character>()) 
 			{
-				var player = other.gameObject.GetComponent<Character>();
-				AddItemToInventoryOf(player);
+				var character = other.gameObject.GetComponent<Character>();
+				AddItemToInventoryOf(character);
 				ClearSpawnedItemFromSpawner();
 			} 
 		}
-
-		private bool IsCharacter(Collider other)
-        {
-			return other.gameObject.GetComponent<Character>() ? true : false; 
-        }
 
 		private void AddItemToInventoryOf(Character character)
         {
