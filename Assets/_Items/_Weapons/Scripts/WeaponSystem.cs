@@ -8,12 +8,13 @@ using Game.Core.ControllerInputs;
 using Panda;
 
 namespace Game.Items{
-	
 	public class WeaponSystem : MonoBehaviour {
 		[SerializeField] WeaponConfig _primaryWeapon;
 		public WeaponConfig primaryWeapon{get{return _primaryWeapon;}}
 		[SerializeField] WeaponConfig _secondaryWeapon;
 		[SerializeField] SpecialAbilityConfig _specialAbilty;
+
+		[SerializeField] float _lowAmmoThreshold = 1; //TODO: REfactor out into the weapon beahviour later. 
 
 		[Space]
 		[Header("Throwing Items")]
@@ -27,6 +28,7 @@ namespace Game.Items{
 		WeaponGrip[] _weaponGrip;
 		ThrowSocket _throwSocket;
 		EnergySystem _energySystem;
+		WeaponSystemLogic _weaponSystemLogic;
 		void Start()
 		{
 			_throwSocket = GetComponentInChildren<ThrowSocket>();
@@ -34,6 +36,8 @@ namespace Game.Items{
 			
 			_energySystem = GetComponent<EnergySystem>();
 			Assert.IsNotNull(_energySystem);
+
+			_weaponSystemLogic = new WeaponSystemLogic();
 		}
 		public void InitializeWeaponSystem()
 		{
@@ -41,6 +45,11 @@ namespace Game.Items{
 
             if (GunOnStart())
                 PutGunInHand();
+		}
+
+		public bool LowOnAmmo()
+		{
+			return _weaponSystemLogic.LowOnAmmo(_primaryWeaponBehaviour.remainingAmmo, _lowAmmoThreshold);
 		}
 
         public void UpdateWeapon(WeaponConfig weaponConfig)

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _blastImpactParticleSystemPrefab: {fileID: 1129565400138064, guid: 9980ae1ad1a764e638b4c6973eb398d3,
     type: 2}
-  _blastRadius: 10
+  _blastRadius: 5
   _blastForce: 50
   _delayBeforeExplosion: 2
   _damage: 25

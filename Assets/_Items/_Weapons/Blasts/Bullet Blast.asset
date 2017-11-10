@@ -14,5 +14,7 @@ MonoBehaviour:
   _blastImpactParticleSystemPrefab: {fileID: 1773120417003876, guid: 9c3945cc8535b4fa8a535dd630fb6ef9,
     type: 2}
   _blastRadius: 2
-  _blastForce: 50
+  _blastForce: 5
   _delayBeforeExplosion: 2
+  _damage: 5
+  _audio: {fileID: 0}

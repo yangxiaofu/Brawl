@@ -12,13 +12,8 @@ namespace Game.Characters
 	{
 
 		[Tooltip("Configure this to make the player a bot or not.")]
-		bool _isBot = false;
-		public bool isBot
-		{
-			get{return _isBot;}
-			set{_isBot = value;}
-		}
-
+		public bool isBot = false;
+		
 		[Space]
 
 		[Header ("Character Movement Parameters")]
@@ -78,7 +73,7 @@ namespace Game.Characters
 		
 		void Awake()
         {
-            if (!_isBot)
+            if (!isBot)
                 return;
 
             SetupNavMeshAgent();
@@ -93,7 +88,7 @@ namespace Game.Characters
 
         void Update()
         {
-			if (_isBot) 
+			if (isBot) 
 				return;
 			
 			CheckGrounded();
@@ -107,7 +102,7 @@ namespace Game.Characters
 
             if (_characterCanShoot)
             {
-                if(_weaponSystem.ShotIsFired(_isBot, _controller))
+                if(_weaponSystem.ShotIsFired(isBot, _controller))
 				{		
 					_characterCanShoot = false;
 					var secondsToDelayUpdate = (_weaponSystem.primaryWeapon as RangeWeaponConfig).secondsBetweenShots;
@@ -115,7 +110,7 @@ namespace Game.Characters
 				}
             }
 
-            if (_isBot)
+            if (isBot)
                 return;
 
             UpdatePlayerMovement();
@@ -314,7 +309,7 @@ namespace Game.Characters
 			if (!_controller) 
 				return;
 				
-			if (_isBot)
+			if (isBot)
 			{
 				if (target != null)
                 {
@@ -326,10 +321,16 @@ namespace Game.Characters
                     ResetLookAtWeight();
                 }
             } 
-			else if (!_isBot)
+			else 
 			{
-				var direction = new Vector3(_controller.GetRightStickHorizontal(), 0, _controller.GetRightStickVertical());
-				if (direction.magnitude > 0.2f)
+				var direction = new Vector3(
+					_controller.GetRightStickHorizontal(), 
+					0, 
+					_controller.GetRightStickVertical()
+				);
+
+				var rightStickThreshold = 0.2f;
+				if (direction.magnitude > rightStickThreshold)
 				{
 					float yOffset = 1f;
 					var pointDirection = new Vector3(

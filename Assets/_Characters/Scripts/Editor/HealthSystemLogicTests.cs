@@ -22,7 +22,8 @@ namespace Game.Characters.UnitTests
 		[TestCase(50, 100, 100, 100)]
 		[TestCase(50, 25, 100, 75)]
 		[TestCase(50, 0, 100, 50)]
-		public void HealthSystemLogic_AddHealth_ReturnsIncreasedHealth(float currentHealth, float healthToAdd, float maxHealth, float response){
+		public void HealthSystemLogic_AddHealth_ReturnsIncreasedHealth(float currentHealth, float healthToAdd, float maxHealth, float response)
+		{
 			Assert.AreEqual(response, sut.IncreaseHealth(currentHealth, healthToAdd));
 		}
 

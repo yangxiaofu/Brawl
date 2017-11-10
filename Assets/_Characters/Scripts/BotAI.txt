@@ -12,23 +12,25 @@ tree("BeAlive")
 	while not IsDead
 		parallel
 			tree("RandomMovementSelection")
-			fallback 
+			fallback
 				tree("Attack")
-				tree("ScanForCharacter")
+				tree("ScanForCharacters")
 				tree("RunForCover")
 				tree("Celebrate")
 
 tree("Attack")
 	sequence
 		not IsInDanger
+		HasEnoughAmmo
 		DoCharactersExist
 		ChooseRandomTarget
 		IsTargetWithinShootDistance
 		tree("ShootTarget")
 
-tree("ScanForCharacter")
+tree("ScanForCharacters")
 	sequence
 		not IsInDanger
+		HasEnoughAmmo
 		DoCharactersExist
 		ChooseRandomTarget
 		tree("MoveTowardTarget")

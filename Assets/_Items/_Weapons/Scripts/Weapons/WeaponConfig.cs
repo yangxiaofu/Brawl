@@ -10,8 +10,8 @@ namespace Game.Items{
 		[Header("Weapon Config Specific")]
 		[SerializeField] bool _isWeapon = false;
 		public override bool IsWeapon() { return _isWeapon;}
+		
 		[Space]
-
 		[SerializeField] Transform _weaponGripTransform;
 		public Transform weaponGripTransform{get{return _weaponGripTransform;}}
 		public abstract BlastConfig GetBlastConfig();

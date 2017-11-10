@@ -6,6 +6,7 @@ using UnityEngine.AI;
 using Panda;
 using Game.Items;
 using UnityEngine.Assertions;
+using Game.Core;
 
 namespace Game.Characters{
 	public class BotAI : MonoBehaviour {
@@ -13,6 +14,8 @@ namespace Game.Characters{
 		Character _character;
 		NavMeshAgent _agent;
 		WeaponSystem _weaponSystem;
+		
+
 		void Start()
 		{
 			//TODO: Change to Type Get when all merged.
@@ -25,11 +28,13 @@ namespace Game.Characters{
 			Assert.IsNotNull(_weaponSystem);
 
 			_agent = GetComponent<NavMeshAgent>();
+
 		}
 
 		void Update()
         {
-            if (!_character.isBot) return;
+            if (!_character.isBot) 
+				return;
 
             UpdateBotMovement();
         }
@@ -47,6 +52,12 @@ namespace Game.Characters{
 		{
 			return _character.IsDead();
 		}
+
+		[Task] bool HasEnoughAmmo()
+		{
+			return _weaponSystem.LowOnAmmo();
+		}
+
 		[Task] bool Jump()
 		{
 			return _character.Jump();
@@ -64,7 +75,8 @@ namespace Game.Characters{
 
 		[Task] bool IsInDanger()
 		{
-			return GetComponent<HealthSystem>().healthAsPercentage < _character.inDangerThreshold;
+			var logic = new CharacterDangerLogic(GetComponent<HealthSystem>().healthAsPercentage, _character.inDangerThreshold);
+			return logic.IsInDanger();
 		}
 
 		[Task] bool IsAttacking ()
