@@ -14,6 +14,8 @@ namespace Game.Characters{
 		Character _character;
 		NavMeshAgent _agent;
 		WeaponSystem _weaponSystem;
+		Spawner[] _spawners;
+		Spawner _nearestSpawner;
 		
 
 		void Start()
@@ -29,6 +31,7 @@ namespace Game.Characters{
 
 			_agent = GetComponent<NavMeshAgent>();
 
+			_spawners = GameObject.FindObjectsOfType<Spawner>();
 		}
 
 		void Update()
@@ -53,7 +56,7 @@ namespace Game.Characters{
 			return _character.IsDead();
 		}
 
-		[Task] bool HasEnoughAmmo()
+		[Task] bool LowOnAmmo()
 		{
 			return _weaponSystem.LowOnAmmo();
 		}
@@ -61,6 +64,38 @@ namespace Game.Characters{
 		[Task] bool Jump()
 		{
 			return _character.Jump();
+		}
+
+		[Task] void ScanForNearbySpawner()
+		{
+			_nearestSpawner = _spawners[0];
+			for(int i = 0; i < _spawners.Length; i++)
+			{
+				_nearestSpawner = ClosestSpawner(_nearestSpawner, _spawners[i]);
+			}
+
+			Task.current.Succeed();
+		}
+
+		Spawner ClosestSpawner(Spawner a, Spawner b)
+		{
+			var distanceFromA = Vector3.Distance(this.transform.position, a.transform.position);
+			var distanceFromB = Vector3.Distance(this.transform.position, b.transform.position);
+
+			return distanceFromA <= distanceFromB ? a : b;
+		}
+		
+		[Task] void GoToSpawner()
+		{
+			_agent.SetDestination(_nearestSpawner.transform.position);
+
+			var distanceFromSpawner = Vector3.Distance(this.transform.position, _nearestSpawner.transform.position);
+
+			if (distanceFromSpawner < _agent.stoppingDistance)
+			{
+				Task.current.Succeed();
+			}
+			
 		}
 
 		[Task] bool Dash()

@@ -23,26 +23,30 @@ namespace Game.Core{
 		[SerializeField] float _maxSpawnTime = 10f;
 		[Range(0, 10)]
 		[SerializeField] float _minSpawnTime = 5f;
-
 		GameObject _spawnedItemObject;
 		ItemConfig _spawnedItemConfig;
-		bool _containsSpawnedObject { get{return this.transform.childCount > 0;}}
+		SpawnerLogic _logic;
 
 		void Start()
         {
             Assert.AreNotEqual(0, _itemsToPotentiallySpawn.Count, "You do not have any items in the item spawner.  Are you sure you do not want this?");
 
             InitializeBoxCollider();
+
+			_logic = new SpawnerLogic();
         }
+
 
 		void Update()
 		{
-			if (_containsSpawnedObject) return;
+			if (_logic.ContainsSpawnedObject(this.gameObject))
+				return;
 
-            if(!ObjectCanSpawn()) return;
+            if(!ObjectCanSpawn()) 
+				return;
 			
-			var item = GetRandomItemToSpawn().GetItemPrefab();
-			Spawn(item);
+			var itemPrefab = GetRandomItemConfig().GetItemPrefab();
+			Spawn(itemPrefab);
 
 			var randomDestroyTime = UnityEngine.Random.Range(_minSpawnTime, _maxSpawnTime);
 			StartCoroutine(DestroySpawnedItemAfter(randomDestroyTime));
@@ -51,6 +55,8 @@ namespace Game.Core{
         private void InitializeBoxCollider()
         {
             var boxCollider = GetComponent<BoxCollider>();
+			Assert.IsNotNull(boxCollider, "A box collider needs to be in the game scene.");
+
             if (!boxCollider)
             {
                 var bc = this.gameObject.AddComponent<BoxCollider>();
@@ -64,7 +70,7 @@ namespace Game.Core{
 			ClearSpawnedItemFromSpawner();
 		}
 
-		private ItemConfig GetRandomItemToSpawn()
+		private ItemConfig GetRandomItemConfig()
 		{
 			var r = UnityEngine.Random.Range(0, _itemsToPotentiallySpawn.Count);
 			_spawnedItemConfig = _itemsToPotentiallySpawn[r];
@@ -86,37 +92,32 @@ namespace Game.Core{
 
 		void OnTriggerEnter(Collider other)
 		{
-			if(!IsCharacter(other)) return;
-
-			var player = other.gameObject.GetComponent<Character>();
-			AddItemToInventoryOf(player);
-			ClearSpawnedItemFromSpawner();
+			if(IsCharacter(other)) 
+			{
+				var player = other.gameObject.GetComponent<Character>();
+				AddItemToInventoryOf(player);
+				ClearSpawnedItemFromSpawner();
+			} 
 		}
 
 		private bool IsCharacter(Collider other)
         {
-            if (other.gameObject.GetComponent<Character>()) return true;
-            return false;
+			return other.gameObject.GetComponent<Character>() ? true : false; 
         }
 
 		private void AddItemToInventoryOf(Character character)
         {
-			if (_spawnedItemConfig == null) 
-			{
-				Debug.LogWarning("The Spawned was null.  This is something to look at later. ");
-				return;
-			}
-
-			if (_spawnedItemConfig.IsWeapon()) 
+			if (_spawnedItemConfig != null && _spawnedItemConfig.IsWeapon()) 
 			{
 				var weaponSystem = character.gameObject.GetComponent<WeaponSystem>();
 				weaponSystem.UpdateWeapon(_spawnedItemConfig as WeaponConfig);
-			}
+			} 
         }
 
         private void ClearSpawnedItemFromSpawner()
         {
             _spawnedItemObject = null;
+			_spawnedItemConfig = null;
 
             foreach (Transform child in this.transform)
             {

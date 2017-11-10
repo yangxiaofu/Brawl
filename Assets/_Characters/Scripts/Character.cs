@@ -49,6 +49,13 @@ namespace Game.Characters
 		[Tooltip("Setting this will make the enemy go from hiding to attacking an enemy.")]
 		[Range(0, 1)]
 		[SerializeField] float _beginAttackThreshold = 0.8f;
+		[SerializeField] bool _frozen = false;
+
+		public bool freeze{
+			get{return _frozen;}
+			set{_frozen = value;}
+		}
+
 		public float beginAttackThreshold{get{return _beginAttackThreshold;}}
 		public Character target;
 		WeaponSystem _weaponSystem;
@@ -65,6 +72,7 @@ namespace Game.Characters
 		bool _isDead = false;
 		NavMeshAgent _agent;
 		ControllerBehaviour _controller;
+		
 		public ControllerBehaviour controller{get{return _controller;}}
 		public void Setup(ControllerBehaviour controller){_controller = controller;}
 		[HideInInspector] public bool isAttacking = false;
@@ -97,6 +105,11 @@ namespace Game.Characters
 
 		void FixedUpdate()
         {	
+			if (_frozen)
+			{
+				return;
+			}
+				
 			if (!_controller) 
 				return;
 
@@ -149,6 +162,9 @@ namespace Game.Characters
 
 		private void UpdateMovementAnimation()
         {
+			if (_frozen)
+				return;
+
 			if (!_controller)
 				return;
 
@@ -168,6 +184,9 @@ namespace Game.Characters
 
 		public void OnButtonPressed(PS4_Controller_Input.Button button)
         {
+			if (_frozen)
+				return;
+
 			//TODO: Change to interface for controllers. 
 			if (button == PS4_Controller_Input.Button.X)
 			{
@@ -189,7 +208,6 @@ namespace Game.Characters
 				_weaponSystem.AttemptSpecialAbility();
 			}
         }
-		
 		
         private void InitializeCharacterVariables()
         {
@@ -213,11 +231,13 @@ namespace Game.Characters
 
 			_characterRenderer = GetComponentInChildren<Renderer>();
 			Assert.IsNotNull(_characterRenderer);
-			
         }
 
 		public bool Jump()
-		{
+		{	
+			if (_frozen) 
+				return false;
+
 			if (!_energySystem.HasEnergy(_energyConsumeOnJump)) 
 				return false;
 
@@ -236,6 +256,9 @@ namespace Game.Characters
 
 		public bool Dash()
 		{
+			if (_frozen)
+				return false;
+
 			if(!_energySystem.HasEnergy(_energyToConsumeOnDash)) 
 				return false;
 
@@ -303,6 +326,9 @@ namespace Game.Characters
 
 		void OnAnimatorIK(int layerIndex)
 		{
+			if (_frozen)
+				return;
+
 			if (_anim == null) 
 				return;
 

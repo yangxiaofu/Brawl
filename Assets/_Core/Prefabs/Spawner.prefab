@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4686998081655764}
   - component: {fileID: 114705838420597424}
   - component: {fileID: 65973417513320506}
-  - component: {fileID: 65366343313380828}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -36,24 +35,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1231307269817356}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 15.38, y: 0.53, z: -9.64}
+  m_LocalPosition: {x: -0.93, y: 3.5, z: 32.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &65366343313380828
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1231307269817356}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65973417513320506
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -64,8 +51,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 2.0174146, y: 1, z: 1.8270378}
+  m_Center: {x: 0.10247156, y: 0, z: -0.032087326}
 --- !u!114 &114705838420597424
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -78,7 +65,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _itemsToPotentiallySpawn:
-  - {fileID: 11400000, guid: 6f114a0f0ecbb41139d0618a9f8f43bc, type: 2}
+  - {fileID: 11400000, guid: fcc4a694ff56c416eb790110114cad9b, type: 2}
+  - {fileID: 11400000, guid: 7c602f79f8f26402ab12de61fa760981, type: 2}
   _probabilityOfSpawnPerSecond: 1
   _maxSpawnTime: 10
   _minSpawnTime: 5

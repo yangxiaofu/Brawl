@@ -15,13 +15,20 @@ tree("BeAlive")
 			fallback
 				tree("Attack")
 				tree("ScanForCharacters")
+				tree("ScanForSpawners")
 				tree("RunForCover")
 				tree("Celebrate")
+
+tree("ScanForSpawners")
+	sequence
+		LowOnAmmo
+		ScanForNearbySpawner
+		GoToSpawner
 
 tree("Attack")
 	sequence
 		not IsInDanger
-		HasEnoughAmmo
+		not LowOnAmmo
 		DoCharactersExist
 		ChooseRandomTarget
 		IsTargetWithinShootDistance
@@ -30,7 +37,7 @@ tree("Attack")
 tree("ScanForCharacters")
 	sequence
 		not IsInDanger
-		HasEnoughAmmo
+		not LowOnAmmo
 		DoCharactersExist
 		ChooseRandomTarget
 		tree("MoveTowardTarget")

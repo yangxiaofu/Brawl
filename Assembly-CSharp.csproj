@@ -79,6 +79,7 @@
      <Compile Include="Assets\_Core\Scripts\ScoringSystem.cs" />
      <Compile Include="Assets\_Core\Scripts\SkySpecialAbilitySocket.cs" />
      <Compile Include="Assets\_Core\Scripts\Spawner.cs" />
+     <Compile Include="Assets\_Core\Scripts\SpawnerLogic.cs" />
      <Compile Include="Assets\_Core\Scripts\ThrowSocket.cs" />
      <Compile Include="Assets\_Core\Tests\PhysicsApplyForce.cs" />
      <Compile Include="Assets\_Items\_Weapons\_SpecialAbilities\SpecialAbilityConfig.cs" />
@@ -104,6 +105,11 @@
      <Compile Include="Assets\_Items\_Weapons\Scripts\WeaponSystemLogic.cs" />
      <Compile Include="Assets\_Items\ItemConfig.cs" />
      <Compile Include="Assets\_Temp\ProjectileSocket.cs" />
+     <Compile Include="Assets\Best Effect Pack\Script\csAnimationPlay.cs" />
+     <Compile Include="Assets\Best Effect Pack\Script\csLightIntancityControl.cs" />
+     <Compile Include="Assets\Best Effect Pack\Script\csPrefebMake.cs" />
+     <Compile Include="Assets\Best Effect Pack\ShurikenEffectEditor\csShurikenEffectChanger.cs" />
+     <Compile Include="Assets\Best Effect Pack\ShurikenEffectEditor\csShurikenEffectEditor.cs" />
      <Compile Include="Assets\FogVolume\Scripts\EFogVolumeLightType.cs" />
      <Compile Include="Assets\FogVolume\Scripts\FogVolume.cs" />
      <Compile Include="Assets\FogVolume\Scripts\FogVolumeCamera.cs" />
@@ -886,11 +892,13 @@
      <None Include="Assets\FogVolume\Resources\Blur.shader" />
      <None Include="Assets\Toon Character Pack\Shaders\Toony-BasicOutline-Transparent.shader" />
      <None Include="Assets\FogVolume\Scenes\RT Viewer\RT_Opaque.shader" />
+     <None Include="Assets\Best Effect Pack\ParticleEffect_Shader\Alpha Blended\Shader_NormalAlphaBlended.shader" />
      <None Include="Assets\Octave3D World Builder\Docs\Version History.txt" />
      <None Include="Assets\Toon Character Pack\Shaders\Toony-BasicOutline.shader" />
      <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAlpha.shader" />
      <None Include="Assets\PandaBehaviour\Examples\02_PlayTag\Assets\Computer.BT.txt" />
      <None Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\GameController.BT.txt" />
+     <None Include="Assets\Best Effect Pack\ParticleEffect_Shader\Additive\Shader_AdvancedAdditive.shader" />
      <None Include="Assets\Standard Assets\ParticleSystems\ParticleSystemsGuidelines.txt" />
      <None Include="Assets\FogVolume\Scripts\Other\TAA\Shaders\TemporalReprojection.shader" />
      <None Include="Assets\Standard Assets\Fonts\OpenSans\License!.txt" />
@@ -901,6 +909,7 @@
      <None Include="Assets\Toon Character Pack\Shaders\Toony-Lighted.shader" />
      <None Include="Assets\FogVolume\Scripts\Other\TAA\Shaders\IncNoise.cginc" />
      <None Include="Assets\FogVolume\Resources\FogVolume.shader" />
+     <None Include="Assets\Best Effect Pack\ParticleEffect_Shader\Additive\Shader_NormalAdditive.shader" />
      <None Include="Assets\Toon Character Pack\_Toon Character Pack.txt" />
      <None Include="Assets\FogVolume\Scripts\Other\TAA\Shaders\IncDepth.cginc" />
      <None Include="Assets\Toon Character Pack\Shaders\Toony-TransparentAdd.shader" />
@@ -910,6 +919,7 @@
      <None Include="Assets\FogVolume\Resources\Shadow Projector.shader" />
      <None Include="Assets\Toon Character Pack\Shaders\Toony-Lighted-Transparent.shader" />
      <None Include="Assets\PandaBehaviour\Examples\02_PlayTag\Assets\PlayTag.commented.BT.txt" />
+     <None Include="Assets\Best Effect Pack\ParticleEffect_Shader\Alpha Blended\Shader_AdvancedAlphaBlended.shader" />
      <None Include="Assets\Standard Assets\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />
      <None Include="Assets\Toon Character Pack\Toon Animations\ToonAnimations - Readme.txt" />
      <None Include="Assets\FogVolume\Resources\SpeedTreeCommonDepth.cginc" />
