@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;   
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Game.Characters;
@@ -6,16 +7,30 @@ using Game.Characters;
 namespace Game.Core.ControllerInputs{
 	public abstract class ControllerBehaviour : MonoBehaviour {	
 		[SerializeField] protected Character _character;
-		public Character character{get{return _character;}}
+		public Character character{ get{return _character;}}
 		[SerializeField] bool _isBOT = false;
 		protected string _prefix;
 		[SerializeField] PLAYER_TAG _playerTag;
+        protected Vector3 _inputs = Vector3.zero;
+		public Vector3 inputs{ get{return _inputs;}}
+        public ControllerBehaviourLogic _logic;
+        public Vector3 GetMovementInputs()
+        {
+            var myInputs = _logic.GetMovementInputs(_inputs);
+            throw new NotImplementedException();
+        }
+
 		public PLAYER_TAG playerTag{get{return _playerTag;}}
 		void Awake()
 		{
 			_character.Setup(this);		
 			_character.isBot = _isBOT;	
 		}
+
+        void Start()
+        {
+            _logic = new ControllerBehaviourLogic();
+        }
 
         protected void InitializeControllerPrefix()
         {
@@ -40,11 +55,6 @@ namespace Game.Core.ControllerInputs{
                 Debug.LogError("Should never go here.");
             }
         }
-
-        protected Vector3 _inputs = Vector3.zero;
-		public Vector3 inputs{
-			get{return _inputs;}
-		}
 
 		public abstract float GetLeftStickVertical();
 		public abstract float GetLeftStickHorizontal();

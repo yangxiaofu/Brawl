@@ -39,7 +39,7 @@ namespace Game.Items{
 
 			_weaponSystemLogic = new WeaponSystemLogic();
 
-			Invoke("IncreaseAmmo", _ammoIncreasePerSecond);
+			InvokeRepeating("IncreaseAmmo", 0, _ammoIncreasePerSecond);
 		}
 
 		private void IncreaseAmmo()

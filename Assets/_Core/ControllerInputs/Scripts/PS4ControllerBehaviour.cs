@@ -25,6 +25,7 @@ namespace Game.Core.ControllerInputs{
 			_inputs = Vector3.zero;
 			_inputs.x = GetLeftStickHorizontal();
 			_inputs.z = GetLeftStickVertical();
+			_inputs = new Vector3(_inputs.x, 0, _inputs.z).normalized;
 
 			if (ps4Controller.SquarePressed()) {
 

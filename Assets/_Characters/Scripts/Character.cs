@@ -92,6 +92,8 @@ namespace Game.Characters
             InitializeCharacterVariables();
 			_weaponSystem.InitializeWeaponSystem();
 			_characterLogic = new CharacterLogic(this);
+
+			Assert.IsFalse(_frozen, "Frozen should be checked as false on start");
         }
 
         void Update()
@@ -99,7 +101,8 @@ namespace Game.Characters
 			if (isBot) 
 				return;
 			
-			CheckGrounded();
+			CheckIfGrounded();
+
 			UpdateMovementAnimation();
         }
 
@@ -111,7 +114,10 @@ namespace Game.Characters
 			}
 				
 			if (!_controller) 
+			{
 				return;
+			}
+				
 
             if (_characterCanShoot)
             {
@@ -138,6 +144,8 @@ namespace Game.Characters
 		
         private void UpdatePlayerMovement()
         {
+			Assert.IsTrue(_controller.inputs.magnitude <= 1, "The magnitude of the input controller is too large and will impact the character movement.  This should be done in the player Character.cs script.  The input magnitude is " + _controller.inputs.magnitude);
+
             _rb.MovePosition(_rb.position + _controller.inputs * _speed * Time.fixedDeltaTime);
         }
 
@@ -150,7 +158,7 @@ namespace Game.Characters
             _agent.updatePosition = false;
         }
 
-		private void CheckGrounded()
+		private void CheckIfGrounded()
         {
             _isGrounded = UnityEngine.Physics.CheckSphere(
 				_groundChecker.position,

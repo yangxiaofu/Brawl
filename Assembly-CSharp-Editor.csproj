@@ -57,6 +57,7 @@
      <Compile Include="Assets\_Characters\Scripts\Editor\HealthSystemLogicTests.cs" />
      <Compile Include="Assets\_Core\Calculator\Editor\TotalPointsCalculatorTests.cs" />
      <Compile Include="Assets\_Core\ControllerInputs\Editor\ControllerBehaviourEditor.cs" />
+     <Compile Include="Assets\_Core\ControllerInputs\Scripts\Editor\ControllerBehaviourLogicTests.cs" />
      <Compile Include="Assets\_Core\Scripts\Editor\SpawnerLogicTests.cs" />
      <Compile Include="Assets\_Core\Tests\Editor\GamePhysicsTests.cs" />
      <Compile Include="Assets\_Core\Tests\Editor\PhysicsApplyForceEditor.cs" />
