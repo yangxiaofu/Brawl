@@ -15,6 +15,17 @@ namespace Game.Items.UnitTests{
 			var sut = new WeaponSystemLogic();
 			Assert.AreEqual(response, sut.LowOnAmmo(currentAmmo, lowAmmoThreshold));
 		}
+
+		[Test]
+		[TestCase(0, 0, 0, 0)]
+		[TestCase(1, 0, 1, 1)]
+		[TestCase(1, 1, 2, 2)]
+		[TestCase(1, 3, 2, 2)]
+		public void IncreaseAmmo_RandomAmmoToIncrease_returnUpdateAmmo(float currentAmmo, float increaseAmount, float maxAmount, float result)
+		{
+			var sut = new WeaponSystemLogic();
+			Assert.AreEqual(result, sut.IncreaseAmmo(currentAmmo, increaseAmount, maxAmount));
+		}
 	}
 }
 

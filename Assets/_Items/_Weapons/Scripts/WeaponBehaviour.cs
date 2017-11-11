@@ -12,10 +12,13 @@ namespace Game.Items{
 		public int startingAmmo {get{return _startingAmmo;}}
 		WeaponConfig _config;
 		WeaponSystem _weaponSystem;
+		WeaponSystemLogic _logic;
 		
 		void Start()
 		{
 			_weaponSystem = GetComponent<WeaponSystem>();
+
+			_logic = new WeaponSystemLogic();
 		}
 
 		public void Setup(WeaponConfig config)
@@ -37,8 +40,13 @@ namespace Game.Items{
 		public void ReduceAmmoBy(int amountToReduce)
 		{
 			_remainingAmmo -= amountToReduce;
-			_remainingAmmo -= 1;
 			_remainingAmmo = Mathf.Clamp(_remainingAmmo, 0, _startingAmmo);		
+		}
+
+		public void IncreaseAmmo(int increaseAmmo)
+		{
+			_remainingAmmo += increaseAmmo;
+			_remainingAmmo = Mathf.Clamp(_remainingAmmo, 0, _startingAmmo);
 		}
 
 		private void InstantiateProjectile(Vector3 direction)

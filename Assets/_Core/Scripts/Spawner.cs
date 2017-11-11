@@ -26,10 +26,13 @@ namespace Game.Core{
 		GameObject _spawnedItemObject;
 		ItemConfig _spawnedItemConfig;
 		SpawnerLogic _logic;
+		float _maxHeightForBoxColliderTransform = 2f;
 
 		void Start()
         {
             Assert.AreNotEqual(0, _itemsToPotentiallySpawn.Count, "You do not have any items in the item spawner.  Are you sure you do not want this?");
+			
+			Assert.IsTrue(this.transform.position.y < _maxHeightForBoxColliderTransform, "You have placed the spawner too higher. ");
 
             InitializeBoxCollider();
 

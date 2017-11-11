@@ -13,8 +13,8 @@ namespace Game.Items{
 		public WeaponConfig primaryWeapon{get{return _primaryWeapon;}}
 		[SerializeField] WeaponConfig _secondaryWeapon;
 		[SerializeField] SpecialAbilityConfig _specialAbilty;
-
 		[SerializeField] float _lowAmmoThreshold = 1; //TODO: REfactor out into the weapon beahviour later. 
+		[SerializeField] float _ammoIncreasePerSecond = 1;
 
 		[Space]
 		[Header("Throwing Items")]
@@ -38,7 +38,15 @@ namespace Game.Items{
 			Assert.IsNotNull(_energySystem);
 
 			_weaponSystemLogic = new WeaponSystemLogic();
+
+			Invoke("IncreaseAmmo", _ammoIncreasePerSecond);
 		}
+
+		private void IncreaseAmmo()
+		{
+			_primaryWeaponBehaviour.IncreaseAmmo(1);
+		}
+
 		public void InitializeWeaponSystem()
 		{
 			SetupPrimaryWeapon();
