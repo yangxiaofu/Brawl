@@ -10,12 +10,6 @@ namespace Game.Characters
 {
     public class Character : MonoBehaviour 
 	{
-
-		[Tooltip("Configure this to make the player a bot or not.")]
-		public bool isBot = false;
-		
-		[Space]
-
 		[Header ("Character Movement Parameters")]
 		[SerializeField] float _speed = 5f;
 		[SerializeField] float _angularSpeed = 120f;
@@ -58,6 +52,8 @@ namespace Game.Characters
 		[Range(0, 1)]
 		[SerializeField] float _beginAttackThreshold = 0.8f;
 		[SerializeField] bool _frozen = false;
+
+		[HideInInspector] public bool isBot = false; //this is set on the controller piece. 
 
 		public bool freeze{
 			get{return _frozen;}
@@ -234,7 +230,7 @@ namespace Game.Characters
 		private void KickItem()
 		{
 			RaycastHit hit;
-			//Detect Game Object in Front
+			
 			if (Physics.Raycast(this.transform.position, transform.forward, out hit, _maximumKickDistance))
 			{
 				var kickableItem = hit.collider.gameObject.GetComponent<Kickable>();
@@ -243,6 +239,8 @@ namespace Game.Characters
 				{
 					var directionalForce = transform.forward * _kickForce;
 					kickableItem.GetComponent<Rigidbody>().AddForce(directionalForce, ForceMode.Impulse);
+					var forceDirection = (kickableItem.transform.position - this.transform.position).normalized;
+					kickableItem.Setup(forceDirection);
 				}
 			}
 		}

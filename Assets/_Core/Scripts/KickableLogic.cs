@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game.Core{
-	public class Kickable : MonoBehaviour {
-
-	
+	public class KickableLogic : MonoBehaviour {
+		
 	}
 }
 

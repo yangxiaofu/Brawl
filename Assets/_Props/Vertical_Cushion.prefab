@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 33364785711864974}
   - component: {fileID: 23026949155841386}
   - component: {fileID: 54029520097445966}
+  - component: {fileID: 65400429578814650}
+  - component: {fileID: 114259946912985090}
   m_Layer: 0
   m_Name: Vertical_Cushion
   m_TagString: Untagged
@@ -35,9 +37,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1162369040618776}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -7.799541, y: 1.9563053, z: -13.332132}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.68106264, y: 0.21527673, z: 0.66413313, w: 0.22076434}
+  m_LocalPosition: {x: 36.115223, y: 9.288493, z: 26.047646}
+  m_LocalScale: {x: 1.0000004, y: 1.0000018, z: 1.0000014}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -68,7 +70,7 @@ MeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
+  m_SelectedEditorRenderState: 1
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -98,3 +100,28 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &65400429578814650
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1162369040618776}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.8769525, y: 0.87695247, z: 1.9796224}
+  m_Center: {x: -0.0000000039938683, y: 0.000000002821672, z: 0.033503}
+--- !u!114 &114259946912985090
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1162369040618776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03a08472d1bd444bbbc1fa4484c49bb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _forceOnContact: 100
+  _audioOnImpact: {fileID: 8300000, guid: 2ca3bee082ccb4e27bbf668b3ddb6f27, type: 3}
