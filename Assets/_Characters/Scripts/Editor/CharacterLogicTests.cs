@@ -39,6 +39,15 @@ namespace Game.Characters.UnitTests{
 			projectile.AddComponent<ProjectileBehaviour>();
 			Assert.AreEqual(true, _sut.WillTakeDamageFrom(projectile));
 		}
+
+		[Test]
+		[TestCase(true, true, false)]
+		[TestCase(false, false, false)]
+		[TestCase(true, false, false)]
+		[TestCase(false, true, true)]
+		public void CanMove_ReturnsIfCharacterCanMove(bool frozen, bool hasController, bool result){
+			Assert.AreEqual(result, _sut.CanMove(frozen, hasController));
+		}
 	}
 }
 

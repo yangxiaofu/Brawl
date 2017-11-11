@@ -14,6 +14,13 @@ namespace Game.Core{
 
 			return _instance;
 		}
+		
+
+		[Tooltip("This will adjust the volume of the blasts in the game.")]
+		[Range(0, 1)]
+		[SerializeField] float _audioVolume = 0.5f;
+		public float GetAudioVolume(){return _audioVolume;}
+
 
 		ScoreSettings _scoreSettings;
 		public ScoreSettings scoreSettings{get{return _scoreSettings;}}

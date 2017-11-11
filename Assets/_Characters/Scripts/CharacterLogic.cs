@@ -22,6 +22,13 @@ namespace Game.Characters{
 
 			return true;
 		}
+
+		public bool CanMove(bool frozen, bool hasController)
+		{
+			if (!frozen && hasController) return true;
+
+			return false;
+		}
 	}
 }
 

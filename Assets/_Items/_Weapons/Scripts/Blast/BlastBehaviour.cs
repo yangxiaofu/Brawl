@@ -71,6 +71,7 @@ namespace Game.Items{
         private void PlayExplosionAudioOn(GameObject particleSystemObject)
         {
             var audioSource = particleSystemObject.AddComponent<AudioSource>();
+            audioSource.volume = GameManager.Instance().GetAudioVolume();
             audioSource.loop = false;
             audioSource.playOnAwake = false;
             audioSource.clip = _weaponConfig.GetBlastConfig().GetAudio();

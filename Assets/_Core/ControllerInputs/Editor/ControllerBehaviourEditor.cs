@@ -11,7 +11,6 @@ namespace Game.UI{
 		public override void OnInspectorGUI()
 		{
 			serializedObject.ApplyModifiedProperties();
-			var behaviour = serializedObject.targetObject as PS4ControllerBehaviour;
 
 			DrawDefaultInspector();
 

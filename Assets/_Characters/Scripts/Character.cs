@@ -35,6 +35,14 @@ namespace Game.Characters
 		[Space]
 		[SerializeField] protected float _invincibleLength = 5f;
 		[SerializeField] protected bool _isInvincible = false;
+		
+		[Space]
+		[Header("Kicking Attributes")]
+		[SerializeField] float _kickForce = 50f; //TODO: Consider moving this out to weapn Systems? 
+		[SerializeField] float _maximumKickDistance = 1f;
+		[SerializeField] float _energyConsumedOnKick = 35f;
+
+
 		[Header("Bot Specific")]
 		[Tooltip("This is the distance in which the enemy will stop in front of the player and start shooting. ")]
 		[SerializeField] float _maxShootingDistance = 10f;
@@ -108,16 +116,9 @@ namespace Game.Characters
 
 		void FixedUpdate()
         {	
-			if (_frozen)
-			{
+			bool hasController = _controller ? true : false;
+			if(!_characterLogic.CanMove(_frozen, hasController))
 				return;
-			}
-				
-			if (!_controller) 
-			{
-				return;
-			}
-				
 
             if (_characterCanShoot)
             {
@@ -144,9 +145,7 @@ namespace Game.Characters
 		
         private void UpdatePlayerMovement()
         {
-			Assert.IsTrue(_controller.inputs.magnitude <= 1, "The magnitude of the input controller is too large and will impact the character movement.  This should be done in the player Character.cs script.  The input magnitude is " + _controller.inputs.magnitude);
-
-            _rb.MovePosition(_rb.position + _controller.inputs * _speed * Time.fixedDeltaTime);
+            _rb.MovePosition(_rb.position + _controller.GetMovementInputs() * _speed * Time.fixedDeltaTime);
         }
 
         private void SetupNavMeshAgent()
@@ -178,9 +177,9 @@ namespace Game.Characters
 
             float animationThreshold = 0.2f;
             
-            if (_controller.inputs.magnitude > animationThreshold)
+            if (_controller.GetMovementInputs().magnitude > animationThreshold)
             {
-                transform.forward = _controller.inputs;
+                transform.forward = _controller.GetMovementInputs();
                 _anim.SetBool(IS_WALKING, true);
             }
             else
@@ -215,7 +214,38 @@ namespace Game.Characters
 			{
 				_weaponSystem.AttemptSpecialAbility();
 			}
+
+			if (button == PS4_Controller_Input.Button.R2)
+			{
+				AttemptKick();
+			}
         }
+
+		private void AttemptKick()
+		{
+			if(!_energySystem.HasEnergy(_energyConsumedOnKick))
+					return;
+
+			_energySystem.ConsumeEnergy(_energyConsumedOnKick);
+
+			KickItem();
+		}
+
+		private void KickItem()
+		{
+			RaycastHit hit;
+			//Detect Game Object in Front
+			if (Physics.Raycast(this.transform.position, transform.forward, out hit, _maximumKickDistance))
+			{
+				var kickableItem = hit.collider.gameObject.GetComponent<Kickable>();
+				
+				if (kickableItem)
+				{
+					var directionalForce = transform.forward * _kickForce;
+					kickableItem.GetComponent<Rigidbody>().AddForce(directionalForce, ForceMode.Impulse);
+				}
+			}
+		}
 		
         private void InitializeCharacterVariables()
         {

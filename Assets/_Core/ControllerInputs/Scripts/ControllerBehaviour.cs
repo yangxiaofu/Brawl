@@ -12,25 +12,19 @@ namespace Game.Core.ControllerInputs{
 		protected string _prefix;
 		[SerializeField] PLAYER_TAG _playerTag;
         protected Vector3 _inputs = Vector3.zero;
-		public Vector3 inputs{ get{return _inputs;}}
         public ControllerBehaviourLogic _logic;
         public Vector3 GetMovementInputs()
         {
-            var myInputs = _logic.GetMovementInputs(_inputs);
-            throw new NotImplementedException();
+            return _inputs;
         }
 
 		public PLAYER_TAG playerTag{get{return _playerTag;}}
 		void Awake()
 		{
+            _logic = new ControllerBehaviourLogic();
 			_character.Setup(this);		
 			_character.isBot = _isBOT;	
 		}
-
-        void Start()
-        {
-            _logic = new ControllerBehaviourLogic();
-        }
 
         protected void InitializeControllerPrefix()
         {
@@ -62,7 +56,6 @@ namespace Game.Core.ControllerInputs{
 		public abstract float GetRightStickHorizontal();
 		public abstract float GetDigitalPadVertical();
 		public abstract float GetDigitalPadHorizontal();
-
-	}
+    }
 
 }

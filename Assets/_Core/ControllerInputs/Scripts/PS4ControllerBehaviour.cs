@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 using Game.Core.ControllerInputs;
 using Game.Characters;
 using System;
@@ -21,115 +22,136 @@ namespace Game.Core.ControllerInputs{
 		}
 
         void Update()
-		{
-			_inputs = Vector3.zero;
-			_inputs.x = GetLeftStickHorizontal();
-			_inputs.z = GetLeftStickVertical();
-			_inputs = new Vector3(_inputs.x, 0, _inputs.z).normalized;
+        {
+            UpdateControllerInput();
 
-			if (ps4Controller.SquarePressed()) {
+            if (ps4Controller.SquarePressed())
+            {
 
-				if (OnButtonPressed != null)
-					OnButtonPressed(PS4_Controller_Input.Button.SQUARE);
+                if (OnButtonPressed != null)
+                    OnButtonPressed(PS4_Controller_Input.Button.SQUARE);
 
-				return;
-			}
+                return;
+            }
 
-			if (ps4Controller.XPressed()) 
-			{
-				if (OnButtonPressed != null)
-					OnButtonPressed(PS4_Controller_Input.Button.X);
-				return;
-			}
+            if (ps4Controller.XPressed())
+            {
+                if (OnButtonPressed != null)
+                    OnButtonPressed(PS4_Controller_Input.Button.X);
+                return;
+            }
 
-			if (ps4Controller.TrianglePressed()) {
-				
-				if (OnButtonPressed != null)
-					OnButtonPressed(PS4_Controller_Input.Button.TRIANGLE);
+            if (ps4Controller.TrianglePressed())
+            {
 
-				return;
-			}
+                if (OnButtonPressed != null)
+                    OnButtonPressed(PS4_Controller_Input.Button.TRIANGLE);
 
-			if (ps4Controller.CirclePressed()) {
-				
-				if (OnButtonPressed != null)
-					OnButtonPressed(PS4_Controller_Input.Button.CIRCLE);
+                return;
+            }
 
-				return;
-			}
+            if (ps4Controller.CirclePressed())
+            {
 
-			if (ps4Controller.L1Pressed()){
+                if (OnButtonPressed != null)
+                    OnButtonPressed(PS4_Controller_Input.Button.CIRCLE);
 
-				if (OnButtonPressed != null)
-					OnButtonPressed(PS4_Controller_Input.Button.L1);
+                return;
+            }
 
-				return;
-			}
+            if (ps4Controller.L1Pressed())
+            {
 
-			if (ps4Controller.R1Pressed()){
+                if (OnButtonPressed != null)
+                    OnButtonPressed(PS4_Controller_Input.Button.L1);
 
-				if (OnButtonPressed != null)
-					OnButtonPressed(PS4_Controller_Input.Button.R1);
+                return;
+            }
 
-				return;
-			}
+            if (ps4Controller.R1Pressed())
+            {
 
-			if (ps4Controller.L2Pressed()){
-				
-				if (OnButtonPressed != null)
-					OnButtonPressed(PS4_Controller_Input.Button.L2);
+                if (OnButtonPressed != null)
+                    OnButtonPressed(PS4_Controller_Input.Button.R1);
 
-				return;
-			}
+                return;
+            }
 
-			if (ps4Controller.R2Pressed()){
-				
-				if (OnButtonPressed != null)
-					OnButtonPressed(PS4_Controller_Input.Button.R2);
+            if (ps4Controller.L2Pressed())
+            {
 
-				return;
-			}
+                if (OnButtonPressed != null)
+                    OnButtonPressed(PS4_Controller_Input.Button.L2);
 
-			if (ps4Controller.L3Pressed()){
-				
-				if (OnButtonPressed != null)
-					OnButtonPressed(PS4_Controller_Input.Button.L3);
+                return;
+            }
 
-				return;
-			}
+            if (ps4Controller.R2Pressed())
+            {
 
-			if (ps4Controller.R3Pressed()){
+                if (OnButtonPressed != null)
+                    OnButtonPressed(PS4_Controller_Input.Button.R2);
 
-				if (OnButtonPressed != null)
-					OnButtonPressed(PS4_Controller_Input.Button.R3);
+                return;
+            }
 
-				return;
-			}
+            if (ps4Controller.L3Pressed())
+            {
 
-			if (ps4Controller.OptionsPressed()){
-				
-				if (OnButtonPressed != null)
-					OnButtonPressed(PS4_Controller_Input.Button.OPTIONS);
+                if (OnButtonPressed != null)
+                    OnButtonPressed(PS4_Controller_Input.Button.L3);
 
-				return;
-			}
+                return;
+            }
 
-			if (ps4Controller.StartPressed()){
-				
-				if (OnButtonPressed != null)
-					OnButtonPressed(PS4_Controller_Input.Button.START);
+            if (ps4Controller.R3Pressed())
+            {
 
-				return;
-			}
+                if (OnButtonPressed != null)
+                    OnButtonPressed(PS4_Controller_Input.Button.R3);
 
-			if (ps4Controller.PSPressed()){
-				
-				if (OnButtonPressed != null)
-					OnButtonPressed(PS4_Controller_Input.Button.PS);
-					
-				return;
-			}
-		}
+                return;
+            }
+
+            if (ps4Controller.OptionsPressed())
+            {
+
+                if (OnButtonPressed != null)
+                    OnButtonPressed(PS4_Controller_Input.Button.OPTIONS);
+
+                return;
+            }
+
+            if (ps4Controller.StartPressed())
+            {
+
+                if (OnButtonPressed != null)
+                    OnButtonPressed(PS4_Controller_Input.Button.START);
+
+                return;
+            }
+
+            if (ps4Controller.PSPressed())
+            {
+
+                if (OnButtonPressed != null)
+                    OnButtonPressed(PS4_Controller_Input.Button.PS);
+
+                return;
+            }
+        }
+
+        private void UpdateControllerInput()
+        {
+            _inputs = Vector3.zero;
+            _inputs.x = GetLeftStickHorizontal();
+            _inputs.z = GetLeftStickVertical();
+			
+			Assert.IsTrue(Mathf.Abs(_inputs.x) <= 1.0f, "The magnitude of inputs is " + _inputs.magnitude);
+			Assert.IsTrue(Mathf.Abs(_inputs.z) <= 1.0f, "The magnitude of inputs is " + _inputs.magnitude);
+			Assert.IsTrue(_inputs.y == 0, "The y axis of the left stick should always remain at zero.");
+        }
+
         public override float GetRightStickVertical()
         {
             return ps4Controller.GetRightAnalogVertical();
