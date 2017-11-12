@@ -13,7 +13,6 @@ namespace Game.Core
 		KickableLogic _logic;
         AudioSource _audioSource;
         bool _inMotion = false;
-
         void Awake()
         {
             _audioSource = this.gameObject.AddComponent<AudioSource>();
@@ -37,12 +36,17 @@ namespace Game.Core
 		
 		void OnCollisionEnter(Collision other)
         {
-            if(_logic.ForceCanBeAdded(_inMotion, IsMoveableObject(other)))
+            AttemptForceOn(other);
+        }
+
+        private void AttemptForceOn(Collision other)
+        {
+            if (_logic.ForceCanBeAdded(_inMotion, IsMoveableObject(other)))
             {
                 PlayImpactAudio();
                 AddForceTo(other.collider.gameObject);
             }
-            
+
             _inMotion = false;
         }
 
@@ -53,20 +57,17 @@ namespace Game.Core
 
         private bool IsMoveableObject(Collision other)
         {
-            //Can be updated with other parameters later. 
             return other.collider.gameObject.GetComponent<Character>();
         }
 
         public void AddForceTo(GameObject gameObjectToAddForceTo)
 		{
             var rb = gameObjectToAddForceTo.GetComponent<Rigidbody>();
-            if (!rb) Debug.LogError("There is no rigid body on this character.  You should consider adding a rigid body to the character in order to realizeForce.");
+            if (!rb) Debug.LogError(
+                "There is no rigid body on this character.  You should consider adding a rigid body to the character in order to realizeForce."
+            );
 
             rb.AddForce(_forceDirection * _forceOnContact, ForceMode.Impulse);
-            Debug.Log("Added Force to the " + gameObjectToAddForceTo.name);
-
-            //Add some sort of sound .ater. 
-            
 		}
 
 
