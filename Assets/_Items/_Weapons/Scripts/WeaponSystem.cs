@@ -39,12 +39,17 @@ namespace Game.Items{
 
 			_weaponSystemLogic = new WeaponSystemLogic();
 
-			InvokeRepeating("IncreaseAmmo", 0, _ammoIncreasePerSecond);
+			StartCoroutine(IncreaseAmmo());
 		}
 
-		private void IncreaseAmmo()
+		private IEnumerator IncreaseAmmo()
 		{
-			_primaryWeaponBehaviour.IncreaseAmmo(1);
+			while (true)
+			{
+				yield return new WaitForSeconds(_ammoIncreasePerSecond);
+				
+				_primaryWeaponBehaviour.IncreaseAmmo(1);
+			}
 		}
 
 		public void InitializeWeaponSystem()

@@ -1835,6 +1835,60 @@ MonoBehaviour:
     _visibilityToggleIndent: 0
     _indentContent: 0
     _surroundWithBox: 0
+--- !u!1001 &117463683
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 426390, guid: b185c1a9cf067374586d095111b15bd1, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 19.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 426390, guid: b185c1a9cf067374586d095111b15bd1, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 5.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 426390, guid: b185c1a9cf067374586d095111b15bd1, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 15.898361
+      objectReference: {fileID: 0}
+    - target: {fileID: 426390, guid: b185c1a9cf067374586d095111b15bd1, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 426390, guid: b185c1a9cf067374586d095111b15bd1, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 426390, guid: b185c1a9cf067374586d095111b15bd1, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 426390, guid: b185c1a9cf067374586d095111b15bd1, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 426390, guid: b185c1a9cf067374586d095111b15bd1, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 426390, guid: b185c1a9cf067374586d095111b15bd1, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 426390, guid: b185c1a9cf067374586d095111b15bd1, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 426390, guid: b185c1a9cf067374586d095111b15bd1, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 0.4
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: b185c1a9cf067374586d095111b15bd1, type: 2}
+  m_IsPrefabParent: 0
 --- !u!114 &118366223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6215,7 +6269,7 @@ Transform:
   - {fileID: 2058471981}
   - {fileID: 1715465429}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &311334881
 GameObject:
@@ -6581,6 +6635,8 @@ MonoBehaviour:
   _startingEnergy: 100
   _currentEnergy: 100
   _increasePerSecond: 25
+  _energyToConsumeOnJump: 10
+  _energyToConsumeOnDash: 50
 --- !u!114 &324516137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6753,6 +6809,8 @@ MonoBehaviour:
   _startingEnergy: 100
   _currentEnergy: 100
   _increasePerSecond: 25
+  _energyToConsumeOnJump: 10
+  _energyToConsumeOnDash: 50
 --- !u!114 &339160444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6981,7 +7039,7 @@ Transform:
   - {fileID: 1045072386}
   - {fileID: 109762679}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &375431084
 MonoBehaviour:
@@ -8283,8 +8341,6 @@ MonoBehaviour:
   _animatorOverrideController: {fileID: 22100000, guid: 9a1ba325a295943a1882c06d725bf7f7,
     type: 2}
   _avatar: {fileID: 9000000, guid: e88f3d051335eea419d1f5bcf6667269, type: 3}
-  _energyConsumeOnJump: 10
-  _energyToConsumeOnDash: 50
   _invincibleTimeLength: 5
   _kickForce: 500
   _maximumKickDistance: 1.5
@@ -13659,7 +13715,7 @@ Transform:
   - {fileID: 831154156}
   - {fileID: 1593603775}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!4 &787806608 stripped
 Transform:
@@ -14376,7 +14432,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4187329256108442, guid: 0602a71a215ed4b5ba883cc5813baa50, type: 2}
       propertyPath: m_RootOrder
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1778917627911950, guid: 0602a71a215ed4b5ba883cc5813baa50, type: 2}
       propertyPath: m_Layer
@@ -15031,8 +15087,6 @@ MonoBehaviour:
   _animatorOverrideController: {fileID: 22100000, guid: 9a1ba325a295943a1882c06d725bf7f7,
     type: 2}
   _avatar: {fileID: 9000000, guid: e88f3d051335eea419d1f5bcf6667269, type: 3}
-  _energyConsumeOnJump: 10
-  _energyToConsumeOnDash: 50
   _invincibleTimeLength: 5
   _kickForce: 50
   _maximumKickDistance: 1
@@ -18972,7 +19026,7 @@ Prefab:
     - target: {fileID: 224404181121591946, guid: 4764c01bf19454e469e4df1613914315,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 360.5
+      value: 199
       objectReference: {fileID: 0}
     - target: {fileID: 224404181121591946, guid: 4764c01bf19454e469e4df1613914315,
         type: 2}
@@ -19002,7 +19056,7 @@ Prefab:
     - target: {fileID: 224404181121591946, guid: 4764c01bf19454e469e4df1613914315,
         type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 224404181121591946, guid: 4764c01bf19454e469e4df1613914315,
         type: 2}
@@ -20448,8 +20502,6 @@ MonoBehaviour:
   _animatorOverrideController: {fileID: 22100000, guid: 9a1ba325a295943a1882c06d725bf7f7,
     type: 2}
   _avatar: {fileID: 9000000, guid: e88f3d051335eea419d1f5bcf6667269, type: 3}
-  _energyConsumeOnJump: 10
-  _energyToConsumeOnDash: 50
   _invincibleTimeLength: 5
   _kickForce: 50
   _maximumKickDistance: 1
@@ -20677,7 +20729,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4359114453130038, guid: 6958e1870c8e54d339163b4cf75e86f9, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6958e1870c8e54d339163b4cf75e86f9, type: 2}
@@ -22159,6 +22211,8 @@ MonoBehaviour:
   _startingEnergy: 100
   _currentEnergy: 100
   _increasePerSecond: 25
+  _energyToConsumeOnJump: 10
+  _energyToConsumeOnDash: 50
 --- !u!114 &1488930986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22574,7 +22628,7 @@ Transform:
   m_Children:
   - {fileID: 512590}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1551153683
 MonoBehaviour:
@@ -24595,7 +24649,7 @@ Transform:
   - {fileID: 415417606}
   - {fileID: 194132221}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1823269528
 GameObject:
@@ -24685,7 +24739,7 @@ Transform:
   m_Children:
   - {fileID: 1104230143}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1848888213
 MonoBehaviour:
@@ -25924,7 +25978,7 @@ Transform:
   - {fileID: 2068515980}
   - {fileID: 1371141783}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2029446765
 MonoBehaviour:
