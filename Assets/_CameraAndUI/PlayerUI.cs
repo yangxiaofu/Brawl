@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Assertions;
 using Game.Characters;
-using Game.Items;
+using Game.Weapons;
 using Game.Core;
 using Game.Core.ControllerInputs;
 using System;

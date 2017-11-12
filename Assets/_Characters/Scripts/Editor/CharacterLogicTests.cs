@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Game.Characters;
-using Game.Items;
+using Game.Weapons;
 using NUnit.Framework;
 
 namespace Game.Characters.UnitTests{

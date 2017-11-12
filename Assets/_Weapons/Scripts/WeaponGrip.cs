@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game.Weapons{
-	public class ProjectileSocket : MonoBehaviour { //this is used as a placeholder. 
+	public class WeaponGrip : MonoBehaviour { //Used as a placeholder for WeaponGrip. 
 
 	}
 }

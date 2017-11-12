@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Assertions;
-using Game.Items;
+using Game.Weapons;
 using Game.Core;
 using Game.Core.ControllerInputs;
 

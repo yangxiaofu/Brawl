@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
-using Game.Items;
+using Game.Weapons;
 using Game.Characters;
 
 namespace Game.Core{

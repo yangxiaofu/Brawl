@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Panda;
-using Game.Items;
+using Game.Weapons;
 using UnityEngine.Assertions;
 using Game.Core;
 
