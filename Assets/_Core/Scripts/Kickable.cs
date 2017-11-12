@@ -24,6 +24,11 @@ namespace Game.Core
             Assert.IsNotNull(_audioOnImpact, "You must add audio for the impact sound in " + this.name);
         }
 
+        void Start()
+        {
+            _logic = new KickableLogic();
+        }
+
         public void Setup(Vector3 forceDirection)
         {
             _forceDirection = forceDirection;
@@ -32,13 +37,12 @@ namespace Game.Core
 		
 		void OnCollisionEnter(Collision other)
         {
-            
-            if (_inMotion && IsMoveableObject(other))
+            if(_logic.ForceCanBeAdded(_inMotion, IsMoveableObject(other)))
             {
                 PlayImpactAudio();
                 AddForceTo(other.collider.gameObject);
             }
-
+            
             _inMotion = false;
         }
 
@@ -60,7 +64,9 @@ namespace Game.Core
 
             rb.AddForce(_forceDirection * _forceOnContact, ForceMode.Impulse);
             Debug.Log("Added Force to the " + gameObjectToAddForceTo.name);
+
             //Add some sort of sound .ater. 
+            
 		}
 
 

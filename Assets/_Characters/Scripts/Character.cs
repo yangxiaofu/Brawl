@@ -248,6 +248,7 @@ namespace Game.Characters
         private void InitializeCharacterVariables()
         {
             _rb = GetComponent<Rigidbody>();
+			
             Assert.IsNotNull(_rb);
 
 			_cc = GetComponent<CapsuleCollider>();
