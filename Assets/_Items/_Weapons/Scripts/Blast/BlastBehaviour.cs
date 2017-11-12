@@ -50,18 +50,12 @@ namespace Game.Items{
         private void HandleParticleSystem() //TODO: Refactor out to some form of delegation.  The other similar script is in FallingItemBehaviour
         {
             //Instantiate the object.
-            var particleSystemObject = Instantiate(_blastConfig.GetImpactParticleSystemPrefab(), this.transform.position, _blastConfig.GetImpactParticleSystemPrefab().transform.rotation) as GameObject;
+            var blastObject = Instantiate(_blastConfig.GetBlastPrefab(), this.transform.position, _blastConfig.GetBlastPrefab().transform.rotation) as GameObject;
+            var blastLength = blastObject.GetComponent<ExplosionBehaviour>().GetBlastDuration();
+            PlayExplosionAudioOn(blastObject);
 
-            //Play Particle System
-            var particleSystem = particleSystemObject.GetComponent<ParticleSystem>();
-            particleSystem.Play();
-
-            //Play Audio Sound.
-            PlayExplosionAudioOn(particleSystemObject);
-
-            //SetupTimer
-            var destroyTimer = particleSystemObject.AddComponent<DestroyTimer>();
-            destroyTimer.SetupTimer(particleSystem.main.duration);
+            var destroyTimer = blastObject.AddComponent<DestroyTimer>();
+            destroyTimer.SetupTimer(blastLength); 
             destroyTimer.Begin();
 
             //DestroyGameObject

@@ -35,7 +35,7 @@ namespace Game.Items{
 
         private void HandleParticleSystem() //TODO: Refactor out to some form of delegation.  The other similar script is in BlastBehaviour
         {
-            var particlePrefab = _config.blastConfig.GetImpactParticleSystemPrefab();
+            var particlePrefab = _config.blastConfig.GetBlastPrefab();
 
             var particleEffectObject = Instantiate(
                 particlePrefab, 
@@ -43,11 +43,10 @@ namespace Game.Items{
                 particlePrefab.transform.rotation
             );
 
-            var particleSystem = particleEffectObject.GetComponent<ParticleSystem>();
-            particleSystem.Play();
-
+            var particleSystem = particleEffectObject.GetComponentInChildren<Animator>();
+            
             PlayExplosionAudioOn(particleEffectObject);
-
+            
             Destroy(this.gameObject);
         }
 

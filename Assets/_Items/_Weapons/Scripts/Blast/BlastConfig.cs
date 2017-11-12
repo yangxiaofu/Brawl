@@ -5,10 +5,8 @@ using UnityEngine;
 namespace Game.Items{
 	//Blast Configs are the impact upon explosion of the weapon item. 
 	public abstract class BlastConfig : ScriptableObject{
-		[SerializeField] GameObject _blastImpactParticleSystemPrefab;
-		public GameObject GetImpactParticleSystemPrefab(){
-			return _blastImpactParticleSystemPrefab;
-		}
+		[SerializeField] GameObject _blastPrefab;
+		public GameObject GetBlastPrefab(){return _blastPrefab;}
 		[SerializeField] float _blastRadius = 2f;
 		public float blastRadius{get{return _blastRadius;}}
 		[SerializeField] float _blastForce = 50f;
