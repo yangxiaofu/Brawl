@@ -12,23 +12,35 @@ namespace Game.Characters
 	{
 		[Header ("Character Movement Parameters")]
 		[SerializeField] float _speed = 5f;
-		[SerializeField] float _angularSpeed = 120f;
+
+		[Space][Header("Rigid Body Parameters")]
+		[SerializeField] float _angularSpeed = 8f;
+		[SerializeField] float _drag = 10f;
+		[SerializeField] float _mass = 20f;
+		
+		[Space][Header("Capsule Collider")]
+		[SerializeField] PhysicMaterial _physicsMaterial;
+		[SerializeField] Vector3 _center = new Vector3(0, 0.5321544f, 0);
+		[SerializeField] float _height = 1.6677024f;
+
+		[Space][Header("Nav Mesh Agent")]
 		[SerializeField] float _stoppingDistance = 3f;
 		[SerializeField] float _groundDistance = 0.2f;
 		[SerializeField] float _jumpHeight = 5f;
 		public float jumpHeight{get{return _jumpHeight;}}
 		[SerializeField] float _dashDistance = 0.5f;
 		[SerializeField] LayerMask _ground;
-		[SerializeField] bool _isBeingAttacked = false;
+		bool _isBeingAttacked = false;
 		public void SetBeingAttacked(bool isBeingAttacked) {_isBeingAttacked = isBeingAttacked;}
+		[Space] [Header("Animator")]
+		[SerializeField] AnimatorOverrideController _animatorOverrideController;
+		[SerializeField] Avatar _avatar;
 
-		[Space] [Header("Energy Consumption")] 
-		[SerializeField] protected float _energyConsumeOnJump = 10f;
-		[SerializeField] protected float _energyToConsumeOnDash = 50f;
+		
 
 		[Space]
-		[SerializeField] protected float _invincibleLength = 5f;
-		[SerializeField] protected bool _isInvincible = false;
+		[SerializeField] protected float _invincibleTimeLength = 5f;
+		protected bool _isInvincible = false;
 		
 		[Space]
 		[Header("Kicking Attributes")]
@@ -51,7 +63,7 @@ namespace Game.Characters
 		[Tooltip("Setting this will make the enemy go from hiding to attacking an enemy.")]
 		[Range(0, 1)]
 		[SerializeField] float _beginAttackThreshold = 0.8f;
-		[SerializeField] bool _frozen = false;
+		bool _frozen = false;
 
 		[HideInInspector] public bool isBot = false; //this is set on the controller piece. 
 
@@ -61,7 +73,7 @@ namespace Game.Characters
 		}
 
 		public float beginAttackThreshold{get{return _beginAttackThreshold;}}
-		public Character target;
+		[HideInInspector] public Character target;
 		WeaponSystem _weaponSystem;
 		Animator _anim;
 		Rigidbody _rb;
@@ -93,7 +105,12 @@ namespace Game.Characters
 
         void Start()
         {
-            InitializeCharacterVariables();
+			SetupRigidBody();
+            SetupCapsuleCollider();
+			SetupAnimator();
+
+            InitializeCharacterVariables(); 
+
 			_weaponSystem.InitializeWeaponSystem();
 			_characterLogic = new CharacterLogic(this);
 
@@ -165,25 +182,21 @@ namespace Game.Characters
 
 		private void UpdateMovementAnimation()
         {
-			if (_frozen)
-				return;
-
-			if (!_controller)
-				return;
-
-            float animationThreshold = 0.2f;
+			if(_characterLogic.CanMove(_frozen, _controller))
+			{
+				float animationThreshold = 0.2f;
             
-            if (_controller.GetMovementInputs().magnitude > animationThreshold)
-            {
-                transform.forward = _controller.GetMovementInputs();
-                _anim.SetBool(IS_WALKING, true);
-            }
-            else
-            {
-                _anim.SetBool(IS_WALKING, false);
-            }
+				if (_controller.GetMovementInputs().magnitude > animationThreshold)
+				{
+					transform.forward = _controller.GetMovementInputs();
+					_anim.SetBool(IS_WALKING, true);
+				}
+				else
+				{
+					_anim.SetBool(IS_WALKING, false);
+				}
+			}
         }
-
 
 		public void OnButtonPressed(PS4_Controller_Input.Button button)
         {
@@ -247,38 +260,62 @@ namespace Game.Characters
 		
         private void InitializeCharacterVariables()
         {
-            _rb = GetComponent<Rigidbody>();
-			
-            Assert.IsNotNull(_rb);
-
-			_cc = GetComponent<CapsuleCollider>();
-			Assert.IsNotNull(_cc);
-
-            _anim = GetComponent<Animator>();
-            Assert.IsNotNull(_anim);
+            
 
             _groundChecker = GetComponentInChildren<GroundChecker>().transform;
             Assert.IsNotNull(_groundChecker);
 
             _weaponSystem = GetComponent<WeaponSystem>();
-			Assert.IsNotNull(_weaponSystem);
+            Assert.IsNotNull(_weaponSystem);
 
-			_energySystem = GetComponent<EnergySystem>();
-			Assert.IsNotNull(_energySystem);
+            _energySystem = GetComponent<EnergySystem>();
+            Assert.IsNotNull(_energySystem);
 
-			_characterRenderer = GetComponentInChildren<Renderer>();
-			Assert.IsNotNull(_characterRenderer);
+            _characterRenderer = GetComponentInChildren<Renderer>();
+            Assert.IsNotNull(_characterRenderer);
         }
 
-		public bool Jump()
+        private void SetupAnimator()
+        {
+            _anim = gameObject.AddComponent<Animator>();
+            _anim.runtimeAnimatorController = _animatorOverrideController;
+			_anim.avatar = _avatar;
+			_anim.cullingMode = AnimatorCullingMode.AlwaysAnimate;
+			_anim.updateMode = AnimatorUpdateMode.AnimatePhysics;
+            Assert.IsNotNull(_anim);
+        }
+
+        private void SetupCapsuleCollider()
+        {
+            _cc = gameObject.AddComponent<CapsuleCollider>();
+            _cc.material = _physicsMaterial;
+			_cc.center = _center;
+			_cc.height = _height;
+            Assert.IsNotNull(_cc);
+        }
+
+        private void SetupRigidBody()
+        {
+            _rb = gameObject.AddComponent<Rigidbody>();
+            _rb.angularDrag = _angularSpeed;
+            _rb.drag = _drag;
+            _rb.mass = _mass;
+            _rb.constraints = RigidbodyConstraints.FreezeRotation;
+            _rb.useGravity = true;
+            _rb.isKinematic = false;
+
+            Assert.IsNotNull(_rb);
+        }
+
+        public bool Jump()
 		{	
 			if (_frozen) 
 				return false;
 
-			if (!_energySystem.HasEnergy(_energyConsumeOnJump)) 
+			if (!_energySystem.HasEnergy(_energySystem.energyToConsumeOnJump)) 
 				return false;
 
-			_energySystem.ConsumeEnergy(_energyConsumeOnJump);
+			_energySystem.ConsumeEnergy(_energySystem.energyToConsumeOnJump);
 			
 			var physics = new GamePhysics();
 			var appliedForce = physics.GetAppliedForceWithGravity(Vector3.up, _jumpHeight);
@@ -293,13 +330,12 @@ namespace Game.Characters
 
 		public bool Dash()
 		{
-			if (_frozen)
+			if (_frozen) return false;
+
+			if(!_energySystem.HasEnergy(_energySystem.energyToConsumeOnDash)) 
 				return false;
 
-			if(!_energySystem.HasEnergy(_energyToConsumeOnDash)) 
-				return false;
-
-			_energySystem.ConsumeEnergy(_energyToConsumeOnDash); 
+			_energySystem.ConsumeEnergy(_energySystem.energyToConsumeOnDash); 
 
 			Vector3 dashVelocity = Vector3.Scale(this.transform.forward, _dashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * _rb.drag + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * _rb.drag + 1)) / -Time.deltaTime)));
             _rb.AddForce(dashVelocity, ForceMode.VelocityChange);
@@ -323,7 +359,7 @@ namespace Game.Characters
 				StartCoroutine(Blink(secondsBetweenBlinks, totalNumberOfBlinks));
 
 				_isInvincible = true;
-				StartCoroutine(EndInvincible(_invincibleLength));
+				StartCoroutine(EndInvincible(_invincibleTimeLength));
 			}         
         }
 
