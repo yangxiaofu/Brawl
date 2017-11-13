@@ -25,9 +25,14 @@ namespace Game.Weapons{
 
 		void OnCollisionEnter(Collision other)
 		{
+            var character = other.gameObject.GetComponentInParent<Character>();
+
+            if (character && character == _character)
+                return;
+
 			if (other.gameObject.GetComponent<Character>() == _character)
 				return;
-
+                
 			StartCoroutine(StartExplosionTimer(_weaponConfig.GetBlastDelayAfterCollision()));
 		}
 

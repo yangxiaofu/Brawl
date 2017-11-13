@@ -7,6 +7,7 @@ using Game.Characters;
 namespace Game.Core.ControllerInputs{
 	public abstract class ControllerBehaviour : MonoBehaviour {	
 		[SerializeField] protected Character _character;
+        [SerializeField] protected CharacterMovement _movement;
 		public Character character{ get{return _character;}}
 		[SerializeField] bool _isBOT = false;
 		protected string _prefix;
@@ -22,8 +23,14 @@ namespace Game.Core.ControllerInputs{
 		void Awake()
 		{
             _logic = new ControllerBehaviourLogic();
-			_character.Setup(this);		
-			_character.isBot = _isBOT;	
+
+            if (_character){
+                _character.Setup(this);		
+			    _character.isBot = _isBOT;	
+            } else if (_movement){
+                _movement.Setup(this);
+            }
+			
 		}
 
         protected void InitializeControllerPrefix()

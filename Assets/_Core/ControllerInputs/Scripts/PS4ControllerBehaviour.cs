@@ -18,7 +18,9 @@ namespace Game.Core.ControllerInputs{
 			InitializeControllerPrefix();
 
 			ps4Controller = new PS4_Controller_Input(_prefix);
-			OnButtonPressed += _character.OnButtonPressed;
+
+            if (_character) //TODO: Remove after debuggin movement. 
+			    OnButtonPressed += _character.OnButtonPressed;
 		}
 
         void Update()

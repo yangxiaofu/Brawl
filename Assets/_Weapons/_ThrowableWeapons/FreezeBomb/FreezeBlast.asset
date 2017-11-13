@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fef0dd1a10a14201a322f3af678231b, type: 3}
   m_Name: FreezeBlast
   m_EditorClassIdentifier: 
-  _blastImpactParticleSystemPrefab: {fileID: 1631041055441926, guid: bbccbe494104e4753a0c3c2aa1b25654,
+  _blastPrefab: {fileID: 1098297072557902, guid: 295ab5dbc76fd4209a44d9ae0fff31e9,
     type: 2}
   _blastRadius: 2
   _blastForce: 50

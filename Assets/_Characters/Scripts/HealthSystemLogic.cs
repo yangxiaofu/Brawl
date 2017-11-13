@@ -4,25 +4,11 @@ using UnityEngine;
 
 namespace Game.Characters{
 	public class HealthSystemLogic {
-		private readonly float _minHealth;
-		private readonly float _maxHealth;
 
-		public HealthSystemLogic(float minHealth, float maxHealth)
+		public Vector3 GrowOpponent(Vector3 currentScale, int timesHit, float scaleFactor)
 		{
-			_maxHealth = maxHealth;
-			_minHealth = minHealth;
-		}
-		public float IncreaseHealth(float currentHealth, float healthToIncrease)
-		{
-			currentHealth += healthToIncrease;
-			currentHealth = Mathf.Clamp(currentHealth, _minHealth, _maxHealth);
-			return currentHealth;
-		}
-
-		public float TakeDamage(float currentHealth, float damageToTake){
-			currentHealth -= damageToTake;
-			currentHealth = Mathf.Clamp(currentHealth, _minHealth, _maxHealth);
-			return currentHealth;
+			var factor = 1 + (timesHit * scaleFactor);
+			return currentScale * factor;
 		}
 
 	}

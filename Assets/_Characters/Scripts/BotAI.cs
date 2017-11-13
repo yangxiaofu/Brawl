@@ -53,7 +53,7 @@ namespace Game.Characters{
         }
 		[Task] bool IsDead()
 		{
-			return _character.IsDead();
+			return _character.isActiveAndEnabled;
 		}
 
 		[Task] bool LowOnAmmo()
@@ -110,8 +110,7 @@ namespace Game.Characters{
 
 		[Task] bool IsInDanger()
 		{
-			var logic = new CharacterDangerLogic(GetComponent<HealthSystem>().healthAsPercentage, _character.inDangerThreshold);
-			return logic.IsInDanger();
+			return false; //TODO; Fix this up. 
 		}
 
 		[Task] bool IsAttacking ()
@@ -123,7 +122,7 @@ namespace Game.Characters{
 		{
 			for(int i = 0; i < _characters.Count; i++)
 			{
-				if (!_characters[i].IsDead()){
+				if (!_characters[i].isDead){
 					return true;
 				}
 			}
@@ -194,7 +193,7 @@ namespace Game.Characters{
 		 
 		[Task]bool ReadyToFight()
 		{
-			return GetComponent<HealthSystem>().healthAsPercentage > _character.beginAttackThreshold;
+			return true;
 		}
 
 		

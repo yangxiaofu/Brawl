@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e6f97882ab2496ab401f04a6ed3ca9, type: 3}
   m_Name: SmallExplosionBlast
   m_EditorClassIdentifier: 
-  _blastImpactParticleSystemPrefab: {fileID: 1129565400138064, guid: 9980ae1ad1a764e638b4c6973eb398d3,
+  _blastPrefab: {fileID: 1098297072557902, guid: 295ab5dbc76fd4209a44d9ae0fff31e9,
     type: 2}
   _blastRadius: 5
   _blastForce: 50

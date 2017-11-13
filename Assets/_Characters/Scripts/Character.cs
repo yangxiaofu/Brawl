@@ -10,34 +10,16 @@ namespace Game.Characters
 {
     public class Character : MonoBehaviour 
 	{
-		[Header ("Character Movement Parameters")]
-		[SerializeField] float _speed = 5f;
-
-		[Space][Header("Rigid Body Parameters")]
-		[SerializeField] float _angularSpeed = 8f;
-		[SerializeField] float _drag = 10f;
-		[SerializeField] float _mass = 20f;
-		
 		[Space][Header("Capsule Collider")]
 		[SerializeField] PhysicMaterial _physicsMaterial;
 		[SerializeField] Vector3 _center = new Vector3(0, 0.5321544f, 0);
-		[SerializeField] float _height = 1.6677024f;
-
-		[Space][Header("Nav Mesh Agent")]
-		[SerializeField] float _stoppingDistance = 3f;
-		[SerializeField] float _groundDistance = 0.2f;
-		[SerializeField] float _jumpHeight = 5f;
-		public float jumpHeight{get{return _jumpHeight;}}
-		[SerializeField] float _dashDistance = 0.5f;
-		[SerializeField] LayerMask _ground;
+		[SerializeField] float _height = 1.6677024f;		
 		bool _isBeingAttacked = false;
 		public void SetBeingAttacked(bool isBeingAttacked) {_isBeingAttacked = isBeingAttacked;}
 		[Space] [Header("Animator")]
 		[SerializeField] AnimatorOverrideController _animatorOverrideController;
 		[SerializeField] Avatar _avatar;
-
-		
-
+		[SerializeField] AnimatorUpdateMode _animatorUpdateMode;
 		[Space]
 		[SerializeField] protected float _invincibleTimeLength = 5f;
 		protected bool _isInvincible = false;
@@ -53,18 +35,8 @@ namespace Game.Characters
 		[Tooltip("This is the distance in which the enemy will stop in front of the player and start shooting. ")]
 		[SerializeField] float _maxShootingDistance = 10f;
 		public float maxShootingDistance{get{return _maxShootingDistance;}}
-
-		[Space]
-		[Tooltip("When the amount goes below this, the enemy will run and hide for cover until he has enough health.")]
-		[Range(0, 1)]
-		[SerializeField] float _inDangerThreshold = 0.2f;
-		public float inDangerThreshold {get{return _inDangerThreshold;}}
-
-		[Tooltip("Setting this will make the enemy go from hiding to attacking an enemy.")]
-		[Range(0, 1)]
-		[SerializeField] float _beginAttackThreshold = 0.8f;
 		bool _frozen = false;
-
+		public bool frozen{get{return _frozen;}}
 		[HideInInspector] public bool isBot = false; //this is set on the controller piece. 
 
 		public bool freeze{
@@ -72,44 +44,37 @@ namespace Game.Characters
 			set{_frozen = value;}
 		}
 
-		public float beginAttackThreshold{get{return _beginAttackThreshold;}}
 		[HideInInspector] public Character target;
 		WeaponSystem _weaponSystem;
 		Animator _anim;
-		Rigidbody _rb;
 		EnergySystem _energySystem;
+		public EnergySystem energySystem{get{return _energySystem;}}
 		CapsuleCollider _cc;
-		Transform _groundChecker;
-        bool _isGrounded = true;
 		bool _characterCanShoot = true;
-		const string IS_WALKING = "IsWalking";
+		public bool characterCanShoot{get{return _characterCanShoot;}}
 		bool _isBlinking = false;
 		Renderer _characterRenderer;
 		bool _isDead = false;
-		NavMeshAgent _agent;
+		public bool isDead{get{return _isDead;}}
 		ControllerBehaviour _controller;
-		
 		public ControllerBehaviour controller{get{return _controller;}}
 		public void Setup(ControllerBehaviour controller){_controller = controller;}
 		[HideInInspector] public bool isAttacking = false;
-		public bool IsDead() { return _isDead; }
+		Movement _movement;
 		CharacterLogic _characterLogic;
+		public CharacterLogic logic {get{return _characterLogic;}}
 		
 		void Awake()
         {
-            if (!isBot)
-                return;
-
-            SetupNavMeshAgent();
+            SetupCapsuleCollider();
+			SetupAnimator();				
         }
 
         void Start()
         {
-			SetupRigidBody();
-            SetupCapsuleCollider();
-			SetupAnimator();
-
             InitializeCharacterVariables(); 
+
+			_movement = GetComponent<Movement>();
 
 			_weaponSystem.InitializeWeaponSystem();
 			_characterLogic = new CharacterLogic(this);
@@ -121,19 +86,8 @@ namespace Game.Characters
         {
 			if (isBot) 
 				return;
-			
-			CheckIfGrounded();
 
-			UpdateMovementAnimation();
-        }
-
-		void FixedUpdate()
-        {	
-			bool hasController = _controller ? true : false;
-			if(!_characterLogic.CanMove(_frozen, hasController))
-				return;
-
-            if (_characterCanShoot)
+			if (_characterCanShoot)
             {
                 if(_weaponSystem.ShotIsFired(isBot, _controller))
 				{		
@@ -142,11 +96,6 @@ namespace Game.Characters
 					StartCoroutine(UpdateCharacterCanShootAfter(secondsToDelayUpdate));
 				}
             }
-
-            if (isBot)
-                return;
-
-            UpdatePlayerMovement();
         }
 
 		private IEnumerator UpdateCharacterCanShootAfter(float delay)
@@ -156,47 +105,8 @@ namespace Game.Characters
 			yield return null;
 		}
 		
-        private void UpdatePlayerMovement()
-        {
-            _rb.MovePosition(_rb.position + _controller.GetMovementInputs() * _speed * Time.fixedDeltaTime);
-        }
+        
 
-        private void SetupNavMeshAgent()
-        {
-            _agent = this.gameObject.AddComponent<NavMeshAgent>();
-            _agent.speed = _speed;
-            _agent.angularSpeed = _angularSpeed;
-            _agent.stoppingDistance = _stoppingDistance;
-            _agent.updatePosition = false;
-        }
-
-		private void CheckIfGrounded()
-        {
-            _isGrounded = UnityEngine.Physics.CheckSphere(
-				_groundChecker.position,
-				_groundDistance,
-				_ground,
-				QueryTriggerInteraction.Ignore
-			);
-        }
-
-		private void UpdateMovementAnimation()
-        {
-			if(_characterLogic.CanMove(_frozen, _controller))
-			{
-				float animationThreshold = 0.2f;
-            
-				if (_controller.GetMovementInputs().magnitude > animationThreshold)
-				{
-					transform.forward = _controller.GetMovementInputs();
-					_anim.SetBool(IS_WALKING, true);
-				}
-				else
-				{
-					_anim.SetBool(IS_WALKING, false);
-				}
-			}
-        }
 
 		public void OnButtonPressed(PS4_Controller_Input.Button button)
         {
@@ -206,7 +116,7 @@ namespace Game.Characters
 			//TODO: Change to interface for controllers. 
 			if (button == PS4_Controller_Input.Button.X)
 			{
-				if (_isGrounded) Jump();
+				if (_movement.isGrounded) _movement.Jump();
 			} 
 
 			if (button == PS4_Controller_Input.Button.CIRCLE)
@@ -261,10 +171,6 @@ namespace Game.Characters
         private void InitializeCharacterVariables()
         {
             
-
-            _groundChecker = GetComponentInChildren<GroundChecker>().transform;
-            Assert.IsNotNull(_groundChecker);
-
             _weaponSystem = GetComponent<WeaponSystem>();
             Assert.IsNotNull(_weaponSystem);
 
@@ -278,11 +184,11 @@ namespace Game.Characters
         private void SetupAnimator()
         {
             _anim = gameObject.AddComponent<Animator>();
+			Assert.IsNotNull(_anim, "You have no animator in the game object scene.");
             _anim.runtimeAnimatorController = _animatorOverrideController;
 			_anim.avatar = _avatar;
 			_anim.cullingMode = AnimatorCullingMode.AlwaysAnimate;
-			_anim.updateMode = AnimatorUpdateMode.AnimatePhysics;
-            Assert.IsNotNull(_anim);
+			_anim.updateMode = _animatorUpdateMode;
         }
 
         private void SetupCapsuleCollider()
@@ -294,53 +200,14 @@ namespace Game.Characters
             Assert.IsNotNull(_cc);
         }
 
-        private void SetupRigidBody()
-        {
-            _rb = gameObject.AddComponent<Rigidbody>();
-            _rb.angularDrag = _angularSpeed;
-            _rb.drag = _drag;
-            _rb.mass = _mass;
-            _rb.constraints = RigidbodyConstraints.FreezeRotation;
-            _rb.useGravity = true;
-            _rb.isKinematic = false;
-
-            Assert.IsNotNull(_rb);
-        }
-
         public bool Jump()
 		{	
-			if (_frozen) 
-				return false;
-
-			if (!_energySystem.HasEnergy(_energySystem.energyToConsumeOnJump)) 
-				return false;
-
-			_energySystem.ConsumeEnergy(_energySystem.energyToConsumeOnJump);
-			
-			var physics = new GamePhysics();
-			var appliedForce = physics.GetAppliedForceWithGravity(Vector3.up, _jumpHeight);
-
-			_rb.AddForce
-			(
-				appliedForce, ForceMode.VelocityChange
-			);
-
-			return true;
+			return _movement.Jump();
 		}
 
 		public bool Dash()
 		{
-			if (_frozen) return false;
-
-			if(!_energySystem.HasEnergy(_energySystem.energyToConsumeOnDash)) 
-				return false;
-
-			_energySystem.ConsumeEnergy(_energySystem.energyToConsumeOnDash); 
-
-			Vector3 dashVelocity = Vector3.Scale(this.transform.forward, _dashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * _rb.drag + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * _rb.drag + 1)) / -Time.deltaTime)));
-            _rb.AddForce(dashVelocity, ForceMode.VelocityChange);
-			
-			return true;
+			return _movement.Dash();
 		}
 		void OnCollisionEnter(Collision collision)
         {
@@ -381,7 +248,7 @@ namespace Game.Characters
 		private void DamageCharacter(ProjectileBehaviour projectile)
 		{
 			var damage = projectile.GetComponent<BlastBehaviour>().GetDamage();
-			GetComponent<HealthSystem>().TakeDamage(damage);
+			GetComponent<HealthSystem>().TakeHit();
 		}
 
 		private IEnumerator EndInvincible(float delay)

@@ -11,10 +11,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e6f97882ab2496ab401f04a6ed3ca9, type: 3}
   m_Name: Bullet Blast
   m_EditorClassIdentifier: 
-  _blastImpactParticleSystemPrefab: {fileID: 1773120417003876, guid: 9c3945cc8535b4fa8a535dd630fb6ef9,
+  _blastPrefab: {fileID: 1098297072557902, guid: 295ab5dbc76fd4209a44d9ae0fff31e9,
     type: 2}
   _blastRadius: 2
   _blastForce: 5
-  _delayBeforeExplosion: 2
+  _delayBeforeExplosion: 0
   _damage: 5
-  _audio: {fileID: 0}
+  _audio: {fileID: 8300000, guid: 2ca3bee082ccb4e27bbf668b3ddb6f27, type: 3}

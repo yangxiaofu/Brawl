@@ -5,27 +5,30 @@ using UnityEngine;
 namespace Game.Characters{
 	
 	public class HealthSystem : MonoBehaviour {
-		[SerializeField] float _startingHealth = 100f;
-		[SerializeField] float _currentHealth = 100f;
 		[SerializeField] float _healthImprovedPerSecond = 5f;
-		float _minHealth = 0;
-		public float healthAsPercentage{ get{return _currentHealth / _startingHealth;}}
+		[SerializeField] int _numberOfTimesHitBeforeDestroying = 10;
+		[SerializeField] float _scaleUpIncrementsWhenHit = 0.1f;
+		int _timesHit = 0;
 		HealthSystemLogic _healthSystemLogic;
 
-		public void Start()
+		void Start()
 		{
-			_healthSystemLogic = new HealthSystemLogic(_minHealth, _startingHealth);
+			_healthSystemLogic = new HealthSystemLogic();
 		}
 
 		void Update()
 		{
 			var healthToAdd = _healthImprovedPerSecond * Time.deltaTime;
-			_healthSystemLogic.IncreaseHealth(_currentHealth, healthToAdd);
 		}
 
-		public void TakeDamage(float damageToTake)
+		public void TakeHit()
 		{
-			_healthSystemLogic.TakeDamage(_currentHealth, damageToTake);
+			_timesHit += 1;
+
+			// if (_timesHit >= _numberOfTimesHitBeforeDestroying) //TODO: Commented out for debugging purpposes. 
+			// 	Destroy(this.gameObject);
+
+			this.gameObject.transform.localScale = _healthSystemLogic.GrowOpponent(new Vector3(1, 1, 1), _timesHit, _scaleUpIncrementsWhenHit);
 		}
 	}
 }

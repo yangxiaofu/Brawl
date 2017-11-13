@@ -21,13 +21,6 @@ namespace Game.UI
 		{
 			_character = character;
 		}
-
-		void Update()
-		{
-			_healthBarImage.fillAmount = _character
-				.GetComponent<HealthSystem>()
-				.healthAsPercentage;
-		}
 	}
 }
 

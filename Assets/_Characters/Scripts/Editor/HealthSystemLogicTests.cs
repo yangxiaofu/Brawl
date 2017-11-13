@@ -8,30 +8,17 @@ namespace Game.Characters.UnitTests
 	[TestFixture]
 	public class HealthSystemLogicTests 
 	{
-		HealthSystemLogic sut;
-
-		[SetUp]
-		public void Setup(){
-			var minHealth = 0;
-			var maxHealth = 100f;
-			sut = new HealthSystemLogic(minHealth, maxHealth);
-		}
-
 		[Test]
-		[TestCase(50, 50, 100, 100)]
-		[TestCase(50, 100, 100, 100)]
-		[TestCase(50, 25, 100, 75)]
-		[TestCase(50, 0, 100, 50)]
-		public void HealthSystemLogic_AddHealth_ReturnsIncreasedHealth(float currentHealth, float healthToAdd, float maxHealth, float response)
-		{
-			Assert.AreEqual(response, sut.IncreaseHealth(currentHealth, healthToAdd));
-		}
-
-		[Test]
-		[TestCase(50, 25, 100, 25)]
-		[TestCase(50, 75, 100, 0)]
-		public void HealthSystemLogic_AddHealth_ReturnsReducedHealth(float currentHealth, float damageToTake, float maxHealth, float response){
-			Assert.AreEqual(response, sut.TakeDamage(currentHealth, damageToTake));
+		[TestCase(1, 0.1f, 1.1f)]
+		[TestCase(2, 0.1f, 1.2f)]
+		[TestCase(3, 0.1f, 1.3f)]
+		public void GrowOpponent_ReturnsBigger(int timesHit, float growthScale, float scaleInAllDirections)
+		{	
+			var sut = new HealthSystemLogic();
+			var originalVector = new Vector3(1, 1, 1);
+			var growthVector = sut.GrowOpponent(originalVector, timesHit, growthScale);
+			var result = new Vector3(scaleInAllDirections, scaleInAllDirections, scaleInAllDirections);
+			Assert.AreEqual(result, growthVector);
 		}
 	}
 }
