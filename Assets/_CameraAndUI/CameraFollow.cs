@@ -17,7 +17,7 @@ namespace Game.CameraUI{
 		void Start()
 		{
 			_logic = new CameraAILogic();
-
+			_averagePositionGameObject = new GameObject("Average Pos");
 			SetupCharacters();
 		}
 
@@ -39,7 +39,6 @@ namespace Game.CameraUI{
         void FindAveragePositionForCharacters()
 		{
 			var averagePos = _logic.FindAveragePositionFromGameObjects(_characterObjects);
-			_averagePositionGameObject = new GameObject("Average Pos");
 			_averagePositionGameObject.transform.position = averagePos;
 		}
 
