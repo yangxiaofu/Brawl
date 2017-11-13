@@ -71,7 +71,6 @@
      <Compile Include="Assets\_Core\ControllerInputs\Scripts\ControllerBehaviourLogic.cs" />
      <Compile Include="Assets\_Core\ControllerInputs\Scripts\PS4_Controller_Input.cs" />
      <Compile Include="Assets\_Core\ControllerInputs\Scripts\PS4ControllerBehaviour.cs" />
-     <Compile Include="Assets\_Core\Scripts\CharacterMovement.cs" />
      <Compile Include="Assets\_Core\Scripts\DestroyTimer.cs" />
      <Compile Include="Assets\_Core\Scripts\Explosion.cs" />
      <Compile Include="Assets\_Core\Scripts\GameManager.cs" />

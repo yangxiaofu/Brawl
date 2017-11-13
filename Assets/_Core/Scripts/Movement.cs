@@ -25,6 +25,7 @@ namespace Game.Core{
 		Character _character;
 		Transform _groundChecker;
 		Animator _anim;
+		Vector3 _inputs;
 		const string IS_WALKING = "IsWalking";
 		
 		void Start () 
@@ -42,53 +43,57 @@ namespace Game.Core{
 		void Update ()
         {
             CheckIfGrounded();
-			UpdateMovementAnimation();
+
+			if(_character.logic.CanMove(_character.frozen, _character.controller))
+			{
+				UpdateMovementAnimation();
+				UpdateCharacterFacingDirection();
+			}
         }
 
 		 void FixedUpdate()
-		{
-			if(!_character.logic.CanMove(_character.frozen, _character.controller ? true : false))
-				return;
-			
-			if(UpdatePlayerMovement())
+        {
+            if (_character.logic.CanMove(_character.frozen, _character.controller))
 			{
-				UpdateCharacterFacingDirection();
+				UpdateMovementInputs();
+				UpdatePlayerMovement();
+            
 			}
-				
-		}
+        }
+
+        private void UpdateMovementInputs()
+        {
+            _inputs = _character.controller.GetMovementInputs();
+        }
 
         private void UpdateCharacterFacingDirection()
         {
-            if (_character.controller.GetMovementInputs() != Vector3.zero)
-                transform.forward = _character.controller.GetMovementInputs();
+            if (_inputs.magnitude >= 0.2f)
+			{
+				transform.forward = _inputs;
+			}
+                
         }
 
 		private void UpdateMovementAnimation()
         {
-			if(_character.logic.CanMove(_character.frozen, _character.controller))
-			{
-				float animationThreshold = 0.2f;
-            
-				if (_character.controller.GetMovementInputs().magnitude > animationThreshold)
-				{
-					_anim.SetBool(IS_WALKING, true);
-				}
-				else
-				{
-					_anim.SetBool(IS_WALKING, false);
-				}
-			}
-        }
-		private bool UpdatePlayerMovement()
-        {
-			if (_character.controller.GetMovementInputs().magnitude > 0.3f){
-				var movePos = _rb.position + _character.controller.GetMovementInputs() * _speed * Time.fixedDeltaTime;
-            	_rb.MovePosition(movePos);
-				return true;
-				
-			}
 
-			return false;
+			float animationThreshold = 0.1f;
+            
+			if (_inputs.magnitude > animationThreshold)
+			{
+				_anim.SetBool(IS_WALKING, true);
+			}
+			else
+			{
+				_anim.SetBool(IS_WALKING, false);
+			}
+		
+        }
+		private void UpdatePlayerMovement()
+        {
+			var movePos = _rb.position + _inputs * _speed * Time.fixedDeltaTime;
+            _rb.MovePosition(movePos);
         }
 
 		private void SetupRigidBody()
@@ -97,7 +102,7 @@ namespace Game.Core{
             _rb.angularDrag = _angularSpeed;
             _rb.drag = _drag;
             _rb.mass = _mass;
-            _rb.constraints = RigidbodyConstraints.FreezeRotation;
+			_rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
             _rb.useGravity = true;
             _rb.isKinematic = false;
 

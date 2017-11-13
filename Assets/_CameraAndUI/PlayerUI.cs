@@ -19,8 +19,6 @@ namespace Game.UI{
 		[SerializeField] Text _specialAbilityText;
 		[SerializeField] Text _scoringSystemText;
 		[SerializeField] PLAYER_TAG _playerTag;
-		
-		HealthBar _healthBar;
 		EnergyBar _energyBar;
 		Character _character;
 		ScoringSystem _scoringSystem;
@@ -31,7 +29,6 @@ namespace Game.UI{
             SetupCharacter();
             SetupScoringSystem();
             InitializeVariables();
-            SetupHealthBar();
             SetupEnergyBar();
         }
 
@@ -46,13 +43,6 @@ namespace Game.UI{
             _energyBar = gameObject.GetComponentInChildren<EnergyBar>();
             Assert.IsNotNull(_energyBar);
             _energyBar.SetupCharacter(_character);
-        }
-
-        private void SetupHealthBar()
-        {
-            _healthBar = gameObject.GetComponentInChildren<HealthBar>();
-            Assert.IsNotNull(_healthBar);
-            _healthBar.SetupCharacter(_character);
         }
 
         private void SetupScoringSystem()
