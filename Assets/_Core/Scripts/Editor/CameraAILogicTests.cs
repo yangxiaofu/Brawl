@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using NUnit.Framework;
-using Game.Core;
+using Game.CameraUI;
 
-namespace Game.Core.UnitTests{
+namespace Game.CameraUI.UnitTests{
 	[TestFixture]
 	public class CameraAILogicTests {
 

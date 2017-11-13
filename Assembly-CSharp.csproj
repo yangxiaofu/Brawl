@@ -51,6 +51,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\_CameraAndUI\CameraAI.cs" />
+     <Compile Include="Assets\_CameraAndUI\CameraAILogic.cs" />
+     <Compile Include="Assets\_CameraAndUI\CameraFollow.cs" />
      <Compile Include="Assets\_CameraAndUI\EnergyBar.cs" />
      <Compile Include="Assets\_CameraAndUI\HealthBar.cs" />
      <Compile Include="Assets\_CameraAndUI\NotificationsUI.cs" />
@@ -71,8 +74,6 @@
      <Compile Include="Assets\_Core\ControllerInputs\Scripts\ControllerBehaviourLogic.cs" />
      <Compile Include="Assets\_Core\ControllerInputs\Scripts\PS4_Controller_Input.cs" />
      <Compile Include="Assets\_Core\ControllerInputs\Scripts\PS4ControllerBehaviour.cs" />
-     <Compile Include="Assets\_Core\Scripts\CameraAI.cs" />
-     <Compile Include="Assets\_Core\Scripts\CameraAILogic.cs" />
      <Compile Include="Assets\_Core\Scripts\DestroyTimer.cs" />
      <Compile Include="Assets\_Core\Scripts\Explosion.cs" />
      <Compile Include="Assets\_Core\Scripts\GameManager.cs" />
@@ -939,6 +940,7 @@
      <None Include="Assets\UBER\Shaders\_Specular\_UBERShader_Specular_Tessellation_2Sided.shader" />
      <None Include="Assets\UBER\Shaders\_Specular\_UBERShader_Specular_TriplanarSelective_2Layers_GeomBlend.shader" />
      <None Include="Assets\Lava_Flowing_Shader\Shaders\Unlit_Lava_Distort.shader" />
+     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
      <None Include="Assets\UBER\Shaders\_Specular\_UBERShader_Specular_POMAdvanced_Refraction.shader" />
      <None Include="Assets\FogVolume\Resources\DepthMapQuad.shader" />
      <None Include="Assets\UBER\Shaders\_Specular\_UBERShader_Specular_Tessellation_2Sided_TriplanarSelective.shader" />
@@ -976,6 +978,7 @@
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_2Layers_GeomBlend.shader" />
      <None Include="Assets\FogVolume\Scripts\Other\TAA\Shaders\TemporalReprojection.shader" />
      <None Include="Assets\UBER\Shaders\_Specular\_UBERShader_Specular_Refraction.shader" />
+     <None Include="Assets\Standard Assets\Environment\Water (Basic)\Shaders\FXWaterBasic.shader" />
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_2Layers_Refraction.shader" />
      <None Include="Assets\Standard Assets\Fonts\OpenSans\License!.txt" />
      <None Include="Assets\UBER\_UBER_deferred_info.txt" />
@@ -1010,9 +1013,10 @@
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_POMDistanceMap.shader" />
      <None Include="Assets\FogVolume\Scenes\RT Viewer\RT_FogVolumeConvolution.shader" />
      <None Include="Assets\UBER\Shaders\_Specular\_UBERShader_Specular_2Layers_GeomBlend.shader" />
-     <None Include="Assets\_Core\Scripts\CameraAI.txt" />
+     <None Include="Assets\_CameraAndUI\CameraAI.txt" />
      <None Include="Assets\FogVolume\Resources\Shadow Projector.shader" />
      <None Include="Assets\UBER\_Examples\Candle\Sources\Materials\CandleFireDepth.shader" />
+     <None Include="Assets\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />
      <None Include="Assets\UBER\Shaders\Deferred_Lighting\Internal-DeferredShading_UBER.shader" />
      <None Include="Assets\Toon Character Pack\Shaders\Toony-Lighted-Transparent.shader" />
      <None Include="Assets\PandaBehaviour\Examples\02_PlayTag\Assets\PlayTag.commented.BT.txt" />
@@ -1052,7 +1056,9 @@
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_Tessellation_2Sided_2Layers.shader" />
      <None Include="Assets\FogVolume\Scenes\RT Viewer\RT_Depth.shader" />
      <None Include="Assets\Octave3D World Builder\Resources\XZGrid.shader" />
+     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\WaterInclude.cginc" />
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_TriplanarSelective_GeomBlend.shader" />
+     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Advanced.shader" />
      <None Include="Assets\UBER\Shaders\_Specular\_UBERShader_Specular_Tessellation_2Sided_TriplanarSelective_2Layers.shader" />
      <None Include="Assets\Standard Assets\Characters\RollerBall\RollerBallGuidelines.txt" />
      <None Include="Assets\UBER\Shaders\_Specular\_UBERShader_Specular_2Sided_TriplanarSelective_2Layers.shader" />
