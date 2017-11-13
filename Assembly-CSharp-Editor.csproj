@@ -58,6 +58,7 @@
      <Compile Include="Assets\_Core\Calculator\Editor\TotalPointsCalculatorTests.cs" />
      <Compile Include="Assets\_Core\ControllerInputs\Editor\ControllerBehaviourEditor.cs" />
      <Compile Include="Assets\_Core\ControllerInputs\Scripts\Editor\ControllerBehaviourLogicTests.cs" />
+     <Compile Include="Assets\_Core\Scripts\Editor\CameraAILogicTests.cs" />
      <Compile Include="Assets\_Core\Scripts\Editor\KickableLogicTests.cs" />
      <Compile Include="Assets\_Core\Scripts\Editor\SpawnerLogicTests.cs" />
      <Compile Include="Assets\_Core\Tests\Editor\GamePhysicsTests.cs" />
@@ -222,6 +223,7 @@
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_POMDistanceMap.shader" />
      <None Include="Assets\FogVolume\Scenes\RT Viewer\RT_FogVolumeConvolution.shader" />
      <None Include="Assets\UBER\Shaders\_Specular\_UBERShader_Specular_2Layers_GeomBlend.shader" />
+     <None Include="Assets\_Core\Scripts\CameraAI.txt" />
      <None Include="Assets\FogVolume\Resources\Shadow Projector.shader" />
      <None Include="Assets\UBER\_Examples\Candle\Sources\Materials\CandleFireDepth.shader" />
      <None Include="Assets\UBER\Shaders\Deferred_Lighting\Internal-DeferredShading_UBER.shader" />
