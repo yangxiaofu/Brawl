@@ -14,6 +14,8 @@ MonoBehaviour:
   _itemPrefab: {fileID: 1443953676885246, guid: ce0d0e6af6d3b40768993ba0603ee605,
     type: 2}
   _isWeapon: 1
-  _chargePerSecond: 20
+  _chargePerSecond: 10
   _forceFactor: 100
   _blastConfig: {fileID: 11400000, guid: d796f22224d1946dc889d8d81d4a71b9, type: 2}
+  _energyConsumptionPerSecond: 10
+  _projectileIncreasePerSecondOnCharge: 1.1

@@ -1,8 +1,9 @@
-﻿    using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Game.Characters;
+using System;
 
 namespace Game.Weapons
 {
@@ -16,42 +17,51 @@ namespace Game.Weapons
 		bool _released = false;
 		GameObject _projectileObject;
         EnergySystem _energySystem;
-        PowerWeaponBehaviourLogic _logic;
-        
-		
+    
 		public void Setup(PowerWeaponConfig config)
 		{
 			_config = config;
 
 			_socket = GetComponentInChildren<PowerWeaponSocket>();
-			Assert.IsNotNull(_socket, "There is no weapon grip transform in the child of " + this.gameObject.name);
+			Assert.IsNotNull(_socket, "There is no PowerWeaponSocket in the child of " + this.gameObject.name);
 
             _energySystem = GetComponent<EnergySystem>();
+            Assert.IsNotNull(_energySystem, "An energy System component needs to be added to " + this.gameObject.name);
 
-            _logic = new PowerWeaponBehaviourLogic();
 		}
 
 		void Update()
-		{
-			if (_logic.CanCharge(_chargingAllowed, _energySystem.HasEnergy()))
+        {
+            if (_chargingAllowed)
             {
-                ContinueCharge();
+                var energyRemaining = _energySystem.ConsumeEnergy(_config.energyConsumptionPerSecond);
+                if (energyRemaining > 0)
+                {
+                    ContinueChargingPowerWeapon();
+                    MakeProjectileBigger();
+                }
             }
 
-            if (_projectileObject && !_released)
-			{
-				_projectileObject.transform.position = _socket.transform.position;
-			}
-		}
+            KeepProjectileInSocket();
+        }
 
-        private void ContinueCharge()
+        private void KeepProjectileInSocket()
         {
-            var energyRemaining = _energySystem.ConsumeEnergy(_config.energyConsumptionPerSecond);
-            if (energyRemaining > 0)
+            if (_projectileObject && !_released)
             {
-                 _currentCharge += _config.chargePerSecond * Time.deltaTime;
-                _currentCharge = Mathf.Clamp(_currentCharge, 0, _maxCharge);
-            } 
+                _projectileObject.transform.position = _socket.transform.position;
+            }
+        }
+
+        private void MakeProjectileBigger()
+        {
+            _projectileObject.transform.localScale *= _config.projectileIncreasePerSecondOnCharge;
+        }
+
+        private void ContinueChargingPowerWeapon()
+        {
+            _currentCharge += _config.chargePerSecond * Time.deltaTime;
+            _currentCharge = Mathf.Clamp(_currentCharge, 0, _maxCharge);
         }
 
         public void StartCharging()
@@ -83,8 +93,7 @@ namespace Game.Weapons
 
         private void SetupProjectile()
         {
-			if (_projectileObject == null) 
-				Debug.LogError("Projectile Object should not be null.");
+            Assert.IsNotNull(_projectileObject, "Projectile Object should not be null");
 
 			var collider = _projectileObject.AddComponent<SphereCollider>();
             collider.isTrigger = false;

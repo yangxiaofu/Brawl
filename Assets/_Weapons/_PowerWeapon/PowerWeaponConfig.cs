@@ -15,6 +15,8 @@ namespace Game.Weapons
 			public override BlastConfig GetBlastConfig(){ return _blastConfig ;}
 			[SerializeField] float _energyConsumptionPerSecond = 10f;
 			public float energyConsumptionPerSecond{get{return _energyConsumptionPerSecond;}}
+			[SerializeField] float _projectileIncreasePerSecondOnCharge = 0.1f;
+			public float projectileIncreasePerSecondOnCharge{get{return _projectileIncreasePerSecondOnCharge;}}
 
 			public PowerWeaponBehaviour AddComponentTo(GameObject gameObjectToAddTo)
 			{
