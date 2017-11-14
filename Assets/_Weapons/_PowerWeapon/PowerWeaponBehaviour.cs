@@ -17,7 +17,7 @@ namespace Game.Weapons
 		bool _released = false;
 		GameObject _projectileObject;
         EnergySystem _energySystem;
-    
+
 		public void Setup(PowerWeaponConfig config)
 		{
 			_config = config;
@@ -97,8 +97,10 @@ namespace Game.Weapons
 
 			var collider = _projectileObject.AddComponent<SphereCollider>();
             collider.isTrigger = false;
+
 			var behaviour = _config.GetBlastConfig().AddComponentTo(_projectileObject);
 			behaviour.Setup(_config, GetComponent<Characters.Character>());
+            behaviour.UpdateBlastForce(_currentCharge);
         }
 
         private void AddForceToProjectile()

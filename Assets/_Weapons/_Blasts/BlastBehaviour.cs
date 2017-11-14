@@ -12,12 +12,20 @@ namespace Game.Weapons{
         protected WeaponConfig _weaponConfig;
         protected List<Character> _charactersImpactedOnBlast = new List<Character>();
         protected List<GameObject> _objectsImpactedOnBlast = new List<GameObject>();
+
+        protected float _blastForce;
 		public void Setup(WeaponConfig weaponConfig, Character character)
         {
 			_character = character;
 			_blastConfig = weaponConfig.GetBlastConfig();
+            _blastForce = _blastConfig.blastForce;
             _weaponConfig = weaponConfig;
 		}
+
+        public void UpdateBlastForce(float totalBlastForce)
+        {
+            _blastForce = totalBlastForce;
+        }
 
         public float GetDamage()
         {
@@ -124,7 +132,7 @@ namespace Game.Weapons{
             {
                 var forceDirection = (characterObject.transform.position - this.transform.position).normalized;
                 var rigidBody = characterObject.gameObject.GetComponent<Rigidbody>();                 
-                rigidBody.AddForce(forceDirection * _blastConfig.blastForce, ForceMode.Impulse);
+                rigidBody.AddForce(forceDirection * _blastForce, ForceMode.Impulse);
             }   
         }
 
