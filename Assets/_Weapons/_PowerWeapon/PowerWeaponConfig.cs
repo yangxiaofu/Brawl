@@ -11,17 +11,14 @@ namespace Game.Weapons
 			public float chargePerSecond{get{return _chargePerSecond;}}
 			[SerializeField] float _forceFactor = 1000f;
 			public float forceFacter{get{return _forceFactor;}}
-
 			[SerializeField] BlastConfig _blastConfig;
+			public override BlastConfig GetBlastConfig(){ return _blastConfig ;}
+			[SerializeField] float _energyConsumptionPerSecond = 10f;
+			public float energyConsumptionPerSecond{get{return _energyConsumptionPerSecond;}}
 
 			public PowerWeaponBehaviour AddComponentTo(GameObject gameObjectToAddTo)
 			{
 				return gameObjectToAddTo.AddComponent<PowerWeaponBehaviour>();
-			}
-
-			public override BlastConfig GetBlastConfig()
-			{
-					return _blastConfig;
 			}
 
 			public override float GetBlastDelayAfterCollision()

@@ -16,6 +16,7 @@ namespace Game.Characters{
 		float _minEnergy = 0;
 		public float energyAsPercentage{ get{return _currentEnergy / _startingEnergy;}}
 		EnergySystemLogic logic;
+
 		void Start()
 		{
 			logic = new EnergySystemLogic(_minEnergy, _startingEnergy);
@@ -26,14 +27,22 @@ namespace Game.Characters{
 			_currentEnergy = logic.IncreaseEnergy(_currentEnergy, Time.deltaTime * _increasePerSecond);
 		}
 
-		public void ConsumeEnergy(float energyToConsume)
+		///<summary> Returns the energy that's remaining after consumption</summary>
+		public float ConsumeEnergy(float energyToConsume)
 		{
 			_currentEnergy = logic.ConsumeEnergy(_currentEnergy, energyToConsume);
+			return _currentEnergy;
 		}
 
 		public bool HasEnergy(float energyToConsume)
 		{
 			return logic.HasEnergy(_currentEnergy, energyToConsume);
+		}
+
+		///<summary> No parameters tests whether there's energy greater than zero.!--</summary>
+		public bool HasEnergy()
+		{
+			return _currentEnergy > 0;
 		}
 
 	}

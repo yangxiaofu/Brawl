@@ -63,6 +63,7 @@
      <Compile Include="Assets\_Core\Scripts\Editor\SpawnerLogicTests.cs" />
      <Compile Include="Assets\_Core\Tests\Editor\GamePhysicsTests.cs" />
      <Compile Include="Assets\_Core\Tests\Editor\PhysicsApplyForceEditor.cs" />
+     <Compile Include="Assets\_Weapons\_PowerWeapon\Editor\PowerWeaponBehaviourLogicTests.cs" />
      <Compile Include="Assets\_Weapons\Scripts\Editor\WeaponSystemLogicTests.cs" />
      <Compile Include="Assets\Area730\UpdateManager\Editor\SimpleJSON.cs" />
      <Compile Include="Assets\Area730\UpdateManager\Editor\UpdatesWindow.cs" />
