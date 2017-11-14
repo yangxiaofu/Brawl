@@ -6,22 +6,16 @@ using Game.Characters;
 using Game.Core;
 using Game.Core.ControllerInputs;
 using Panda;
+using System;
 
 namespace Game.Weapons{
 	public class WeaponSystem : MonoBehaviour {
 		[SerializeField] WeaponConfig _primaryWeapon;
 		public WeaponConfig primaryWeapon{get{return _primaryWeapon;}}
-		[SerializeField] WeaponConfig _secondaryWeapon;
+		[SerializeField] PowerWeaponConfig _powerWeaponConfig;
 		[SerializeField] SpecialAbilityConfig _specialAbilty;
 		[SerializeField] float _lowAmmoThreshold = 1; //TODO: REfactor out into the weapon beahviour later. 
-		[SerializeField] float _ammoIncreasePerSecond = 1;
-
-		[Space]
-		[Header("Throwing Items")]
-		[Tooltip("This is the strength at which the player will be able to throw the item in which they are throwing.")]
-		[SerializeField] float _throwPower = 10f;
-		[Tooltip("Increase or Decrease this in order to adjust the throwing angle of the player.")]
-		[SerializeField] float _throwAngle = 1f;
+		[SerializeField] float _ammoAutoIncreasePerSecond = 1;
 		float rightAnalogStickThreshold = 0.9f;
 		WeaponBehaviour _primaryWeaponBehaviour;
 		public WeaponBehaviour primaryWeaponBehaviour{get{return _primaryWeaponBehaviour;}}
@@ -29,6 +23,8 @@ namespace Game.Weapons{
 		ThrowSocket _throwSocket;
 		EnergySystem _energySystem;
 		WeaponSystemLogic _weaponSystemLogic;
+		PowerWeaponBehaviour _powerWeaponBehaviour;
+		
 		void Start()
 		{
 			_throwSocket = GetComponentInChildren<ThrowSocket>();
@@ -39,6 +35,9 @@ namespace Game.Weapons{
 
 			_weaponSystemLogic = new WeaponSystemLogic();
 
+			_powerWeaponBehaviour = _powerWeaponConfig.AddComponentTo(this.gameObject);
+			_powerWeaponBehaviour.Setup(_powerWeaponConfig);
+
 			StartCoroutine(IncreaseAmmo());
 		}
 
@@ -46,7 +45,7 @@ namespace Game.Weapons{
 		{
 			while (true)
 			{
-				yield return new WaitForSeconds(_ammoIncreasePerSecond);
+				yield return new WaitForSeconds(_ammoAutoIncreasePerSecond);
 				
 				_primaryWeaponBehaviour.IncreaseAmmo(1);
 			}
@@ -65,25 +64,9 @@ namespace Game.Weapons{
 			return _weaponSystemLogic.LowOnAmmo(_primaryWeaponBehaviour.remainingAmmo, _lowAmmoThreshold);
 		}
 
-        public void UpdateWeapon(WeaponConfig weaponConfig)
-		{
-			_secondaryWeapon = weaponConfig;
-		}
-
 		public void UsePrimaryWeapon(Vector3 direction)
         {
 			_primaryWeaponBehaviour.Fire(direction);
-        }
-
-		public void UseSecondaryWeapon()
-        {
-			if (_secondaryWeapon == null)
-				return;
-
-            if (_secondaryWeapon is ThrowableWeaponConfig)
-                ThrowWeapon();
-
-			ReduceSecondaryWeaponQuantity();
         }
 
 		public void AttemptSpecialAbility()
@@ -119,33 +102,6 @@ namespace Game.Weapons{
 			return energySystem.HasEnergy(_specialAbilty.energyToConsume) ? true : false;
 		}
 
-
-        private void ReduceSecondaryWeaponQuantity()
-        {
-			_secondaryWeapon = null;
-        }
-
-        private void ThrowWeapon()
-        {
-            var weaponPrefab = _secondaryWeapon.GetItemPrefab();
-            var weaponObject = Instantiate(weaponPrefab, _throwSocket.transform.position, Quaternion.identity) as GameObject;
-	
-			var throwableWeaponConfig = _secondaryWeapon as ThrowableWeaponConfig;
-			var behaviour = throwableWeaponConfig.blastConfig.AddComponentTo(weaponObject);
-			behaviour.Setup(throwableWeaponConfig, GetComponent<Character>());
-
-            var rb = weaponObject.GetComponent<Rigidbody>();
-			
-            var throwDirection = new Vector3(
-				this.transform.forward.x, 
-				_throwAngle, 
-				this.transform.forward.z
-			).normalized;
-
-            rb.AddForce(throwDirection * _throwPower, ForceMode.Impulse);
-        }
-
-     
 		private void FindWeaponGripTranform()
         {
             _weaponGrip = GetComponentsInChildren<WeaponGrip>();
@@ -172,6 +128,16 @@ namespace Game.Weapons{
 			return true;
 		}
 
+		public void ChargePowerWeapon()
+		{
+			_powerWeaponBehaviour.StartCharging();
+		}
+
+        public void UsePowerWeapon()
+        {
+            _powerWeaponBehaviour.Use();
+        }
+
         private bool GunOnStart()
 		{
 			return _primaryWeapon != null;
@@ -188,8 +154,8 @@ namespace Game.Weapons{
 
 			//Set the weapon Grip Transform.
 			weaponObject.transform.SetParent(_weaponGrip[0].transform);
-			weaponObject.transform.localPosition = weapon.weaponGripTransform.position;
-			weaponObject.transform.localRotation = weapon.weaponGripTransform.rotation;
+			weaponObject.transform.localPosition = (weapon as IWeaponGrip).weaponGripTransform.position;
+			weaponObject.transform.localRotation = (weapon as IWeaponGrip).weaponGripTransform.rotation;
 		}
 
 		public Vector3 GetProjectileDirection(bool isBot, ControllerBehaviour controller)

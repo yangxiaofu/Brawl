@@ -15,7 +15,8 @@ MonoBehaviour:
   _audioClip: {fileID: 8300000, guid: 5526d4d6cbdf84ecfb8c89918aef8952, type: 3}
   _fallingItemsSocketPrefab: {fileID: 1064498883108452, guid: b7a45cb51942c407d8a58ba87fc049f6,
     type: 2}
-  _delayExplosionAfterFirstCollision: 1
+  _minDelayAfterFirstExplosion: 1
+  _maxDelayAfterFirstCollision: 3
   _fallingObjectPrefab: {fileID: 1869771151815354, guid: e8265a58de2624a0c98d8e087d65510e,
     type: 2}
   _blastConfig: {fileID: 11400000, guid: d796f22224d1946dc889d8d81d4a71b9, type: 2}

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39978901c8eab4f5580b43e534ff1776, type: 3}
+  m_Name: PowerWeapon
+  m_EditorClassIdentifier: 
+  _itemPrefab: {fileID: 1443953676885246, guid: ce0d0e6af6d3b40768993ba0603ee605,
+    type: 2}
+  _isWeapon: 1
+  _chargePerSecond: 20
+  _forceFactor: 100
+  _blastConfig: {fileID: 11400000, guid: d796f22224d1946dc889d8d81d4a71b9, type: 2}

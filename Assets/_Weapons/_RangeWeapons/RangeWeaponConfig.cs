@@ -4,8 +4,9 @@ using UnityEngine;
 using Game.Characters;
 
 namespace Game.Weapons{
+
 	[CreateAssetMenu(menuName = "Game/Range Weapon")]
-	public class RangeWeaponConfig : WeaponConfig 
+	public class RangeWeaponConfig : WeaponConfig, IWeaponGrip
 	{
 		[SerializeField] ProjectileConfig _projectileConfig;
 		public ProjectileConfig projectileConfig{
@@ -17,11 +18,26 @@ namespace Game.Weapons{
 		public float projectileSpeed {get{return _projectileSpeed;}}
 		[SerializeField] float _secondsBetweenShots = 1f;
 		public float secondsBetweenShots {get{return _secondsBetweenShots;}}
-		public void AddComponentTo(GameObject projectileGameObject, Character character, Vector3 direction)
+
+		[SerializeField] Transform _weaponGripTransform;
+        public Transform weaponGripTransform
+        {
+            get
+            {
+                return _weaponGripTransform;
+			}
+        }
+
+        public void AddComponentTo(GameObject projectileGameObject, Character character, Vector3 direction)
 		{
 			var behaviour = _projectileConfig.blastConfig.AddComponentTo(projectileGameObject);
 			behaviour.Setup(this, character);
 
+			//Adds the sphere collider. 
+			var sphereCollider = projectileGameObject.AddComponent<SphereCollider>();
+			sphereCollider.isTrigger = false;
+
+			//Adds the direction of velocity
 			var bulletBehaviour = projectileGameObject.AddComponent<ProjectileBehaviour>();
 			bulletBehaviour.shootingCharacter = character;
 			bulletBehaviour.travelDirection = direction;

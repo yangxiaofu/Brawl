@@ -5,6 +5,7 @@ using UnityEngine.Assertions;
 using Game.Weapons;
 using Game.Core;
 using Game.Core.ControllerInputs;
+using System;
 
 namespace Game.Characters
 {
@@ -22,7 +23,10 @@ namespace Game.Characters
 		[SerializeField] AnimatorUpdateMode _animatorUpdateMode;
 		[Space]
 		[SerializeField] protected float _invincibleTimeLength = 5f;
-		protected bool _isInvincible = false;
+
+
+
+        protected bool _isInvincible = false;
 		
 		[Space]
 		[Header("Kicking Attributes")]
@@ -105,10 +109,15 @@ namespace Game.Characters
 			yield return null;
 		}
 		
-        
+		public void OnButtonUp(PS4_Controller_Input.Button button)
+        {
+            if (button == PS4_Controller_Input.Button.SQUARE)
+			{
+				_weaponSystem.UsePowerWeapon();
+			}
+        }
 
-
-		public void OnButtonPressed(PS4_Controller_Input.Button button)
+		public void OnButtonDown(PS4_Controller_Input.Button button)
         {
 			if (_frozen)
 				return;
@@ -126,7 +135,7 @@ namespace Game.Characters
 
 			if (button == PS4_Controller_Input.Button.SQUARE)
 			{
-				_weaponSystem.UseSecondaryWeapon();
+				_weaponSystem.ChargePowerWeapon();
 			}
 
 			if (button == PS4_Controller_Input.Button.TRIANGLE)

@@ -12,7 +12,8 @@ namespace Game.Weapons{
         protected WeaponConfig _weaponConfig;
         protected List<Character> _charactersImpactedOnBlast = new List<Character>();
         protected List<GameObject> _objectsImpactedOnBlast = new List<GameObject>();
-		public void Setup(WeaponConfig weaponConfig, Character character){
+		public void Setup(WeaponConfig weaponConfig, Character character)
+        {
 			_character = character;
 			_blastConfig = weaponConfig.GetBlastConfig();
             _weaponConfig = weaponConfig;

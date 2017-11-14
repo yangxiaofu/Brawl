@@ -105,11 +105,7 @@ namespace Game.Core{
 
 		private void AddItemToInventoryOf(Character character)
         {
-			if (_spawnedItemConfig != null && _spawnedItemConfig.IsWeapon()) 
-			{
-				var weaponSystem = character.gameObject.GetComponent<WeaponSystem>();
-				weaponSystem.UpdateWeapon(_spawnedItemConfig as WeaponConfig);
-			} 
+			Debug.LogError("There is not function here");
         }
 
         private void ClearSpawnedItemFromSpawner()

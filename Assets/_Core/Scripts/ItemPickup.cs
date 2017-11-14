@@ -22,15 +22,8 @@ namespace Game.Core{
         {
             if(!IsCharacter(other)) return;
             
-            AddItemToCharacterInventory(other.GetComponent<Character>());
+            //TODO: Add something for this later when there are items to pickup. 
         }
-
-        protected void AddItemToCharacterInventory(Character character)
-        {
-            character.gameObject.GetComponent<WeaponSystem>().UpdateWeapon(_weapon as WeaponConfig);
-            Destroy(this.gameObject);
-        }
-
         protected bool IsCharacter(Collider other)
         {
             if (other.gameObject.GetComponent<Character>()) return true;

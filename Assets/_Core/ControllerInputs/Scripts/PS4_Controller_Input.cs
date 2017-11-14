@@ -80,6 +80,11 @@ namespace Game.Core.ControllerInputs{
 			return Input.GetButtonDown(_prefix + "_" + SQUARE_BUTTON);
 		}
 
+		public bool SquareReleased()
+		{
+			return Input.GetButtonUp(_prefix + "_" + SQUARE_BUTTON);
+		}
+
 		public bool XPressed()
 		{
 			return Input.GetButtonDown(_prefix + "_" + X_BUTTON);
