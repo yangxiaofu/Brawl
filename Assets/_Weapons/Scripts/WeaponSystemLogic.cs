@@ -17,8 +17,11 @@ namespace Game.Weapons{
 			return currentAmmo;
 		}
 		
-		public bool ChargeAllowed(float energyAsPercentage, float threshold)
+		public bool ChargeAllowed(float energyAsPercentage, float threshold, bool canCharge)
 		{
+			if (canCharge == false) 
+				return false;
+
 			return energyAsPercentage >= threshold;
 		}
 	}

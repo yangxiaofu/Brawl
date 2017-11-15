@@ -15,31 +15,22 @@ namespace Game.Characters
 		[SerializeField] PhysicMaterial _physicsMaterial;
 		[SerializeField] Vector3 _center = new Vector3(0, 0.5321544f, 0);
 		[SerializeField] float _height = 1.6677024f;		
-		bool _isBeingAttacked = false;
-		public void SetBeingAttacked(bool isBeingAttacked) {_isBeingAttacked = isBeingAttacked;}
+
 		[Space] [Header("Animator")]
 		[SerializeField] AnimatorOverrideController _animatorOverrideController;
 		[SerializeField] Avatar _avatar;
 		[SerializeField] AnimatorUpdateMode _animatorUpdateMode;
-		[Space]
+
+		[Space] [Header("Character Attributes")]
 		[SerializeField] protected float _invincibleTimeLength = 5f;
         protected bool _isInvincible = false;
-
-
-		[Header("Bot Specific")]
-		[Tooltip("This is the distance in which the enemy will stop in front of the player and start shooting. ")]
-		[SerializeField] float _maxShootingDistance = 10f;
-		public float maxShootingDistance{get{return _maxShootingDistance;}}
 		bool _frozen = false;
 		public bool frozen{get{return _frozen;}}
-		[HideInInspector] public bool isBot = false; //this is set on the controller piece. 
 
 		public bool freeze{
 			get{return _frozen;}
 			set{_frozen = value;}
 		}
-
-		[HideInInspector] public Character target;
 		WeaponSystem _weaponSystem;
 		Animator _anim;
 		EnergySystem _energySystem;
@@ -49,12 +40,9 @@ namespace Game.Characters
 		public bool characterCanShoot{get{return _characterCanShoot;}}
 		bool _isBlinking = false;
 		Renderer _characterRenderer;
-		bool _isDead = false;
-		public bool isDead{get{return _isDead;}}
 		ControllerBehaviour _controller;
 		public ControllerBehaviour controller{get{return _controller;}}
 		public void Setup(ControllerBehaviour controller){_controller = controller;}
-		[HideInInspector] public bool isAttacking = false;
 		Movement _movement;
 		CharacterLogic _characterLogic;
 		public CharacterLogic logic {get{return _characterLogic;}}
@@ -79,12 +67,9 @@ namespace Game.Characters
 
         void Update()
         {
-			if (isBot) 
-				return;
-
 			if (_characterCanShoot)
             {
-                if(_weaponSystem.ShotIsFired(isBot, _controller))
+                if(_weaponSystem.ShotIsFired(_controller))
 				{		
 					_characterCanShoot = false;
 					var secondsToDelayUpdate = (_weaponSystem.primaryWeapon as RangeWeaponConfig).secondsBetweenShots;
@@ -126,13 +111,9 @@ namespace Game.Characters
 
 			if (button == PS4_Controller_Input.Button.SQUARE)
 			{
-				_weaponSystem.AttemptWeaponCharge();
+				_weaponSystem.AttemptPowerWeaponCharge();
 			}
 
-			if (button == PS4_Controller_Input.Button.TRIANGLE)
-			{
-				_weaponSystem.AttemptSpecialAbility();
-			}
         }
 		
         private void InitializeCharacterVariables()
@@ -167,15 +148,11 @@ namespace Game.Characters
             Assert.IsNotNull(_cc);
         }
 
-        public bool Jump()
-		{	
-			return _movement.Jump();
-		}
-
 		public bool Dash()
 		{
 			return _movement.Dash();
 		}
+		
 		void OnCollisionEnter(Collision collision)
         {
             DetermineIfCharacterDamagedFrom(collision);
@@ -225,12 +202,6 @@ namespace Game.Characters
 			_isInvincible = false;			
 		}
 
-		void OnDrawGizmos()
-		{
-			Gizmos.color = Color.green;
-			Gizmos.DrawWireSphere(this.transform.position, _maxShootingDistance);
-		}
-
 		void OnAnimatorIK(int layerIndex)
 		{
 			if (_frozen)
@@ -242,43 +213,30 @@ namespace Game.Characters
 			if (!_controller) 
 				return;
 				
-			if (isBot)
+
+			var direction = new Vector3(
+				_controller.GetRightStickHorizontal(), 
+				0, 
+				_controller.GetRightStickVertical()
+			);
+
+			var rightStickThreshold = 0.2f;
+			if (direction.magnitude > rightStickThreshold)
 			{
-				if (target != null)
-                {
-                    LookAtTarget(target.transform.position);
-                    SetIKPosition(target.transform.position);
-                }
-                else
-                {
-                    ResetLookAtWeight();
-                }
-            } 
+				float yOffset = 1f;
+				var pointDirection = new Vector3(
+					this.transform.position.x + direction.x, 
+					this.transform.position.y + yOffset, 
+					this.transform.position.z + direction.z
+				);
+				LookAtTarget(pointDirection);
+				SetIKPosition(pointDirection);
+			} 
 			else 
 			{
-				var direction = new Vector3(
-					_controller.GetRightStickHorizontal(), 
-					0, 
-					_controller.GetRightStickVertical()
-				);
-
-				var rightStickThreshold = 0.2f;
-				if (direction.magnitude > rightStickThreshold)
-				{
-					float yOffset = 1f;
-					var pointDirection = new Vector3(
-						this.transform.position.x + direction.x, 
-						this.transform.position.y + yOffset, 
-						this.transform.position.z + direction.z
-					);
-					LookAtTarget(pointDirection);
-					SetIKPosition(pointDirection);
-				} 
-				else 
-				{
-					ResetLookAtWeight();
-				}	
-			}
+				ResetLookAtWeight();
+			}	
+			
 		}
 
         private void ResetLookAtWeight()

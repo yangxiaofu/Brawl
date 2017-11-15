@@ -10,15 +10,23 @@ using System;
 
 namespace Game.Weapons{
 	public class WeaponSystem : MonoBehaviour {
+		[Header("Weapons and Special Abilities")]
+		[Tooltip("The primary weapon is the weapon that shoots from the right trigger of your controller.  All players will have a primary weapon.")]
 		[SerializeField] WeaponConfig _primaryWeapon;
 		public WeaponConfig primaryWeapon{get{return _primaryWeapon;}}
-		[SerializeField] PowerWeaponConfig _powerWeaponConfig;
-		[SerializeField] SpecialAbilityConfig _specialAbilty;
-		[SerializeField] float _lowAmmoThreshold = 1; //TODO: REfactor out into the weapon beahviour later. 
+		[SerializeField] PowerWeaponConfig _powerWeapon;
+
+		[Space]
+		[Header("Configurations")]
 
 		[Tooltip("This is the minimum percentage of maximum energy that allows you to charge your power weapon.")]
-		[SerializeField] float _thresholdToAllowChargeOfPowerWeawpon = 0.4f;
+		[Range(0, 1)][SerializeField] float _thresholdToAllowChargeOfPowerWeawpon = 0.4f;
+
+		[Tooltip("This is the rate at which ammo is regenerated for your primary weapon.")]
 		[SerializeField] float _ammoAutoIncreasePerSecond = 1;
+
+		[Tooltip("Toggling this allows you to adjust the amount of allowable time you can charge your power weapon after it's last use.")]
+		[SerializeField] float _timeBetweenPowerWeaponUse = 1f;
 		float rightAnalogStickThreshold = 0.9f;
 		WeaponBehaviour _primaryWeaponBehaviour;
 		public WeaponBehaviour primaryWeaponBehaviour{get{return _primaryWeaponBehaviour;}}
@@ -27,7 +35,7 @@ namespace Game.Weapons{
 		EnergySystem _energySystem;
 		WeaponSystemLogic _weaponSystemLogic;
 		PowerWeaponBehaviour _powerWeaponBehaviour;
-		
+		bool _canCharge = true;
 		void Start()
 		{
 			_throwSocket = GetComponentInChildren<ThrowSocket>();
@@ -38,8 +46,8 @@ namespace Game.Weapons{
 
 			_weaponSystemLogic = new WeaponSystemLogic();
 
-			_powerWeaponBehaviour = _powerWeaponConfig.AddComponentTo(this.gameObject);
-			_powerWeaponBehaviour.Setup(_powerWeaponConfig);
+			_powerWeaponBehaviour = _powerWeapon.AddComponentTo(this.gameObject);
+			_powerWeaponBehaviour.Setup(_powerWeapon);
 
 			StartCoroutine(IncreaseAmmo());
 		}
@@ -62,31 +70,9 @@ namespace Game.Weapons{
                 PutGunInHand();
 		}
 
-		public bool LowOnAmmo()
-		{
-			return _weaponSystemLogic.LowOnAmmo(_primaryWeaponBehaviour.remainingAmmo, _lowAmmoThreshold);
-		}
-
 		public void UsePrimaryWeapon(Vector3 direction)
         {
 			_primaryWeaponBehaviour.Fire(direction);
-        }
-
-		public void AttemptSpecialAbility()
-        {
-            if (!EnergyLevelExists())
-                return;
-
-            UseSpecialAbility();
-        }
-
-        private void UseSpecialAbility()
-        {	
-            _energySystem.ConsumeEnergy(_specialAbilty.energyToConsume);
-			var socketObject = _specialAbilty.SetupSocket();
-			var behaviour = _specialAbilty.AddComponentTo(socketObject);
-			behaviour.SetupConfig(_specialAbilty, GetComponent<Character>());
-            _specialAbilty.Use(behaviour);
         }
 
         private void SetupPrimaryWeapon()
@@ -97,13 +83,6 @@ namespace Game.Weapons{
             _primaryWeaponBehaviour = this.gameObject.AddComponent<WeaponBehaviour>();
             _primaryWeaponBehaviour.Setup(_primaryWeapon as WeaponConfig);
         }
-
-		private bool EnergyLevelExists()
-		{
-			var energySystem = GetComponent<EnergySystem>();
-			Assert.IsNotNull(energySystem);
-			return energySystem.HasEnergy(_specialAbilty.energyToConsume) ? true : false;
-		}
 
 		private void FindWeaponGripTranform()
         {
@@ -117,11 +96,11 @@ namespace Game.Weapons{
 				Debug.LogError("You need to add a weaponGrip Transform as a child of " + name);
         }
 
-		public bool ShotIsFired(bool _isBot, ControllerBehaviour _controller)
+		public bool ShotIsFired(ControllerBehaviour _controller)
 		{
 			Assert.IsTrue(GetComponent<Character>().characterCanShoot, "The Character should be able to shoot if this function is called. ");
 			
-			var projectileDirection = GetProjectileDirection(_isBot, _controller);
+			var projectileDirection = GetProjectileDirection(_controller);
 
 			if (projectileDirection.magnitude < rightAnalogStickThreshold)
 				return false;
@@ -131,28 +110,30 @@ namespace Game.Weapons{
 			return true;
 		}
 
-        public void AttemptWeaponCharge()
+        public void AttemptPowerWeaponCharge()
         {
-			if(_energySystem.energyAsPercentage <= _thresholdToAllowChargeOfPowerWeawpon)
-			{
+			if(_weaponSystemLogic.ChargeAllowed(_energySystem.energyAsPercentage, _thresholdToAllowChargeOfPowerWeawpon, _canCharge))
 				ChargePowerWeapon();
-			} 
-			else 
-			{
-				print("Need more time");
-			}
-            
+			
         }
 
         public void ChargePowerWeapon()
 		{
 			_powerWeaponBehaviour.StartCharging();
+			_canCharge = false;
 		}
 
         public void UsePowerWeapon()
         {
             _powerWeaponBehaviour.Use();
+			StartCoroutine(UpdateCanCharge(_timeBetweenPowerWeaponUse));
         }
+
+		IEnumerator UpdateCanCharge(float delay)
+		{
+			yield return new WaitForSeconds(delay);
+			_canCharge = true;
+		}
 
         private bool GunOnStart()
 		{
@@ -174,22 +155,17 @@ namespace Game.Weapons{
 			weaponObject.transform.localRotation = (weapon as IWeaponGrip).weaponGripTransform.rotation;
 		}
 
-		public Vector3 GetProjectileDirection(bool isBot, ControllerBehaviour controller)
+		private Vector3 GetProjectileDirection(ControllerBehaviour controller)
         {
-				
-
 			float shouldBeZero = 0; //Keeps the projectile shooting at horizontal plane from start.
 			var projectileDirection = Vector3.zero;
 
-			if (!isBot)
-			{
-				projectileDirection = new Vector3(
-					controller.GetRightStickHorizontal(),
-					shouldBeZero,
-					controller.GetRightStickVertical()
-				); //DO NOT NORMALIZES THIS.  MESSES UP THE SYSTEM.
+			projectileDirection = new Vector3(
+				controller.GetRightStickHorizontal(),
+				shouldBeZero,
+				controller.GetRightStickVertical()
+			); //DO NOT NORMALIZES THIS.  MESSES UP THE SYSTEM.
 
-			} 
 			return projectileDirection;
         }
 	}

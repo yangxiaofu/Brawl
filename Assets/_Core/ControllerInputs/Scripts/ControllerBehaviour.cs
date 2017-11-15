@@ -8,7 +8,6 @@ namespace Game.Core.ControllerInputs{
 	public abstract class ControllerBehaviour : MonoBehaviour {	
 		[SerializeField] protected Character _character;
 		public Character character{ get{return _character;}}
-		[SerializeField] bool _isBOT = false;
 		protected string _prefix;
 		[SerializeField] PLAYER_TAG _playerTag;
         protected Vector3 _inputs = Vector3.zero;
@@ -24,8 +23,6 @@ namespace Game.Core.ControllerInputs{
             _logic = new ControllerBehaviourLogic();
             
             _character.Setup(this);		
-            _character.isBot = _isBOT;	
-        	
 		}
 
         protected void InitializeControllerPrefix()

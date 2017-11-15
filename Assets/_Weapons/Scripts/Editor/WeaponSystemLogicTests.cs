@@ -34,12 +34,15 @@ namespace Game.Weapons.UnitTests{
 		}
 
 		[Test]
-		[TestCase(0.5f, 0.4f, true)]
-		[TestCase(0.3f, 0.4f, false)]
-		[TestCase(0.4f, 0.4f, true)]
-		public void ChargeAllowed_ReturnsIfChargeIsAllowed(float energyAsPercentage, float threshold, bool result)
+		[TestCase(0.5f, 0.4f, true, true)]
+		[TestCase(0.3f, 0.4f, true, false)]
+		[TestCase(0.4f, 0.4f, true, true)]
+		[TestCase(0.5f, 0.4f, false, false)]
+		[TestCase(0.3f, 0.4f, false, false)]
+		[TestCase(0.4f, 0.4f, false, false)]
+		public void ChargeAllowed_ReturnsIfChargeIsAllowed(float energyAsPercentage, float threshold, bool canCharge, bool result)
 		{
-			Assert.AreEqual(result, sut.ChargeAllowed(energyAsPercentage, threshold));
+			Assert.AreEqual(result, sut.ChargeAllowed(energyAsPercentage, threshold, canCharge));
 		}
 	}
 }

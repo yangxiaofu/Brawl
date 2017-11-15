@@ -260,7 +260,6 @@
      <None Include="Assets\UBER\Shaders\_Specular\_UBERShader_Specular_Tessellation_2Layers_Refraction.shader" />
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_Tessellation_2Layers_Refraction.shader" />
      <None Include="Assets\MKGlow\MKGlowFree\Shader\Variants_SelectiveMode\Illumin\MK_Illumin-Diffuse.shader" />
-     <None Include="Assets\_Characters\Scripts\BotAI.txt" />
      <None Include="Assets\UBER\Shaders\_Specular\_UBERShader_Specular_POMExtrusionMap_Refraction.shader" />
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_2Sided_TriplanarSelective.shader" />
      <None Include="Assets\PandaBehaviour\Examples\02_PlayTag\Assets\PlayTag.BT.txt" />
@@ -284,7 +283,6 @@
      <None Include="Assets\MKGlow\MKGlowFree\Shader\Variants_SelectiveMode\Cutout\MK_Cutout-DiffuseBumped.shader" />
      <None Include="Assets\UBER\Shaders\_Specular\_UBERShader_Specular_POMDistanceMap_Refraction.shader" />
      <None Include="Assets\Standard Assets\Effects\CinematicEffects(BETA)\TonemappingColorGrading\Resources\HistogramCompute.compute" />
-     <None Include="Assets\_Characters\Scripts\MovementCombinationsBT.txt" />
      <None Include="Assets\PandaBehaviour\ChangeLog.txt" />
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_2Sided_2Layers.shader" />
      <None Include="Assets\Toon Character Pack\Shaders\Toony-TransparentAdd-Outline.shader" />

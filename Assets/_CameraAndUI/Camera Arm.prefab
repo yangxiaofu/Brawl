@@ -177,11 +177,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f323128e7c474a91a1f90b073ef0a13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _outerBorder: 33.38
-  _innerBorder: 300
+  _outerBorder: 200
+  _innerBorder: 350
   _zoomSpeed: 5
   _maxZoomIn: 28.9
-  _maxZoomOut: 80
+  _maxZoomOut: 53
 --- !u!114 &114772471806172418
 MonoBehaviour:
   m_ObjectHideFlags: 1
