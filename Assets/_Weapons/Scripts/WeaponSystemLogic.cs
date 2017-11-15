@@ -16,6 +16,11 @@ namespace Game.Weapons{
 			currentAmmo = Mathf.Clamp(currentAmmo, 0, maxAmount);
 			return currentAmmo;
 		}
+		
+		public bool ChargeAllowed(float energyAsPercentage, float threshold)
+		{
+			return energyAsPercentage >= threshold;
+		}
 	}
 }
 

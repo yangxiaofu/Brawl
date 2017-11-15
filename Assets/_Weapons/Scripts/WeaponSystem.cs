@@ -15,6 +15,9 @@ namespace Game.Weapons{
 		[SerializeField] PowerWeaponConfig _powerWeaponConfig;
 		[SerializeField] SpecialAbilityConfig _specialAbilty;
 		[SerializeField] float _lowAmmoThreshold = 1; //TODO: REfactor out into the weapon beahviour later. 
+
+		[Tooltip("This is the minimum percentage of maximum energy that allows you to charge your power weapon.")]
+		[SerializeField] float _thresholdToAllowChargeOfPowerWeawpon = 0.4f;
 		[SerializeField] float _ammoAutoIncreasePerSecond = 1;
 		float rightAnalogStickThreshold = 0.9f;
 		WeaponBehaviour _primaryWeaponBehaviour;
@@ -128,7 +131,20 @@ namespace Game.Weapons{
 			return true;
 		}
 
-		public void ChargePowerWeapon()
+        public void AttemptWeaponCharge()
+        {
+			if(_energySystem.energyAsPercentage <= _thresholdToAllowChargeOfPowerWeawpon)
+			{
+				ChargePowerWeapon();
+			} 
+			else 
+			{
+				print("Need more time");
+			}
+            
+        }
+
+        public void ChargePowerWeapon()
 		{
 			_powerWeaponBehaviour.StartCharging();
 		}

@@ -6,13 +6,20 @@ using NUnit.Framework;
 namespace Game.Weapons.UnitTests{
 	[TestFixture]
 	public class WeaponSystemLogicTests  {
+		WeaponSystemLogic sut;
+
+		[SetUp]
+		public void Setup()
+		{
+			sut = new WeaponSystemLogic();
+		}
+
 		[Test]
 		[TestCase(0, 1, true)]
 		[TestCase(1, 1, false)]
 		[TestCase(2, 1, false)]
 		public void WeaponSystemsLogic_LowOnAmmo_ReturnsLowOnAmmo(float currentAmmo, float lowAmmoThreshold, bool response)
 		{
-			var sut = new WeaponSystemLogic();
 			Assert.AreEqual(response, sut.LowOnAmmo(currentAmmo, lowAmmoThreshold));
 		}
 
@@ -23,8 +30,16 @@ namespace Game.Weapons.UnitTests{
 		[TestCase(1, 3, 2, 2)]
 		public void IncreaseAmmo_RandomAmmoToIncrease_returnUpdateAmmo(float currentAmmo, float increaseAmount, float maxAmount, float result)
 		{
-			var sut = new WeaponSystemLogic();
 			Assert.AreEqual(result, sut.IncreaseAmmo(currentAmmo, increaseAmount, maxAmount));
+		}
+
+		[Test]
+		[TestCase(0.5f, 0.4f, true)]
+		[TestCase(0.3f, 0.4f, false)]
+		[TestCase(0.4f, 0.4f, true)]
+		public void ChargeAllowed_ReturnsIfChargeIsAllowed(float energyAsPercentage, float threshold, bool result)
+		{
+			Assert.AreEqual(result, sut.ChargeAllowed(energyAsPercentage, threshold));
 		}
 	}
 }

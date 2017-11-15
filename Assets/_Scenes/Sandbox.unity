@@ -22754,6 +22754,7 @@ MonoBehaviour:
   _powerWeaponConfig: {fileID: 0}
   _specialAbilty: {fileID: 11400000, guid: 87b1917230e3d49279341d2c3dae8961, type: 2}
   _lowAmmoThreshold: 1
+  _thresholdToAllowChargeOfPowerWeawpon: 0.4
   _ammoAutoIncreasePerSecond: 1
 --- !u!1 &325914424
 GameObject:
@@ -35735,11 +35736,6 @@ Prefab:
     - target: {fileID: 4538358645307280, guid: 96e3ad8d39b3c4deea5ffea086341236, type: 2}
       propertyPath: m_RootOrder
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 54603635829253600, guid: 96e3ad8d39b3c4deea5ffea086341236,
-        type: 2}
-      propertyPath: m_CollisionDetection
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 96e3ad8d39b3c4deea5ffea086341236, type: 2}
@@ -50191,9 +50187,6 @@ MonoBehaviour:
   _avatar: {fileID: 9000000, guid: e88f3d051335eea419d1f5bcf6667269, type: 3}
   _animatorUpdateMode: 0
   _invincibleTimeLength: 5
-  _kickForce: 50
-  _maximumKickDistance: 1
-  _energyConsumedOnKick: 35
   _maxShootingDistance: 10
   isBot: 0
   target: {fileID: 0}
@@ -53290,9 +53283,6 @@ MonoBehaviour:
   _avatar: {fileID: 9000000, guid: e88f3d051335eea419d1f5bcf6667269, type: 3}
   _animatorUpdateMode: 0
   _invincibleTimeLength: 5
-  _kickForce: 50
-  _maximumKickDistance: 1
-  _energyConsumedOnKick: 35
   _maxShootingDistance: 10
   isBot: 1
   target: {fileID: 0}
@@ -68393,6 +68383,7 @@ MonoBehaviour:
   _powerWeaponConfig: {fileID: 0}
   _specialAbilty: {fileID: 11400000, guid: 87b1917230e3d49279341d2c3dae8961, type: 2}
   _lowAmmoThreshold: 1
+  _thresholdToAllowChargeOfPowerWeawpon: 0.4
   _ammoAutoIncreasePerSecond: 1
 --- !u!114 &1495042764
 MonoBehaviour:

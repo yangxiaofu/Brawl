@@ -23,16 +23,7 @@ namespace Game.Characters
 		[SerializeField] AnimatorUpdateMode _animatorUpdateMode;
 		[Space]
 		[SerializeField] protected float _invincibleTimeLength = 5f;
-
-
-
         protected bool _isInvincible = false;
-		
-		[Space]
-		[Header("Kicking Attributes")]
-		[SerializeField] float _kickForce = 50f; //TODO: Consider moving this out to weapn Systems? 
-		[SerializeField] float _maximumKickDistance = 1f;
-		[SerializeField] float _energyConsumedOnKick = 35f;
 
 
 		[Header("Bot Specific")]
@@ -135,47 +126,14 @@ namespace Game.Characters
 
 			if (button == PS4_Controller_Input.Button.SQUARE)
 			{
-				_weaponSystem.ChargePowerWeapon();
+				_weaponSystem.AttemptWeaponCharge();
 			}
 
 			if (button == PS4_Controller_Input.Button.TRIANGLE)
 			{
 				_weaponSystem.AttemptSpecialAbility();
 			}
-
-			if (button == PS4_Controller_Input.Button.R2)
-			{
-				AttemptKick();
-			}
         }
-
-		private void AttemptKick()
-		{
-			if(!_energySystem.HasEnergy(_energyConsumedOnKick))
-					return;
-
-			_energySystem.ConsumeEnergy(_energyConsumedOnKick);
-
-			KickItem();
-		}
-
-		private void KickItem()
-		{
-			RaycastHit hit;
-			
-			if (Physics.Raycast(this.transform.position, transform.forward, out hit, _maximumKickDistance))
-			{
-				var kickableItem = hit.collider.gameObject.GetComponent<Kickable>();
-				
-				if (kickableItem)
-				{
-					var directionalForce = transform.forward * _kickForce;
-					kickableItem.GetComponent<Rigidbody>().AddForce(directionalForce, ForceMode.Impulse);
-					var forceDirection = (kickableItem.transform.position - this.transform.position).normalized;
-					kickableItem.Setup(forceDirection);
-				}
-			}
-		}
 		
         private void InitializeCharacterVariables()
         {
