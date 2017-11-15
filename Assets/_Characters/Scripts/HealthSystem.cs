@@ -4,9 +4,16 @@ using UnityEngine;
 
 namespace Game.Characters{
 	
-	public class HealthSystem : MonoBehaviour {
+	public class HealthSystem : MonoBehaviour 
+	{
+
+		[Tooltip("This is the rate at which a player will improved.")]
 		[SerializeField] float _healthImprovedPerSecond = 5f;
+
+		[Tooltip("This is the number of times the player gets hit before the player will get destroyed.")]
 		[SerializeField] int _numberOfTimesHitBeforeDestroying = 10;
+
+		[Tooltip("Each time the player is hit, the player will scale depending on the factor provided here.")]
 		[SerializeField] float _scaleUpIncrementsWhenHit = 0.1f;
 		int _timesHit = 0;
 		HealthSystemLogic _healthSystemLogic;
@@ -24,7 +31,8 @@ namespace Game.Characters{
 		public void TakeHit()
 		{
 			_timesHit += 1;
-
+			
+			//TODO: Remove once debugging is complete. 
 			// if (_timesHit >= _numberOfTimesHitBeforeDestroying) //TODO: Commented out for debugging purpposes. 
 			// 	Destroy(this.gameObject);
 
