@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: a967d8d76eb4a6243b3bdf5f211d13f7
+timeCreated: 1435952680
+licenseType: Store
+TrueTypeFontImporter:
+  serializedVersion: 2
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 1
+  characterPadding: 0
+  includeFontData: 1
+  use2xBehaviour: 0
+  fontNames:
+  - 2D platformer
+  customCharacters: 
+  fontRenderingMode: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

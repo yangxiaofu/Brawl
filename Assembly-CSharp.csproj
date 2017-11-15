@@ -51,6 +51,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\_CameraAndUI\HealthBar\Source\Scripts\ApplyDamage.cs" />
+     <Compile Include="Assets\_CameraAndUI\HealthBar\Source\Scripts\Healthbar.cs" />
+     <Compile Include="Assets\_CameraAndUI\HealthBar\Source\Scripts\SpriteDatabase.cs" />
+     <Compile Include="Assets\_CameraAndUI\HealthBar\Source\Scripts\Sprites.cs" />
      <Compile Include="Assets\_CameraAndUI\PlayerUISocket.cs" />
      <Compile Include="Assets\_CameraAndUI\Scripts\Boundaries.cs" />
      <Compile Include="Assets\_CameraAndUI\Scripts\CameraAI.cs" />
@@ -96,6 +100,16 @@
      <Compile Include="Assets\_Core\Scripts\SpawnerLogic.cs" />
      <Compile Include="Assets\_Core\Scripts\ThrowSocket.cs" />
      <Compile Include="Assets\_Core\Tests\PhysicsApplyForce.cs" />
+     <Compile Include="Assets\_Environment\Particle Systems\Scripts\AfterburnerPhysicsForce.cs" />
+     <Compile Include="Assets\_Environment\Particle Systems\Scripts\ExplosionFireAndDebris.cs" />
+     <Compile Include="Assets\_Environment\Particle Systems\Scripts\ExplosionPhysicsForce.cs" />
+     <Compile Include="Assets\_Environment\Particle Systems\Scripts\Explosive.cs" />
+     <Compile Include="Assets\_Environment\Particle Systems\Scripts\ExtinguishableParticleSystem.cs" />
+     <Compile Include="Assets\_Environment\Particle Systems\Scripts\FireLight.cs" />
+     <Compile Include="Assets\_Environment\Particle Systems\Scripts\Hose.cs" />
+     <Compile Include="Assets\_Environment\Particle Systems\Scripts\ParticleSystemMultiplier.cs" />
+     <Compile Include="Assets\_Environment\Particle Systems\Scripts\SmokeParticles.cs" />
+     <Compile Include="Assets\_Environment\Particle Systems\Scripts\WaterHoseParticles.cs" />
      <Compile Include="Assets\_Temp\ProjectileSocket.cs" />
      <Compile Include="Assets\_Weapons\_Blasts\_Sprites\Explosion\ExplosionBehaviour.cs" />
      <Compile Include="Assets\_Weapons\_Blasts\BlastBehaviour.cs" />
@@ -128,11 +142,6 @@
      <Compile Include="Assets\Best Effect Pack\Script\csPrefebMake.cs" />
      <Compile Include="Assets\Best Effect Pack\ShurikenEffectEditor\csShurikenEffectChanger.cs" />
      <Compile Include="Assets\Best Effect Pack\ShurikenEffectEditor\csShurikenEffectEditor.cs" />
-     <Compile Include="Assets\HealthBar\Demo\Standard Assets\Character Controllers\Sources\Scripts\MouseLook.cs" />
-     <Compile Include="Assets\HealthBar\Source\Scripts\ApplyDamage.cs" />
-     <Compile Include="Assets\HealthBar\Source\Scripts\Healthbar.cs" />
-     <Compile Include="Assets\HealthBar\Source\Scripts\SpriteDatabase.cs" />
-     <Compile Include="Assets\HealthBar\Source\Scripts\Sprites.cs" />
      <Compile Include="Assets\MKGlow\MKGlowFree\MKGlowFree.cs" />
      <Compile Include="Assets\Octave3D World Builder\Scripts\Actions And Queries\Object Placement Box Stack Segment\ObjectPlacementBoxStackSegmentActions.cs" />
      <Compile Include="Assets\Octave3D World Builder\Scripts\Actions And Queries\Object Placement Box Stack Segment\ObjectPlacementBoxStackSegmentQueries.cs" />
@@ -901,7 +910,7 @@
      <None Include="Assets\MKGlow\MKGlowFree\Shader\Render\MKGlowBlur.shader" />
      <None Include="Assets\UBER\Shaders\_Specular\_UBERShader_Specular_GeomBlend.shader" />
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_POMAdvanced.shader" />
-     <None Include="Assets\HealthBar\Demo\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
+     <None Include="Assets\_Environment\Particle Systems\Shaders\Particle Alpha Blend (Queue +100).shader" />
      <None Include="Assets\MKGlow\MKGlowFree\Shader\Variants_SelectiveMode\Other\MK_Illumin-Diffuse.shader" />
      <None Include="Assets\UBER\OpenFootage\_info.txt" />
      <None Include="Assets\UBER\Shaders\_Specular\_UBERShader_Specular_TriplanarSelective_2Layers_Refraction.shader" />
@@ -949,26 +958,25 @@
      <None Include="Assets\UBER\Shaders\_Specular\_UBERShader_Specular_Tessellation_fallback2POMAdvanced_Refraction.shader" />
      <None Include="Assets\Toon Character Pack\Shaders\Toony-BasicOutline.shader" />
      <None Include="Assets\MKGlow\MKGlowFree\Shader\Variants_SelectiveMode\Illumin\MK_Illumin-DiffuseBumped.shader" />
-     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAlpha.shader" />
+     <None Include="Assets\_Environment\Shaders\PriorityParticleAlpha.shader" />
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_TriplanarSelective_2Layers_GeomBlend.shader" />
      <None Include="Assets\MKGlow\MKGlowFree\Shader\Variants_SelectiveMode\Normal\MK_Normal-Glossy.shader" />
      <None Include="Assets\PandaBehaviour\Examples\02_PlayTag\Assets\Computer.BT.txt" />
      <None Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\GameController.BT.txt" />
      <None Include="Assets\Best Effect Pack\ParticleEffect_Shader\Additive\Shader_AdvancedAdditive.shader" />
-     <None Include="Assets\Standard Assets\ParticleSystems\ParticleSystemsGuidelines.txt" />
+     <None Include="Assets\_Environment\Particle Systems\ParticleSystemsGuidelines.txt" />
      <None Include="Assets\Standard Assets\Effects\CinematicEffects(BETA)\Bloom\Resources\Bloom.shader" />
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_Tessellation_2Sided.shader" />
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_2Layers_GeomBlend.shader" />
      <None Include="Assets\UBER\Shaders\_Specular\_UBERShader_Specular_Refraction.shader" />
      <None Include="Assets\Standard Assets\Environment\Water (Basic)\Shaders\FXWaterBasic.shader" />
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_2Layers_Refraction.shader" />
-     <None Include="Assets\Standard Assets\Fonts\OpenSans\License!.txt" />
      <None Include="Assets\UBER\_UBER_deferred_info.txt" />
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_2Layers.shader" />
      <None Include="Assets\UBER\Shaders\Includes\UBER_StandardCore.cginc" />
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
      <None Include="Assets\UBER\Shaders\_Specular\_UBERShader_Specular_Tessellation_2Layers.shader" />
-     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAddSoft.shader" />
+     <None Include="Assets\_Environment\Shaders\PriorityParticleAddSoft.shader" />
      <None Include="Assets\Toon Character Pack\Shaders\Toony-LightedOutline.shader" />
      <None Include="Assets\MKGlow\MKGlowFree\Shader\Variants_SelectiveMode\Sprites\MK_UnitySprites.cginc" />
      <None Include="Assets\Toon Character Pack\Shaders\Toony-Lighted.shader" />
@@ -1010,7 +1018,6 @@
      <None Include="Assets\UBER\Shaders\_Specular\_UBERShader_Specular_TriplanarSelective_2Layers.shader" />
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_POMDistanceMap_Refraction.shader" />
      <None Include="Assets\UBER\_Examples\Hebe\source_info.txt.txt" />
-     <None Include="Assets\Standard Assets\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_TriplanarSelective_2Layers_Refraction.shader" />
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_Tessellation_fallback2POMAdvanced_Refraction.shader" />
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_Refraction.shader" />
@@ -1025,7 +1032,6 @@
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_2Sided_TriplanarSelective.shader" />
      <None Include="Assets\PandaBehaviour\Examples\02_PlayTag\Assets\PlayTag.BT.txt" />
      <None Include="Assets\MKGlow\MKGlowFree\Shader\Variants_SelectiveMode\Transparent\MK_Transparent-Glossy.shader" />
-     <None Include="Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_Tessellation_2Sided_2Layers.shader" />
      <None Include="Assets\Octave3D World Builder\Resources\XZGrid.shader" />
      <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\WaterInclude.cginc" />
@@ -1033,12 +1039,11 @@
      <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Advanced.shader" />
      <None Include="Assets\MKGlow\MKGlowFree\Shader\Variants_SelectiveMode\Cutout\MK_Cutout-Diffuse.shader" />
      <None Include="Assets\UBER\Shaders\_Specular\_UBERShader_Specular_Tessellation_2Sided_TriplanarSelective_2Layers.shader" />
-     <None Include="Assets\Standard Assets\Characters\RollerBall\RollerBallGuidelines.txt" />
      <None Include="Assets\UBER\Shaders\_Specular\_UBERShader_Specular_2Sided_TriplanarSelective_2Layers.shader" />
      <None Include="Assets\UBER\Shaders\Includes\DeferredTranslucensyBlit.shader" />
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_Tessellation.shader" />
      <None Include="Assets\MKGlow\MKGlowFree\Shader\Render\MKGlowSelectiveRender.shader" />
-     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />
+     <None Include="Assets\_Environment\Shaders\PriorityParticleAdd.shader" />
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_Tessellation_TriplanarSelective_Refraction.shader" />
      <None Include="Assets\Toon Character Pack\Shaders\Unlit-Alpha.shader" />
      <None Include="Assets\UBER\Shaders\_Specular\_UBERShader_Specular_Tessellation_TriplanarSelective_Refraction.shader" />
