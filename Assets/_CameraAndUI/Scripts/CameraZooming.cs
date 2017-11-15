@@ -7,7 +7,7 @@ using UnityEngine.Assertions;
 using Panda;
 
 namespace Game.CameraUI{
-	public class CameraBoundaries : MonoBehaviour 
+	public class CameraZooming : MonoBehaviour 
 	{
 		
 		[SerializeField] float _outerBorder = 50f;
