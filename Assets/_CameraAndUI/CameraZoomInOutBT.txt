@@ -1,0 +1,19 @@
+tree("Root")
+	fallback
+		tree("ZoomOut")
+		tree("ZoomIn")
+
+tree("ZoomOut")
+	repeat
+		sequence
+			ResetBoundaries
+			not AllCharactersWithinOuterBoundaries
+			ZoomOut
+
+tree("ZoomIn")
+	repeat
+		sequence
+			ResetBoundaries
+			AllCharactersWithinInnerBoundaries
+			ZoomIn
+

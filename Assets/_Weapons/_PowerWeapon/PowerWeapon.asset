@@ -11,11 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39978901c8eab4f5580b43e534ff1776, type: 3}
   m_Name: PowerWeapon
   m_EditorClassIdentifier: 
-  _itemPrefab: {fileID: 1443953676885246, guid: ce0d0e6af6d3b40768993ba0603ee605,
+  _itemPrefab: {fileID: 1572153061920190, guid: e3e807b2e42d54a19b53a7ea94f58e1c,
     type: 2}
   _isWeapon: 1
   _chargePerSecond: 10
-  _forceFactor: 100
-  _blastConfig: {fileID: 11400000, guid: d796f22224d1946dc889d8d81d4a71b9, type: 2}
+  _forceFactor: 50
+  _blastConfig: {fileID: 11400000, guid: 09b3b5a6d20ba4d25b95ac5451177bf2, type: 2}
   _energyConsumptionPerSecond: 10
   _projectileIncreasePerSecondOnCharge: 1.1

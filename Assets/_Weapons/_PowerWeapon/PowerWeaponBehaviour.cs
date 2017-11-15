@@ -7,6 +7,7 @@ using System;
 
 namespace Game.Weapons
 {
+    //KNOWN BUGS: UPDATE THE CHARGE  RELATIE TO THE MAX CHARGE ON THE BLAST.  THIS SHOULD BE SCALED. 
 	public class PowerWeaponBehaviour : MonoBehaviour 
 	{
 		PowerWeaponConfig _config;
