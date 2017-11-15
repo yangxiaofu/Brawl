@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _blastPrefab: {fileID: 1098297072557902, guid: 295ab5dbc76fd4209a44d9ae0fff31e9,
     type: 2}
-  _blastRadius: 5
+  _blastRadius: 25
   _blastForce: 200
   _delayBeforeExplosion: 0
   _damage: 10

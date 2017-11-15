@@ -102,10 +102,10 @@
      <Compile Include="Assets\_Weapons\_Blasts\ExplosionBlastConfig.cs" />
      <Compile Include="Assets\_Weapons\_Blasts\FreezeBlastBehaviour.cs" />
      <Compile Include="Assets\_Weapons\_Blasts\FreezeBlastConfig.cs" />
-     <Compile Include="Assets\_Weapons\_PowerWeapon\PowerWeaponBehaviour.cs" />
-     <Compile Include="Assets\_Weapons\_PowerWeapon\PowerWeaponBehaviourLogic.cs" />
-     <Compile Include="Assets\_Weapons\_PowerWeapon\PowerWeaponConfig.cs" />
-     <Compile Include="Assets\_Weapons\_PowerWeapon\PowerWeaponSocket.cs" />
+     <Compile Include="Assets\_Weapons\_PowerWeapon\Script\PowerWeaponBehaviour.cs" />
+     <Compile Include="Assets\_Weapons\_PowerWeapon\Script\PowerWeaponBehaviourLogic.cs" />
+     <Compile Include="Assets\_Weapons\_PowerWeapon\Script\PowerWeaponConfig.cs" />
+     <Compile Include="Assets\_Weapons\_PowerWeapon\Script\PowerWeaponSocket.cs" />
      <Compile Include="Assets\_Weapons\_Projectiles\ProjectileBehaviour.cs" />
      <Compile Include="Assets\_Weapons\_Projectiles\ProjectileConfig.cs" />
      <Compile Include="Assets\_Weapons\_RangeWeapons\RangeWeaponConfig.cs" />

@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: 652e7b445f13b4b76bb304d9f2c4eae2
+labels:
+- PowerWeapons
 timeCreated: 1510621319
 licenseType: Pro
 NativeFormatImporter:

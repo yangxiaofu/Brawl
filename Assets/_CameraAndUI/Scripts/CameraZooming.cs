@@ -9,16 +9,16 @@ using Panda;
 namespace Game.CameraUI{
 	public class CameraZooming : MonoBehaviour 
 	{
-		
 		[SerializeField] float _outerBorder = 50f;
 		[SerializeField] float _innerBorder = 150f;
 		[SerializeField] float _zoomSpeed = 1f;
+		[SerializeField] float _maxZoomIn = 28.9f;
+		[SerializeField] float _maxZoomOut = 80f;
 		Boundaries _outerBoundaries;
 		Boundaries _innerBoundaries;
 		List<Character> _characters = new List<Character>();
 		Camera _camera;
 		CameraBoundariesLogic _logic;
-
 		void Start()
 		{
 			_logic = new CameraBoundariesLogic();
@@ -41,18 +41,23 @@ namespace Game.CameraUI{
 
 
 		[Task]
-		void ZoomOut()
+		bool ZoomOut()
 		{
+			if (_camera.fieldOfView >= _maxZoomOut)
+				return false;
+
 			_camera.fieldOfView += Time.deltaTime * _zoomSpeed;
-			Task.current.Succeed();
-			
+			return true;
 		}
 
 		[Task]
-		void ZoomIn()
+		bool ZoomIn()
 		{
+			if (_camera.fieldOfView <= _maxZoomIn)
+				return false;
+
 			_camera.fieldOfView -= Time.deltaTime * _zoomSpeed;
-			Task.current.Succeed();
+			return true;
 		}
 
 		[Task]

@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 114772471806172418}
   - component: {fileID: 114993273645243182}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: Camera Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -180,6 +180,8 @@ MonoBehaviour:
   _outerBorder: 33.38
   _innerBorder: 300
   _zoomSpeed: 5
+  _maxZoomIn: 28.9
+  _maxZoomOut: 80
 --- !u!114 &114772471806172418
 MonoBehaviour:
   m_ObjectHideFlags: 1

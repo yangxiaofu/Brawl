@@ -131,8 +131,9 @@ namespace Game.Weapons{
             if (characterObject.GetComponent<Rigidbody>())
             {
                 var forceDirection = (characterObject.transform.position - this.transform.position).normalized;
+                var newDirection = new Vector3(forceDirection.x, 1, forceDirection.z);
                 var rigidBody = characterObject.gameObject.GetComponent<Rigidbody>();                 
-                rigidBody.AddForce(forceDirection * _blastForce, ForceMode.Impulse);
+                rigidBody.AddForce(newDirection * _blastForce, ForceMode.Impulse);
             }   
         }
 
