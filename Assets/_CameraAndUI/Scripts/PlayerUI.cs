@@ -19,7 +19,6 @@ namespace Game.UI{
 		[SerializeField] Text _specialAbilityText;
 		[SerializeField] Text _scoringSystemText;
 		[SerializeField] PLAYER_TAG _playerTag;
-		EnergyBar _energyBar;
 		Character _character;
 		ScoringSystem _scoringSystem;
 		ControllerBehaviour _controller;
@@ -29,7 +28,6 @@ namespace Game.UI{
             SetupCharacter();
             SetupScoringSystem();
             InitializeVariables();
-            SetupEnergyBar();
         }
 
         void Update()
@@ -38,12 +36,6 @@ namespace Game.UI{
 			UpdateCharacterScore();
         }
 
-        private void SetupEnergyBar()
-        {
-            _energyBar = gameObject.GetComponentInChildren<EnergyBar>();
-            Assert.IsNotNull(_energyBar);
-            _energyBar.SetupCharacter(_character);
-        }
 
         private void SetupScoringSystem()
         {

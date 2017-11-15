@@ -14,14 +14,9 @@ namespace Game.UI{
 		void Start()
 		{
 			Assert.IsNotNull(_energyBarImage);
+
+			_character = GetComponentInParent<Character>();
 		}
-
-		public void SetupCharacter(Character character)
-		{
-			_character = character;
-		}
-
-
 		void Update()
 		{
 			_energyBarImage.fillAmount = _character
