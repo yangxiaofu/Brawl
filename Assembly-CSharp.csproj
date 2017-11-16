@@ -90,6 +90,7 @@
      <Compile Include="Assets\_Core\Scripts\KickableLogic.cs" />
      <Compile Include="Assets\_Core\Scripts\LookAtCamera.cs" />
      <Compile Include="Assets\_Core\Scripts\Movement.cs" />
+     <Compile Include="Assets\_Core\Scripts\MovementLogic.cs" />
      <Compile Include="Assets\_Core\Scripts\PLAYER_TAG.cs" />
      <Compile Include="Assets\_Core\Scripts\ScoreSettings.cs" />
      <Compile Include="Assets\_Core\Scripts\ScoringSystem.cs" />

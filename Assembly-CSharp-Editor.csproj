@@ -64,6 +64,7 @@
      <Compile Include="Assets\_Core\ControllerInputs\Scripts\Editor\ControllerBehaviourLogicTests.cs" />
      <Compile Include="Assets\_Core\Scripts\Editor\CameraAILogicTests.cs" />
      <Compile Include="Assets\_Core\Scripts\Editor\KickableLogicTests.cs" />
+     <Compile Include="Assets\_Core\Scripts\Editor\MovementLogicTests.cs" />
      <Compile Include="Assets\_Core\Scripts\Editor\SpawnerLogicTests.cs" />
      <Compile Include="Assets\_Core\Tests\Editor\PhysicsApplyForceEditor.cs" />
      <Compile Include="Assets\_Weapons\_PowerWeapon\Editor\PowerWeaponBehaviourLogicTests.cs" />

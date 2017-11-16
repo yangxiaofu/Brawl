@@ -11,13 +11,15 @@ namespace Game.Core{
 		[SerializeField] float _speed = 5f;
 		[SerializeField] float _jumpHeight = 5f;
 		[SerializeField] float _dashDistance = 0.5f;
-		[SerializeField] float _groundDistance = 0.2f;
+		float _groundDistance = 0.2f;
 
 		[Space][Header("Rigid Body Parameters")]
 		[SerializeField] float _mass = 20f;
 		[SerializeField] float _drag = 10f;
 		[SerializeField] float _angularSpeed = 8f;
+
 		[Space]
+		[Tooltip("The ground layer mask is the layer in which the character determines what to jump off of.")]
 		[SerializeField] LayerMask _ground;
 		bool _isGrounded = true;
 		public bool isGrounded{get{return _isGrounded;}}
@@ -27,6 +29,8 @@ namespace Game.Core{
 		Animator _anim;
 		Vector3 _inputs;
 		const string IS_WALKING = "IsWalking";
+
+		MovementLogic _logic;
 		
 		void Start () 
 		{
@@ -39,6 +43,8 @@ namespace Game.Core{
 
 			_groundChecker = GetComponentInChildren<GroundChecker>().transform;
             Assert.IsNotNull(_groundChecker);
+
+			_logic = new MovementLogic();
 		}
 		
 		// Update is called once per frame
@@ -131,11 +137,7 @@ namespace Game.Core{
 
 		public bool Jump()
 		{	
-
-			if (_character.frozen) 
-				return false;
-
-			if (!_character.energySystem.HasEnergy(_character.energySystem.energyToConsumeOnJump)) 
+			if(!_logic.CanJumpOrDash(_character.frozen, _character.energySystem.HasEnergy(_character.energySystem.energyToConsumeOnJump)))
 				return false;
 
 			_character.energySystem.ConsumeEnergy(_character.energySystem.energyToConsumeOnJump);
@@ -153,10 +155,7 @@ namespace Game.Core{
 
 		public bool Dash()
 		{
-			if (_character.frozen) 
-				return false;
-
-			if(!_character.energySystem.HasEnergy(_character.energySystem.energyToConsumeOnDash)) 
+			if (!_logic.CanJumpOrDash(_character.frozen, _character.energySystem.HasEnergy(_character.energySystem.energyToConsumeOnDash)))
 				return false;
 
 			_character.energySystem.ConsumeEnergy(_character.energySystem.energyToConsumeOnDash); 

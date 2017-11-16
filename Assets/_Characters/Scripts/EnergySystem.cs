@@ -44,7 +44,6 @@ namespace Game.Characters{
 		{
 			return _currentEnergy > 0;
 		}
-
 	}
 
 }
