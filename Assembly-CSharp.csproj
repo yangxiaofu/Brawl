@@ -81,6 +81,7 @@
      <Compile Include="Assets\_Core\ControllerInputs\Scripts\PS4_Controller_Input.cs" />
      <Compile Include="Assets\_Core\ControllerInputs\Scripts\PS4ControllerBehaviour.cs" />
      <Compile Include="Assets\_Core\Scripts\DestroyTimer.cs" />
+     <Compile Include="Assets\_Core\Scripts\Destructable.cs" />
      <Compile Include="Assets\_Core\Scripts\Explosion.cs" />
      <Compile Include="Assets\_Core\Scripts\GameManager.cs" />
      <Compile Include="Assets\_Core\Scripts\GamePhysics.cs" />
@@ -121,6 +122,7 @@
      <Compile Include="Assets\_Weapons\_PowerWeapon\Script\PowerWeaponBehaviourLogic.cs" />
      <Compile Include="Assets\_Weapons\_PowerWeapon\Script\PowerWeaponConfig.cs" />
      <Compile Include="Assets\_Weapons\_PowerWeapon\Script\PowerWeaponSocket.cs" />
+     <Compile Include="Assets\_Weapons\_Projectiles\IDestructable.cs" />
      <Compile Include="Assets\_Weapons\_Projectiles\ProjectileBehaviour.cs" />
      <Compile Include="Assets\_Weapons\_Projectiles\ProjectileConfig.cs" />
      <Compile Include="Assets\_Weapons\_RangeWeapons\RangeWeaponConfig.cs" />

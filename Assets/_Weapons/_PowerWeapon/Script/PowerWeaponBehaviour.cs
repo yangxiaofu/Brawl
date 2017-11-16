@@ -9,7 +9,7 @@ namespace Game.Weapons
 {
     //KNOWN BUGS: UPDATE THE CHARGE  RELATIE TO THE MAX CHARGE ON THE BLAST.  THIS SHOULD BE SCALED. 
     //KNOWN BUGS: THE CHARACTER DOES NOT MOVE WHEN THE BLAST EXPLOSION OCCURS.
-	public class PowerWeaponBehaviour : MonoBehaviour 
+	public class PowerWeaponBehaviour : MonoBehaviour, IDestructable
 	{
 		PowerWeaponConfig _config;
 		float _currentCharge = 0;
