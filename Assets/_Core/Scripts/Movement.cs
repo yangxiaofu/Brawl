@@ -33,8 +33,10 @@ namespace Game.Core{
 			SetupRigidBody();
 
 			_character = GetComponent<Character>();
+
 			_anim = GetComponent<Animator>();
 			Assert.IsNotNull(_anim);
+
 			_groundChecker = GetComponentInChildren<GroundChecker>().transform;
             Assert.IsNotNull(_groundChecker);
 		}
@@ -51,7 +53,7 @@ namespace Game.Core{
 			}
         }
 
-		 void FixedUpdate()
+		void FixedUpdate()
         {
             if (_character.logic.CanMove(_character.frozen, _character.controller))
 			{
@@ -68,11 +70,12 @@ namespace Game.Core{
 
         private void UpdateCharacterFacingDirection()
         {
-            if (_inputs.magnitude >= 0.2f)
+			float thresholdForCharacterFacing = 0.2f;
+
+            if (_inputs.magnitude >= thresholdForCharacterFacing)
 			{
 				transform.forward = _inputs;
-			}
-                
+			} 
         }
 
 		private void UpdateMovementAnimation()
@@ -92,8 +95,15 @@ namespace Game.Core{
         }
 		private void UpdatePlayerMovement()
         {
-			var movePos = _rb.position + _inputs * _speed * Time.fixedDeltaTime;
-            _rb.MovePosition(movePos);
+			if (_inputs.magnitude >= 0.1f)
+			{
+				var movePos = _rb.position + _inputs * _speed * Time.fixedDeltaTime;
+            	_rb.MovePosition(movePos);
+			} 
+			else 
+			{
+				_rb.angularVelocity = Vector3.zero;
+			}
         }
 
 		private void SetupRigidBody()
@@ -121,6 +131,7 @@ namespace Game.Core{
 
 		public bool Jump()
 		{	
+
 			if (_character.frozen) 
 				return false;
 
