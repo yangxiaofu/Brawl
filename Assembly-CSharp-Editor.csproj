@@ -67,6 +67,7 @@
      <Compile Include="Assets\_Core\Scripts\Editor\SpawnerLogicTests.cs" />
      <Compile Include="Assets\_Core\Tests\Editor\PhysicsApplyForceEditor.cs" />
      <Compile Include="Assets\_Weapons\_PowerWeapon\Editor\PowerWeaponBehaviourLogicTests.cs" />
+     <Compile Include="Assets\_Weapons\Scripts\Editor\WeaponBehaviourTests.cs" />
      <Compile Include="Assets\_Weapons\Scripts\Editor\WeaponSystemLogicTests.cs" />
      <Compile Include="Assets\MKGlow\MKGlowFree\Editor\MKGlowFreeEditor.cs" />
      <Compile Include="Assets\Octave3D World Builder\Editor\Scripts\Octave3DWorldBuilderInspectorGUI.cs" />

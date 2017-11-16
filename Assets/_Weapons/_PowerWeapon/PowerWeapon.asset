@@ -15,7 +15,7 @@ MonoBehaviour:
     type: 2}
   _isWeapon: 1
   _chargePerSecond: 10
-  _forceFactor: 50
-  _blastConfig: {fileID: 11400000, guid: 09b3b5a6d20ba4d25b95ac5451177bf2, type: 2}
   _energyConsumptionPerSecond: 10
+  _forceFactor: 35
+  _blastConfig: {fileID: 11400000, guid: 09b3b5a6d20ba4d25b95ac5451177bf2, type: 2}
   _projectileIncreasePerSecondOnCharge: 1.1

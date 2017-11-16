@@ -16,6 +16,14 @@ namespace Game.Weapons{
 		void Start()
 		{
 			_weaponSystem = GetComponent<WeaponSystem>();
+			
+		}
+
+		///<summary> Used Primary for testing purposes</summary>
+		public void Setup(int remainingAmmo, int startingAmmo) 
+		{
+			_remainingAmmo = remainingAmmo;
+			_startingAmmo = startingAmmo;
 		}
 
 		public void Setup(WeaponConfig config)
