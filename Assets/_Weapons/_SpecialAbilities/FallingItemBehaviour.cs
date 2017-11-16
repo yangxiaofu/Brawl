@@ -6,12 +6,10 @@ using Game.Characters;
 namespace Game.Weapons{
 	public class FallingItemBehaviour: MonoBehaviour{
         FallingItemsSpecialAbilityConfig _config;
-        Character _character;
 
 		public void SetupConfig(FallingItemsSpecialAbilityConfig config, Character character)
         {
             _config = config;
-            _character = character;
         }
 
         void OnCollisionEnter(Collision other)
@@ -42,8 +40,6 @@ namespace Game.Weapons{
                 this.transform.position, 
                 particlePrefab.transform.rotation
             );
-
-            var particleSystem = particleEffectObject.GetComponentInChildren<Animator>();
             
             PlayExplosionAudioOn(particleEffectObject);
             

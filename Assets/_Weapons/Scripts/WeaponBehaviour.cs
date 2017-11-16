@@ -12,13 +12,10 @@ namespace Game.Weapons{
 		public int startingAmmo {get{return _startingAmmo;}}
 		WeaponConfig _config;
 		WeaponSystem _weaponSystem;
-		WeaponSystemLogic _logic;
 		
 		void Start()
 		{
 			_weaponSystem = GetComponent<WeaponSystem>();
-
-			_logic = new WeaponSystemLogic();
 		}
 
 		public void Setup(WeaponConfig config)

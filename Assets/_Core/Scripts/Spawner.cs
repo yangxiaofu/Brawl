@@ -24,7 +24,6 @@ namespace Game.Core{
 		[Range(0, 10)]
 		[SerializeField] float _minSpawnTime = 5f;
 		GameObject _spawnedItemObject;
-		ItemConfig _spawnedItemConfig;
 		SpawnerLogic _logic;
 		float _maxHeightForBoxColliderTransform = 2f;
 
@@ -76,7 +75,6 @@ namespace Game.Core{
 		private ItemConfig GetRandomItemConfig()
 		{
 			var r = UnityEngine.Random.Range(0, _itemsToPotentiallySpawn.Count);
-			_spawnedItemConfig = _itemsToPotentiallySpawn[r];
 			return _itemsToPotentiallySpawn[r];
 		}
 
@@ -111,7 +109,6 @@ namespace Game.Core{
         private void ClearSpawnedItemFromSpawner()
         {
             _spawnedItemObject = null;
-			_spawnedItemConfig = null;
 
             foreach (Transform child in this.transform)
             {

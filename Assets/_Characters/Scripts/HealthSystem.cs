@@ -6,10 +6,6 @@ namespace Game.Characters{
 	
 	public class HealthSystem : MonoBehaviour 
 	{
-
-		[Tooltip("This is the rate at which a player will improved.")]
-		[SerializeField] float _healthImprovedPerSecond = 5f;
-
 		[Tooltip("This is the number of times the player gets hit before the player will get destroyed.")]
 		[SerializeField] int _numberOfTimesHitBeforeDestroying = 10;
 
@@ -21,11 +17,6 @@ namespace Game.Characters{
 		void Start()
 		{
 			_healthSystemLogic = new HealthSystemLogic();
-		}
-
-		void Update()
-		{
-			var healthToAdd = _healthImprovedPerSecond * Time.deltaTime;
 		}
 
 		public void TakeHit()

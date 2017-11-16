@@ -191,7 +191,6 @@ namespace Game.Characters
 
 		private void DamageCharacter(ProjectileBehaviour projectile)
 		{
-			var damage = projectile.GetComponent<BlastBehaviour>().GetDamage();
 			GetComponent<HealthSystem>().TakeHit();
 		}
 

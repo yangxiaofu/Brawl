@@ -63,7 +63,6 @@
      <Compile Include="Assets\_CameraAndUI\Scripts\CameraFollow.cs" />
      <Compile Include="Assets\_CameraAndUI\Scripts\CameraZooming.cs" />
      <Compile Include="Assets\_CameraAndUI\Scripts\EnergyBar.cs" />
-     <Compile Include="Assets\_CameraAndUI\Scripts\HealthBar.cs" />
      <Compile Include="Assets\_CameraAndUI\Scripts\NotificationsUI.cs" />
      <Compile Include="Assets\_CameraAndUI\Scripts\PlayerUI.cs" />
      <Compile Include="Assets\_Characters\Scripts\Character.cs" />
