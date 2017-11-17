@@ -109,6 +109,7 @@
      <None Include="Assets\MKGlow\MKGlowFree\Shader\Render\MKGlowBlurInc.cginc" />
      <None Include="Assets\UBER\Shaders\_Specular\_UBERShader_Specular_Tessellation_TriplanarSelective_2Layers_Refraction.shader" />
      <None Include="Assets\Toon Character Pack\Shaders\Toony-Basic.shader" />
+     <None Include="Assets\_Characters\_Enemies\EnemyAI.txt" />
      <None Include="Assets\MKGlow\MKGlowFree\Shader\Variants_SelectiveMode\Cutout\MK_Cutout-Glossy.shader" />
      <None Include="Assets\Toon Character Pack\Shaders\Projector Multiply.shader" />
      <None Include="Assets\MKGlow\MKGlowFree\Shader\Variants_SelectiveMode\Sprites\MK_Sprite-Default.shader" />
@@ -124,6 +125,7 @@
      <None Include="Assets\UBER\Documentation.txt" />
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_Tessellation_2Layers.shader" />
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_Simple(no_normalmap).shader" />
+     <None Include="Assets\_Weapons\_ForceField\ForceField.shader" />
      <None Include="Assets\UBER\Shaders\_Specular\_UBERShader_Specular_POMDistanceMap.shader" />
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_TriplanarSelective_2Layers.shader" />
      <None Include="Assets\MKGlow\MKGlowFree\Shader\Variants_SelectiveMode\Particle\MK_Particle Alpha Blend.shader" />
@@ -221,6 +223,7 @@
      <None Include="Assets\UBER\Shaders\_Specular\_UBERShader_Specular_Tessellation_2Sided_2Layers.shader" />
      <None Include="Assets\UBER\Shaders\_Specular\_UBERShader_Specular_Tessellation_TriplanarSelective.shader" />
      <None Include="Assets\Best Effect Pack\ParticleEffect_Shader\Additive\Shader_NormalAdditive.shader" />
+     <None Include="Assets\ForceField\RenderDepthMap\Shader\RenderDepthMapShader.shader" />
      <None Include="Assets\UBER\Shaders\_Specular\_UBERShader_Specular_TriplanarSelective_GeomBlend.shader" />
      <None Include="Assets\UBER\Shaders\_Specular\_UBERShader_Specular.shader" />
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_POMAdvanced_Refraction.shader" />
@@ -243,6 +246,8 @@
      <None Include="Assets\UBER\Shaders\Includes\UBER_UnityDeferredLibrary.cginc" />
      <None Include="Assets\UBER\_Examples\Candle\Sources\Materials\CandleFire.shader" />
      <None Include="Assets\Standard Assets\Effects\CinematicEffects(BETA)\TonemappingColorGrading\Resources\TonemappingColorGrading.shader" />
+     <None Include="Assets\ForceField\ScannerEffect\Shader\ScannerEffect.shader" />
+     <None Include="Assets\ForceField\SeeThroughWall\Shader\SeeThroughWall.shader" />
      <None Include="Assets\UBER\Shaders\_Specular\_UBERShader_Specular_POMAdvanced.shader" />
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_Refraction_Simple(no_normalmap).shader" />
      <None Include="Assets\MKGlow\MKGlowFree\Shader\Variants_SelectiveMode\Normal\MK_Normal-Diffuse.shader" />

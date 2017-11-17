@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: ScannerEffect
+  m_Shader: {fileID: 4800000, guid: 2753a9bb72ffb1d42820bd03a83441c2, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - <noninit>:
+        m_Texture: {fileID: 2800000, guid: 1d7772d32fcf74045b6d66df4412de46, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - <noninit>: 0.2
+    - _ScanDistance: 10.588044
+    - _ScanWidth: 0.5
+    m_Colors:
+    - <noninit>: {r: 0, g: 0.28676468, b: 0.27439448, a: 0}
+    - _MidColor: {r: 0.07915227, g: 0.82936996, b: 0.89705884, a: 0}
+    - _ScanColor: {r: 0.10786118, g: 0.55188066, b: 0.6985294, a: 0}

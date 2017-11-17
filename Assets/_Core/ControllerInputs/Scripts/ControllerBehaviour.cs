@@ -22,7 +22,7 @@ namespace Game.Core.ControllerInputs{
 		{
             _logic = new ControllerBehaviourLogic();
             
-            _character.Setup(this);		
+            (_character as MyPlayer).Setup(this);		
 		}
 
         protected void InitializeControllerPrefix()

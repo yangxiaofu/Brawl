@@ -1,0 +1,22 @@
+tree("Root")
+	fallback
+		tree("AttackPlayer")
+		sequence 
+			FindPlayer
+			PlayerIsWithinMoveRadius	
+			tree("WalkToPlayer")
+			not PlayerIsWithinStoppingDistance
+		sequence
+			SetIdleAnimation
+			StayPut
+
+tree("AttackPlayer")
+	sequence
+		PlayerIsInAttackRadius
+		PlayHitAnimation
+
+tree("WalkToPlayer")
+	sequence
+		SetWalkAnimation
+		MoveToPlayer
+		PlayerIsWithinMoveRadius

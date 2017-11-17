@@ -31,16 +31,12 @@ namespace Game.Weapons{
 		WeaponBehaviour _primaryWeaponBehaviour;
 		public WeaponBehaviour primaryWeaponBehaviour{get{return _primaryWeaponBehaviour;}}
 		WeaponGrip[] _weaponGrip;
-		ThrowSocket _throwSocket;
 		EnergySystem _energySystem;
 		WeaponSystemLogic _weaponSystemLogic;
 		PowerWeaponBehaviour _powerWeaponBehaviour;
 		bool _canCharge = true;
 		void Start()
-		{
-			_throwSocket = GetComponentInChildren<ThrowSocket>();
-			Assert.IsNotNull(_throwSocket, "Please add a throw socket game object to the child of " + this.gameObject.name);
-			
+		{	
 			_energySystem = GetComponent<EnergySystem>();
 			Assert.IsNotNull(_energySystem);
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.CameraUI{
 	[System.Serializable]
-	public class Boundaries
+	public struct Boundaries
 	{
 		public float topBoundary;
 		public float bottomBoundary;

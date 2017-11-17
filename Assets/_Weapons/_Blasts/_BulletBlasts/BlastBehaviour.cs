@@ -57,7 +57,7 @@ namespace Game.Weapons{
         private void UpdateScore()
         {
             float totalPoints = CalculateTotalPoints();
-            var scoringSystem = _character.controller.GetComponent<ScoringSystem>();
+            var scoringSystem = (_character as MyPlayer).controller.GetComponent<ScoringSystem>();
             scoringSystem.AddPoints(totalPoints);
         }
 

@@ -14,6 +14,8 @@ namespace Game.CameraUI{
 
 			for (int i = 0; i < pos.Count; i++)
 			{
+				if (pos[i] == null) continue;
+				
 				vectorTotal += pos[i].transform.position;
 				count ++;
 			}

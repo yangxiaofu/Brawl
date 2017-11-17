@@ -26,19 +26,20 @@ namespace Game.CameraUI{
 			_camera = GetComponent<Camera>();
 
 			Assert.IsTrue(_innerBorder > _outerBorder, "The inner border must be greater than the outer border");
-			Assert.IsTrue(_outerBorder <= Screen.width, "the outer border should be less than " + Screen.width);
+
+			Assert.IsTrue(_outerBorder <= Screen.width, "The outer border should be less than " + Screen.width);
+
 			Assert.IsTrue(_outerBorder <= Screen.height, "The outer border shoudl be less than " + Screen.height);
 		}
-
 
 		[Task]
 		void ResetBoundaries()
 		{
 			_outerBoundaries = new Boundaries(_outerBorder, Screen.width, Screen.height);
 			_innerBoundaries = new Boundaries(_innerBorder, Screen.width, Screen.height);
+			
 			Task.current.Succeed();
 		}
-
 
 		[Task]
 		bool ZoomOut()
@@ -76,6 +77,9 @@ namespace Game.CameraUI{
 		{
 			for(int i = 0; i < _characters.Count; i++)
 			{
+				if (_characters[i] == null) 
+					continue;
+
 				var screenPos = _camera.WorldToScreenPoint(_characters[i].transform.position);
 
 				if (!_logic.PositionWithinBoundaries(screenPos, boundaries)) 

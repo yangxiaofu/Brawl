@@ -24,11 +24,10 @@ namespace Game.Core.ControllerInputs{
 			ps4Controller = new PS4_Controller_Input(_prefix);
 
             if (_character) {//TODO: Remove after debuggin movement. 
-			    OnButtonDown += _character.OnButtonDown;
-                OnButtonUp += _character.OnButtonUp;
+			    OnButtonDown += (_character as MyPlayer).OnButtonDown;
+                OnButtonUp += (_character as MyPlayer).OnButtonUp;
             }
 		}
-
         void Update()
         {
             UpdateControllerInput();

@@ -52,7 +52,7 @@ namespace Game.Core{
         {
             CheckIfGrounded();
 
-			if(_character.logic.CanMove(_character.frozen, _character.controller))
+			if(_character.logic.CanMove(_character.frozen, (_character as MyPlayer).controller))
 			{
 				UpdateMovementAnimation();
 				UpdateCharacterFacingDirection();
@@ -61,7 +61,7 @@ namespace Game.Core{
 
 		void FixedUpdate()
         {
-            if (_character.logic.CanMove(_character.frozen, _character.controller))
+            if (_character.logic.CanMove(_character.frozen, (_character as MyPlayer).controller))
 			{
 				UpdateMovementInputs();
 				UpdatePlayerMovement();
@@ -71,7 +71,7 @@ namespace Game.Core{
 
         private void UpdateMovementInputs()
         {
-            _inputs = _character.controller.GetMovementInputs();
+            _inputs = (_character as MyPlayer).controller.GetMovementInputs();
         }
 
         private void UpdateCharacterFacingDirection()

@@ -8,6 +8,8 @@ namespace Game.Core{
 	public class Destructable : MonoBehaviour {
 		[SerializeField] GameObject _impactEffect;
 
+		bool _hit = false;
+
 		void Start()
 		{
 			Assert.IsNotNull(_impactEffect);
@@ -15,8 +17,10 @@ namespace Game.Core{
 		
 		void OnCollisionEnter(Collision other)
 		{
-			if (other.gameObject.GetComponent(typeof(IDestructable)))
-				Destruct();
+			if (other.gameObject.GetComponent(typeof(IDestructable)) && !_hit){
+				_hit = true;
+				Destruct();	
+			}
 		}
 
 		private void Destruct()

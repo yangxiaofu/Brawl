@@ -45,7 +45,7 @@ namespace Game.CameraUI{
 		
         private void SetupCharacters()
         {
-            var character = GameObject.FindObjectsOfType<Character>();
+            var character = GameObject.FindObjectsOfType<MyPlayer>();
 
             Assert.AreNotEqual(0, character.Length, "You need to have characters in the game scene");
 
