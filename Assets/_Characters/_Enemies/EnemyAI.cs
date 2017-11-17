@@ -18,6 +18,7 @@ namespace Game.Characters{
 			_agent = GetComponent<NavMeshAgent>();
 			_anim = GetComponent<Animator>();
 			_enemy = GetComponent<Enemy>();
+			_player = GameObject.FindObjectOfType<MyPlayer>();
 		}
 
 		[Task] 
@@ -30,7 +31,7 @@ namespace Game.Characters{
 		[Task]
 		void FindPlayer()
 		{
-			_player = GameObject.FindObjectOfType<MyPlayer>();
+			//TODO: Write to get the closest player.
 			Task.current.Succeed();
 		}
 
