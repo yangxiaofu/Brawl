@@ -27,9 +27,15 @@ namespace Game.Weapons{
 
 		[Tooltip("Toggling this allows you to adjust the amount of allowable time you can charge your power weapon after it's last use.")]
 		[SerializeField] float _timeBetweenPowerWeaponUse = 1f;
+		[Space]
+		[Header("Hit Attributes")]
+		[Range(0, 1)]
+		[SerializeField] float _probabilityOfSuccessfulHit = 0.5f;
+		[SerializeField] float _hitRadius = 0.3f;
+		[SerializeField] float _hitDamage = 5f;
 		float rightAnalogStickThreshold = 0.9f;
-		WeaponBehaviour _primaryWeaponBehaviour;
-		public WeaponBehaviour primaryWeaponBehaviour{get{return _primaryWeaponBehaviour;}}
+		RangeWeaponBehaviour _primaryWeaponBehaviour;
+		public RangeWeaponBehaviour primaryWeaponBehaviour{get{return _primaryWeaponBehaviour;}}
 		WeaponGrip[] _weaponGrip;
 		EnergySystem _energySystem;
 		WeaponSystemLogic _weaponSystemLogic;
@@ -46,6 +52,27 @@ namespace Game.Weapons{
 			_powerWeaponBehaviour.Setup(_powerWeapon);
 
 			StartCoroutine(IncreaseAmmo());
+		}
+
+		void Hit() //TODO: Create Enemy Weapon System to differentiate this from character weapon system later. 
+		{ // CALLBACK FROM THE ANIMATOR.
+			var r = UnityEngine.Random.Range(0f, 1f);
+
+			if (r < _probabilityOfSuccessfulHit)
+			{
+				GetComponent<EnemyAI>().target.GetComponent<HealthSystem>().DealDamage(_hitDamage);	
+				//TODO: Play Hit Sound
+
+				//TODO: Do some particle prefab to show a hit. 
+			} else {
+				print("missed");
+				print("Play Missed Hit Sound");
+
+				//TODO: Player Missed hit sound.
+
+
+				//TODO: Do some particle prefab to show am issed hit. 
+			}
 		}
 
 		private IEnumerator IncreaseAmmo()
@@ -73,10 +100,10 @@ namespace Game.Weapons{
 
         private void SetupPrimaryWeapon()
         {
-			if (GetComponent<WeaponBehaviour>()) 
-				Destroy(GetComponent<WeaponBehaviour>());
+			if (GetComponent<RangeWeaponBehaviour>()) 
+				Destroy(GetComponent<RangeWeaponBehaviour>());
 	
-            _primaryWeaponBehaviour = this.gameObject.AddComponent<WeaponBehaviour>();
+            _primaryWeaponBehaviour = this.gameObject.AddComponent<RangeWeaponBehaviour>();
             _primaryWeaponBehaviour.Setup(_primaryWeapon as WeaponConfig);
         }
 

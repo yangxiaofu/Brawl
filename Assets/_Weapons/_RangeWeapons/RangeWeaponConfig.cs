@@ -18,7 +18,6 @@ namespace Game.Weapons{
 		public float projectileSpeed {get{return _projectileSpeed;}}
 		[SerializeField] float _secondsBetweenShots = 1f;
 		public float secondsBetweenShots {get{return _secondsBetweenShots;}}
-
 		[SerializeField] Transform _weaponGripTransform;
         public Transform weaponGripTransform
         {
@@ -27,6 +26,8 @@ namespace Game.Weapons{
                 return _weaponGripTransform;
 			}
         }
+
+		[SerializeField] float _damageToDeal = 25;
 
         public void AddComponentTo(GameObject projectileGameObject, Character character, Vector3 direction)
 		{
@@ -39,6 +40,7 @@ namespace Game.Weapons{
 
 			//Adds the direction of velocity
 			var bulletBehaviour = projectileGameObject.AddComponent<ProjectileBehaviour>();
+			bulletBehaviour.Setup(_damageToDeal);
 			bulletBehaviour.shootingCharacter = character;
 			bulletBehaviour.travelDirection = direction;
 		}

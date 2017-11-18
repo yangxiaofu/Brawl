@@ -16,5 +16,5 @@ MonoBehaviour:
   _blastRadius: 25
   _blastForce: 200
   _delayBeforeExplosion: 0
-  _damage: 10
+  _damage: 100
   _audio: {fileID: 8300000, guid: 5526d4d6cbdf84ecfb8c89918aef8952, type: 3}

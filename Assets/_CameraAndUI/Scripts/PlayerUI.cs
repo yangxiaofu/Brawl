@@ -12,74 +12,19 @@ using System;
 namespace Game.UI{
 	public class PlayerUI : MonoBehaviour 
 	{
-		[SerializeField] Text _playerNameText;
-		[SerializeField] Image _playerAvatarImage;
-		[SerializeField] Text _primaryWeaponText;
-		[SerializeField] Text _secondaryWeaponText;
-		[SerializeField] Text _specialAbilityText;
-		[SerializeField] Text _scoringSystemText;
-		[SerializeField] PLAYER_TAG _playerTag;
-		Character _character;
-		ScoringSystem _scoringSystem;
-		ControllerBehaviour _controller;
-
+		[SerializeField] Text _ammoText;
+		[SerializeField] ControllerBehaviour _controller;
+		MyPlayer _player;
+		WeaponSystem _weaponSystem;
 		void Start()
-        {
-            SetupCharacter();
-            SetupScoringSystem();
-            InitializeVariables();
-        }
-
-        void Update()
-        {
-            UpdatePrimaryAmmoText();
-			UpdateCharacterScore();
-        }
-
-
-        private void SetupScoringSystem()
-        {
-            _scoringSystem = _controller.GetComponent<ScoringSystem>();
-            Assert.IsNotNull(_scoringSystem, "You need to add a scoring system component to the character " + _controller.name);
-        }
-
-        private void InitializeVariables()
-        {
-            Assert.IsNotNull(_playerNameText);
-            _playerNameText.text = _character.name;
-
-            Assert.IsNotNull(_playerAvatarImage);
-            Assert.IsNotNull(_primaryWeaponText);
-            Assert.IsNotNull(_secondaryWeaponText);
-            Assert.IsNotNull(_specialAbilityText);
-			Assert.IsNotNull(_scoringSystemText);
-        }
-        private void UpdateCharacterScore()
-        {
-            _scoringSystemText.text = _scoringSystem.points.ToString();
-        }
-
-        private void UpdatePrimaryAmmoText()
-        {
-			var weaponSystem = _character.GetComponent<WeaponSystem>();
-			var remainingAmmo = weaponSystem.primaryWeaponBehaviour.remainingAmmo;
-			var startingAmmo = weaponSystem.primaryWeaponBehaviour.startingAmmo;
-			_primaryWeaponText.text = remainingAmmo + "/" + startingAmmo;
-        }
-
-		void SetupCharacter()
 		{
-			var controllers = GameObject.FindObjectsOfType<ControllerBehaviour>();	
-			for (int i = 0; i < controllers.Length; i++)
-			{
-				if (controllers[i].playerTag == _playerTag)
-				{
-					_character = controllers[i].character;
-					_controller = controllers[i];
-					break;
-				}
-			}
+			_player = _controller.character as MyPlayer;
+			_weaponSystem = _player.GetComponent<WeaponSystem>();
+		}
+		
+		void Update()
+		{
+			_ammoText.text = _weaponSystem.primaryWeaponBehaviour.remainingAmmo.ToString();
 		}
     }
-
 }

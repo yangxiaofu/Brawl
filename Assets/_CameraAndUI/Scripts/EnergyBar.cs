@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Assertions;
 using Game.Characters;
 
-namespace Game.UI{
+namespace Game.CameraUI{
 	public class EnergyBar : MonoBehaviour 
 	{
 		[SerializeField] Image _energyBarImage;

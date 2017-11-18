@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using NUnit.Framework;
+using Game.Core;
 
-namespace Game.Characters.UnitTests
+namespace Game.Core.UnitTests
 {
 	[TestFixture]
 	public class HealthSystemLogicTests 

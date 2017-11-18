@@ -67,6 +67,7 @@
      <Compile Include="Assets\_Core\Scripts\Editor\MovementLogicTests.cs" />
      <Compile Include="Assets\_Core\Scripts\Editor\SpawnerLogicTests.cs" />
      <Compile Include="Assets\_Core\Tests\Editor\PhysicsApplyForceEditor.cs" />
+     <Compile Include="Assets\_Weapons\_Blasts\Editor\BlastBehaviourLogicTests.cs" />
      <Compile Include="Assets\_Weapons\_PowerWeapon\Editor\PowerWeaponBehaviourLogicTests.cs" />
      <Compile Include="Assets\_Weapons\Scripts\Editor\WeaponBehaviourTests.cs" />
      <Compile Include="Assets\_Weapons\Scripts\Editor\WeaponSystemLogicTests.cs" />
@@ -162,7 +163,7 @@
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_TriplanarSelective_Refraction.shader" />
      <None Include="Assets\UBER\Shaders\Includes\UBER_StandardUtils2.cginc" />
      <None Include="Assets\MKGlow\MKGlowFree\Shader\Variants_SelectiveMode\Illumin\MK_Illumin-DiffuseBumpSpec.shader" />
-     <None Include="Assets\_CameraAndUI\Scripts\CameraZoomInOutBT.txt" />
+     <None Include="Assets\_CameraAndUI\Scripts\CameraZoom.txt" />
      <None Include="Assets\Toon Character Pack\Shaders\Toony-BasicOutline-Transparent.shader" />
      <None Include="Assets\MKGlow\MKGlowFree\Shader\Variants_SelectiveMode\Sprites\MK_Sprite-Diffuse.shader" />
      <None Include="Assets\Standard Assets\Effects\CinematicEffects(BETA)\TonemappingColorGrading\Resources\HistogramRender.shader" />
@@ -209,7 +210,6 @@
      <None Include="Assets\UBER\Shaders\_Specular\_UBERShader_Specular_Tessellation_2Sided_2Layers.shader" />
      <None Include="Assets\UBER\Shaders\_Specular\_UBERShader_Specular_Tessellation_TriplanarSelective.shader" />
      <None Include="Assets\Best Effect Pack\ParticleEffect_Shader\Additive\Shader_NormalAdditive.shader" />
-     <None Include="Assets\ForceField\RenderDepthMap\Shader\RenderDepthMapShader.shader" />
      <None Include="Assets\UBER\Shaders\_Specular\_UBERShader_Specular_TriplanarSelective_GeomBlend.shader" />
      <None Include="Assets\UBER\Shaders\_Specular\_UBERShader_Specular.shader" />
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_POMAdvanced_Refraction.shader" />
@@ -220,7 +220,6 @@
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_POMDistanceMap.shader" />
      <None Include="Assets\MKGlow\MKGlowFree\Shader\Variants_SelectiveMode\Other\MK_Mobile-Diffuse.shader" />
      <None Include="Assets\UBER\Shaders\_Specular\_UBERShader_Specular_2Layers_GeomBlend.shader" />
-     <None Include="Assets\_CameraAndUI\Scripts\CameraAI.txt" />
      <None Include="Assets\UBER\_Examples\Candle\Sources\Materials\CandleFireDepth.shader" />
      <None Include="Assets\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />
      <None Include="Assets\UBER\Shaders\Deferred_Lighting\Internal-DeferredShading_UBER.shader" />
@@ -232,8 +231,6 @@
      <None Include="Assets\UBER\Shaders\Includes\UBER_UnityDeferredLibrary.cginc" />
      <None Include="Assets\UBER\_Examples\Candle\Sources\Materials\CandleFire.shader" />
      <None Include="Assets\Standard Assets\Effects\CinematicEffects(BETA)\TonemappingColorGrading\Resources\TonemappingColorGrading.shader" />
-     <None Include="Assets\ForceField\ScannerEffect\Shader\ScannerEffect.shader" />
-     <None Include="Assets\ForceField\SeeThroughWall\Shader\SeeThroughWall.shader" />
      <None Include="Assets\UBER\Shaders\_Specular\_UBERShader_Specular_POMAdvanced.shader" />
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_Refraction_Simple(no_normalmap).shader" />
      <None Include="Assets\MKGlow\MKGlowFree\Shader\Variants_SelectiveMode\Normal\MK_Normal-Diffuse.shader" />

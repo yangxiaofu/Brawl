@@ -9,7 +9,7 @@ using System;
 
 namespace Game.Characters
 {
-    public class Character : MonoBehaviour 
+    public class Character : MonoBehaviour
 	{
 		[Space][Header("Capsule Collider")]
 		[SerializeField] protected PhysicMaterial _physicsMaterial;
@@ -18,7 +18,6 @@ namespace Game.Characters
 
 		[Space] [Header("Animator")]
 		[SerializeField] protected AnimatorOverrideController _animatorOverrideController;
-		public AnimatorOverrideController animatorOverrideController{get{return _animatorOverrideController;}}
 		[SerializeField] protected Avatar _avatar;
 		[SerializeField] protected AnimatorUpdateMode _animatorUpdateMode;
 
@@ -38,6 +37,9 @@ namespace Game.Characters
 		public CharacterLogic logic {get{return _characterLogic;}}
 		protected bool _characterCanShoot = true;
 		public bool characterCanShoot{get{return _characterCanShoot;}}
+
+		bool _isDead = false;
+		public bool isDead {get{return _isDead;}}
         protected void InitializeCharacterVariables()
         {
             _weaponSystem = GetComponent<WeaponSystem>();
@@ -48,7 +50,8 @@ namespace Game.Characters
         }
 		protected void DamageCharacter(ProjectileBehaviour projectile)
 		{
-			GetComponent<HealthSystem>().TakeHit();
+			
+			GetComponent<HealthSystem>().DealDamage(projectile.GetDamage()); //TODO: Refactor this out later. 
 		}
 
         protected void LookAtTarget(Vector3 targetPos)
@@ -58,6 +61,12 @@ namespace Game.Characters
             _anim.SetLookAtPosition(targetPos);
         }
 
+		public void KillCharacter()
+		{
+			_isDead = true;
+			GetComponent<NavMeshAgent>().enabled = false;
+			GetComponent<Animator>().SetTrigger("Dead");
+		}
     }
 }
 

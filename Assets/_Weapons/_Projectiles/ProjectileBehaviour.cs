@@ -11,6 +11,16 @@ namespace Game.Weapons{
 	{
 		[HideInInspector] public Vector3 travelDirection = Vector3.zero;
 		[HideInInspector] public Character shootingCharacter;
+		float _damageToDeal = 25f;
 
-	}
+		public void Setup(float damageToDeal)
+		{
+			_damageToDeal = damageToDeal;
+		}
+
+        public float GetDamage()
+        {
+            return _damageToDeal;
+        }
+    }
 }

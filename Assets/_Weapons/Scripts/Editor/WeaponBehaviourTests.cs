@@ -10,13 +10,13 @@ namespace Game.Weapons.UnitTests
 	public class WeaponBehaviourTests  
 	{
 		GameObject _weaponBehaviourObject;
-		WeaponBehaviour _sut;
+		RangeWeaponBehaviour _sut;
 
 		[SetUp]
 		public void Setup()
 		{
 			_weaponBehaviourObject = new GameObject("WeaponBehaviourTests");
-			_sut = _weaponBehaviourObject.AddComponent<WeaponBehaviour>();
+			_sut = _weaponBehaviourObject.AddComponent<RangeWeaponBehaviour>();
 		}
 
 		[Test]

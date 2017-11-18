@@ -1,14 +1,24 @@
 tree("Root")
-	fallback
-		tree("AttackPlayer")
-		sequence 
-			FindPlayer
-			PlayerIsWithinMoveRadius	
-			tree("WalkToPlayer")
-			not PlayerIsWithinStoppingDistance
-		sequence
-			SetIdleAnimation
-			StayPut
+	parallel
+		repeat mute tree("BeAlive")
+		repeat mute tree("Dead")
+
+tree("Dead")
+	while EnemyIsDead
+		Succeed
+
+tree("BeAlive")
+	while not EnemyIsDead
+		fallback
+			tree("AttackPlayer")
+			sequence 
+				FindPlayer
+				PlayerIsWithinMoveRadius	
+				tree("WalkToPlayer")
+				not PlayerIsWithinStoppingDistance
+			sequence
+				SetIdleAnimation
+				StayPut
 
 tree("AttackPlayer")
 	sequence

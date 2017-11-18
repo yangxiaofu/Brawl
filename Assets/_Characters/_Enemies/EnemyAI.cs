@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -11,27 +12,44 @@ namespace Game.Characters{
 		Animator _anim;
 		const string IS_WALKING = "IsWalking";
 		const string ATTACK = "Attack";
-		MyPlayer _player;
-
+		List<MyPlayer> _players = new List<MyPlayer>();
+		MyPlayer _target;
+		public MyPlayer target{get{return _target;}}
 		void Start()
 		{
 			_agent = GetComponent<NavMeshAgent>();
 			_anim = GetComponent<Animator>();
 			_enemy = GetComponent<Enemy>();
-			_player = GameObject.FindObjectOfType<MyPlayer>();
+			_players = GameObject.FindObjectsOfType<MyPlayer>().ToList(); //TODO: Do later for the nearest player.
+		}
+
+		[Task]
+		bool EnemyIsDead()
+		{
+			return GetComponent<Character>().isDead;
 		}
 
 		[Task] 
 		bool PlayerIsWithinMoveRadius()
 		{
-			var distance = Vector3.Distance(this.transform.position, _player.transform.position);
+			var distance = Vector3.Distance(this.transform.position, _target.transform.position);
 			return distance < _enemy.moveRadius;
 		}
 
 		[Task]
 		void FindPlayer()
 		{
-			//TODO: Write to get the closest player.
+			_target = _players[0];
+
+			for(int i = 0; i < _players.Count; i++)
+			{
+				var distanceFromTarget = Vector3.Distance(_target.transform.position, this.transform.position);
+				var distanceFromPlayer = Vector3.Distance(_players[i].transform.position, this.transform.position);
+
+				if (distanceFromPlayer < distanceFromTarget)
+					_target = _players[i];
+			}
+
 			Task.current.Succeed();
 		}
 
@@ -59,24 +77,31 @@ namespace Game.Characters{
 		[Task]
 		void MoveToPlayer()
 		{
-			_agent.SetDestination(_player.transform.position);
-			Task.current.Succeed();
+			if (_agent.enabled)
+			{
+				_agent.SetDestination(_target.transform.position);
+				Task.current.Succeed();
+			} 
+			else 
+			{
+				Task.current.Fail();
+			}
 		}
 
 		[Task]
 		bool PlayerIsWithinStoppingDistance()
 		{
-			var distance = Vector3.Distance(this.transform.position, _player.transform.position);
+			var distance = Vector3.Distance(this.transform.position, _target.transform.position);
 			return distance < _agent.stoppingDistance;
 		}
 
 		[Task]
 		bool PlayerIsInAttackRadius()
 		{
-			if (_player == null)
+			if (_target == null)
 				return false;
 
-			var distanceFromPlayer = Vector3.Distance(this.transform.position, _player.transform.position);
+			var distanceFromPlayer = Vector3.Distance(this.transform.position, _target.transform.position);
 			return distanceFromPlayer < _enemy.attackRadius;
 		}
 
