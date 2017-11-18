@@ -84,21 +84,8 @@ namespace Game.Weapons
             if (!_projectileObject) //There's a possible error here? 
                 return;
 
-            SetupProjectile();
             AddForceToProjectile();
             ResetPowerWeaponBehaviour();
-        }
-
-        private void SetupProjectile()
-        {
-            Assert.IsNotNull(_projectileObject, "Projectile Object should not be null");
-
-			var collider = _projectileObject.AddComponent<SphereCollider>();
-            collider.isTrigger = false;
-
-			var behaviour = _config.GetBlastConfig().AddComponentTo(_projectileObject);
-			behaviour.Setup(_config, GetComponent<Character>());
-            behaviour.UpdateBlastForce(_currentCharge);
         }
 
         private void AddForceToProjectile()

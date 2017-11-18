@@ -83,7 +83,6 @@
      <None Include="Assets\UBER\Documentation.txt" />
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_Tessellation_2Layers.shader" />
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_Simple(no_normalmap).shader" />
-     <None Include="Assets\_Weapons\_ForceField\ForceField.shader" />
      <None Include="Assets\UBER\Shaders\_Specular\_UBERShader_Specular_POMDistanceMap.shader" />
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_TriplanarSelective_2Layers.shader" />
      <None Include="Assets\MKGlow\MKGlowFree\Shader\Variants_SelectiveMode\Particle\MK_Particle Alpha Blend.shader" />
@@ -111,6 +110,7 @@
      <None Include="Assets\MKGlow\MKGlowFree\Shader\Variants_SelectiveMode\Transparent\MK_Transparent-Diffuse.shader" />
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_Tessellation_TriplanarSelective.shader" />
      <None Include="Assets\MKGlow\MKGlowFree\Shader\Variants_SelectiveMode\Transparent\MK_Transparent-DiffuseBumpSpec.shader" />
+     <None Include="Assets\_Characters\_Enemies\EnemyAttackerAI.txt" />
      <None Include="Assets\PandaBehaviour\Examples\03_Shooter\Assets\Hunter.BT.txt" />
      <None Include="Assets\UBER\_IMPORTANT_INFO.txt" />
      <None Include="Assets\UBER\Shaders\Deferred_Lighting\UBER_with_Alloy.txt" />
@@ -223,6 +223,7 @@
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_2Sided_TriplanarSelective.shader" />
      <None Include="Assets\PandaBehaviour\Examples\02_PlayTag\Assets\PlayTag.BT.txt" />
      <None Include="Assets\MKGlow\MKGlowFree\Shader\Variants_SelectiveMode\Transparent\MK_Transparent-Glossy.shader" />
+     <None Include="Assets\_Characters\_Enemies\EnemyShooterAI.txt" />
      <None Include="Assets\UBER\Shaders\_Metallic\_UBERShader_Metallic_Tessellation_2Sided_2Layers.shader" />
      <None Include="Assets\Octave3D World Builder\Resources\XZGrid.shader" />
      <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\WaterInclude.cginc" />

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Game.Weapons;
 using Panda;
 
 namespace Game.Characters{
@@ -110,6 +111,18 @@ namespace Game.Characters{
 		{
 			_agent.SetDestination(this.transform.position);
 			_anim.SetTrigger(ATTACK);
+			Task.current.Succeed();
+		}
+
+		[Task]
+		void ShootTarget()
+		{
+			if (_target == null)
+				return;
+			
+			var direction = (_target.transform.position - this.transform.position).normalized;
+			GetComponent<WeaponSystem>().UsePrimaryWeapon(direction);
+
 			Task.current.Succeed();
 		}
 		

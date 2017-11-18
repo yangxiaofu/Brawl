@@ -3,6 +3,8 @@ tree("Root")
 		repeat mute tree("BeAlive")
 		repeat mute tree("Dead")
 
+//WHAT THE FUCK
+
 tree("Dead")
 	while EnemyIsDead
 		Succeed
@@ -19,11 +21,6 @@ tree("BeAlive")
 			sequence
 				SetIdleAnimation
 				StayPut
-
-tree("AttackPlayer")
-	sequence
-		PlayerIsInAttackRadius
-		PlayHitAnimation
 
 tree("WalkToPlayer")
 	sequence

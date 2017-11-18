@@ -9,23 +9,13 @@ namespace Game.Characters
 {
 	public class Enemy : Character
 	{
+		[Space]
+		[Header("Attack Attributes")]
 		[SerializeField] float _moveRadius = 10f;
 		[SerializeField] float _attackRadius = 1f;
 		public float attackRadius{get{return _attackRadius;}}
 		public float moveRadius{get{return _moveRadius;}}	
-
-
-
-			
-		void OnTriggerEnter(Collider other)
-		{	
-			if (other.gameObject.GetComponent(typeof(IDestructable)))
-			{
-				var d = other.gameObject.GetComponent(typeof(IDestructable)) as IDestructable;
-				GetComponent<HealthSystem>().DealDamage(d.GetDamage());
-			}
-		}
-
+		
 		void Awake()
 		{
 			InitializeCharacterVariables();

@@ -15,8 +15,6 @@ namespace Game.Weapons{
 		[SerializeField] float _maxDelayAfterFirstCollision = 3f;
 		public float maxDelayAfterFirstCollision{get{return _maxDelayAfterFirstCollision;}}
 		[SerializeField] GameObject _fallingObjectPrefab;
-        [SerializeField] BlastConfig _blastConfig;
-        public BlastConfig blastConfig{get{return _blastConfig;}}
         public override GameObject SetupSocket()
         {
             var socketObject = FindObjectOfType<SkySpecialAbilitySocket>().gameObject;

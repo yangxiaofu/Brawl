@@ -21,30 +21,7 @@ namespace Game.Weapons{
                 _config.minDelayAfterFirstCollision, _config.maxDelayAfterFirstCollision
             );
 
-			StartCoroutine(StartExplosionTimer(randomExplosionTimer));
 		}
-		
-		IEnumerator StartExplosionTimer(float delay)
-        {
-            yield return new WaitForSeconds(delay);
-
-            HandleParticleSystem();
-        }
-
-        private void HandleParticleSystem() //TODO: Refactor out to some form of delegation.  The other similar script is in BlastBehaviour
-        {
-            var particlePrefab = _config.blastConfig.GetBlastPrefab();
-
-            var particleEffectObject = Instantiate(
-                particlePrefab, 
-                this.transform.position, 
-                particlePrefab.transform.rotation
-            );
-            
-            PlayExplosionAudioOn(particleEffectObject);
-            
-            Destroy(this.gameObject);
-        }
 
         private void PlayExplosionAudioOn(GameObject particleEffectObject)
         {

@@ -7,13 +7,9 @@ using System;
 
 namespace Game.Weapons{
 	public abstract class WeaponConfig : ItemConfig 
-	{
-		[Header("Weapon Config Specific")]
-		[SerializeField] bool _isWeapon = false;
-		public override bool IsWeapon() { return _isWeapon;}
-		public abstract BlastConfig GetBlastConfig();
-		public abstract float GetBlastDelayAfterCollision();
-		
+	{	
+		[SerializeField] float _damageToDeal;
+		public float damageToDeal{get{return _damageToDeal;}}
     }
 }
 

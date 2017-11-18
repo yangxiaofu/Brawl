@@ -1,0 +1,4 @@
+tree("AttackPlayer")
+	sequence
+		PlayerIsInAttackRadius
+		PlayHitAnimation

@@ -19,10 +19,6 @@ namespace Game.Weapons
 			[SerializeField] float _forceFactor = 1000f;
 			public float forceFacter{get{return _forceFactor;}}
 
-			[Tooltip("The blast configuration is the type of blast that occurs once the blast initiates.")]
-			[SerializeField] BlastConfig _blastConfig;
-			public override BlastConfig GetBlastConfig(){ return _blastConfig ;}
-
 			[Tooltip("This is the rate at which the projectile will increase speed when it's charged.")]
 			[SerializeField] float _projectileIncreasePerSecondOnCharge = 0.1f;
 			public float projectileIncreasePerSecondOnCharge{get{return _projectileIncreasePerSecondOnCharge;}}
@@ -30,10 +26,6 @@ namespace Game.Weapons
 			public PowerWeaponBehaviour AddComponentTo(GameObject gameObjectToAddTo)
 			{
 				return gameObjectToAddTo.AddComponent<PowerWeaponBehaviour>();
-			}
-			public override float GetBlastDelayAfterCollision()
-			{
-					return 0f;
 			}
     }
 }

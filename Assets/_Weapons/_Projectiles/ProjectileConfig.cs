@@ -18,9 +18,6 @@ namespace Game.Weapons{
 		public GameObject GetProjectilePrefab() { return _projectilePrefab;}
 		[SerializeField] float _damagePerHit = 10f;
 		public float damagePerHit{get{return _damagePerHit;}}
-		[SerializeField] BlastConfig _blastConfig;
-		public BlastConfig blastConfig {get{return _blastConfig;}}
-		
 	}
 
 }

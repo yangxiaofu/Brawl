@@ -1,0 +1,5 @@
+tree("AttackPlayer")
+	sequence
+		PlayerIsInAttackRadius
+		ShootTarget
+		Wait(1.0)

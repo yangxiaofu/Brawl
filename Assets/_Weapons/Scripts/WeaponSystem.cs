@@ -121,7 +121,10 @@ namespace Game.Weapons{
 
 		public bool ShotIsFired(ControllerBehaviour _controller)
 		{
-			Assert.IsTrue(GetComponent<Character>().characterCanShoot, "The Character should be able to shoot if this function is called. ");
+			Assert.IsTrue(
+				GetComponent<Character>().characterCanShoot, 
+				"The Character should be able to shoot if this function is called. "
+			);
 			
 			var projectileDirection = GetProjectileDirection(_controller);
 

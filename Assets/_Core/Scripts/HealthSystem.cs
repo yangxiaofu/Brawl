@@ -26,8 +26,11 @@ namespace Game.Core{
 			{
 				if (GetComponent<Character>() && !GetComponent<Character>().isDead)
 				{
-					GetComponent<NavMeshAgent>().enabled = false;
-					GetComponent<Character>().KillCharacter();
+					if (GetComponent<NavMeshAgent>())
+					{
+						GetComponent<NavMeshAgent>().enabled = false;
+						GetComponent<Character>().KillCharacter();
+					}
 				}
 				
 				if (GetComponent<EnemyNest>())

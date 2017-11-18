@@ -31,7 +31,6 @@ namespace Game.Weapons
 			_startingAmmo = (config as RangeWeaponConfig).startingAmmo;
 		}
 
-
 		public void Fire(Vector3 direction)
 		{
 			if (_remainingAmmo <= 0) 
@@ -67,8 +66,19 @@ namespace Game.Weapons
 			var rangeWeaponConfig = (_config as RangeWeaponConfig);
             var projectileObject = Instantiate(rangeWeaponConfig.projectileConfig.GetProjectilePrefab()) as GameObject;
 			var character = GetComponent<Character>();
-			rangeWeaponConfig.AddComponentTo(projectileObject, character, direction);
-				
+
+			var sphereCollider = projectileObject.AddComponent<SphereCollider>();
+			sphereCollider.isTrigger = false;
+			
+			var projectileBehaviour = projectileObject.AddComponent<ProjectileBehaviour>();
+			
+			var args = new ProjectileBehaviourArgs(
+				_config.damageToDeal,
+				character, 
+				direction, 
+				_config as RangeWeaponConfig
+			);
+			projectileBehaviour.Setup(args);
 
 			var socket = _weaponSystem.primaryWeaponBehaviour.GetComponentInChildren<ProjectileSocket>();
 

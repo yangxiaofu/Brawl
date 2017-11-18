@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Game.Core{
 	public interface IDamageable {
-
 		void DealDamage(float damageToDeal);
 	}
 
