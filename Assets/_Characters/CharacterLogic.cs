@@ -17,6 +17,7 @@ namespace Game.Characters{
                 return false;
 
 			 var shootingCharacter = gameObject.GetComponent<ProjectileBehaviour>().shootingCharacter;
+			 
 			 if (shootingCharacter == _character)
                 return false;
 

@@ -28,18 +28,17 @@ namespace Game.Weapons{
 
 		void OnTriggerEnter(Collider other)
 		{	
-			if (other.gameObject.GetComponent<Character>() == shootingCharacter)
-				return;
-			
-			if (other.gameObject.GetComponent(typeof(IDamageable)))
-			{
-				var damageable = other.gameObject.GetComponent(typeof(IDamageable)) as IDamageable;
-				damageable.DealDamage(_damageToDeal);
+			if (other.gameObject.GetComponent<Character>() != shootingCharacter)
+			{			
+				if (other.gameObject.GetComponent(typeof(IDamageable)))
+				{
+					var damageable = other.gameObject.GetComponent(typeof(IDamageable)) as IDamageable;
+					damageable.DealDamage(_damageToDeal);
+				} 
+				
+				var impactEffect = Instantiate(_rangeWeaponConfig.impactEffect, this.transform.position, this.transform.rotation);
+				Destroy(this.gameObject);
 			}
-
-			var impactEffect = Instantiate(_rangeWeaponConfig.impactEffect, this.transform.position, this.transform.rotation);
-			
-			Destroy(this.gameObject);
 		}
     }
 
@@ -47,7 +46,6 @@ namespace Game.Weapons{
 		public float damageToDeal;
 		public Character shootingCharacter;
 		public Vector3 travelDirection;
-
 		public RangeWeaponConfig rangeWeaponConfig;
 		public ProjectileBehaviourArgs(float damageToDeal, Character shootingCharacter, Vector3 travelDirection, RangeWeaponConfig rangeWeaponConfig)
 		{

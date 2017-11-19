@@ -65,16 +65,15 @@ namespace Game.Weapons
 
 			var rangeWeaponConfig = (_config as RangeWeaponConfig);
             var projectileObject = Instantiate(rangeWeaponConfig.projectileConfig.GetProjectilePrefab()) as GameObject;
-			var character = GetComponent<Character>();
 
 			var sphereCollider = projectileObject.AddComponent<SphereCollider>();
 			sphereCollider.isTrigger = false;
 			
 			var projectileBehaviour = projectileObject.AddComponent<ProjectileBehaviour>();
-			
+
 			var args = new ProjectileBehaviourArgs(
 				_config.damageToDeal,
-				character, 
+				GetComponent<Character>(), 
 				direction, 
 				_config as RangeWeaponConfig
 			);
