@@ -20,6 +20,7 @@ namespace Game.Core{
 
 		public void DealDamage(float damage)
 		{
+			print("Deals Damage to " + this.gameObject.name);
 			_currentHealth -= damage;
 
 			if (_currentHealth <= 0)

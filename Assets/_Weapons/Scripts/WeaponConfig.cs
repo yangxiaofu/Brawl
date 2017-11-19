@@ -10,6 +10,8 @@ namespace Game.Weapons{
 	{	
 		[SerializeField] float _damageToDeal;
 		public float damageToDeal{get{return _damageToDeal;}}
+		[SerializeField] GameObject _impactEffect;
+		public GameObject impactEffect{get{return _impactEffect;}}
     }
 }
 

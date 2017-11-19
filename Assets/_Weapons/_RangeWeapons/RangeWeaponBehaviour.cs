@@ -55,13 +55,13 @@ namespace Game.Weapons
 		private void InstantiateProjectile(Vector3 direction)
         {
 			if (!_weaponSystem) 
-				return;
+				Debug.LogError("There is not weapon system.");
 
 			if (!_weaponSystem.primaryWeaponBehaviour) 
-				return;
+				Debug.LogError("You need to have a Primary Weapon Behaviour");
 			
-			if (!_weaponSystem.primaryWeaponBehaviour.GetComponentInChildren<ProjectileSocket>()) 
-				return;
+			if (!_weaponSystem.primaryWeaponBehaviour.GetComponentInChildren<ProjectileSocket>())
+				Debug.LogError("There is no projectile socket in the child of " + this.gameObject);
 
 			var rangeWeaponConfig = (_config as RangeWeaponConfig);
             var projectileObject = Instantiate(rangeWeaponConfig.projectileConfig.GetProjectilePrefab()) as GameObject;
@@ -72,7 +72,6 @@ namespace Game.Weapons
 			var projectileBehaviour = projectileObject.AddComponent<ProjectileBehaviour>();
 
 			var args = new ProjectileBehaviourArgs(
-				_config.damageToDeal,
 				GetComponent<Character>(), 
 				direction, 
 				_config as RangeWeaponConfig

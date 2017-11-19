@@ -11,11 +11,9 @@ namespace Game.Weapons{
 	{
 		[HideInInspector] public Vector3 travelDirection = Vector3.zero;
 		[HideInInspector] public Character shootingCharacter;
-		RangeWeaponConfig _rangeWeaponConfig;
-		float _damageToDeal = 25f;
+		WeaponConfig _rangeWeaponConfig;
 		public void Setup(ProjectileBehaviourArgs args)
 		{
-			_damageToDeal = args.damageToDeal;
 			shootingCharacter = args.shootingCharacter;
 			_rangeWeaponConfig 	= args.rangeWeaponConfig;
 			travelDirection = args.travelDirection;
@@ -23,7 +21,7 @@ namespace Game.Weapons{
 
         public float GetDamage()
         {
-            return _damageToDeal;
+            return _rangeWeaponConfig.damageToDeal;
         }
 
 		void OnTriggerEnter(Collider other)
@@ -33,7 +31,7 @@ namespace Game.Weapons{
 				if (other.gameObject.GetComponent(typeof(IDamageable)))
 				{
 					var damageable = other.gameObject.GetComponent(typeof(IDamageable)) as IDamageable;
-					damageable.DealDamage(_damageToDeal);
+					damageable.DealDamage(_rangeWeaponConfig.damageToDeal);
 				} 
 				
 				var impactEffect = Instantiate(_rangeWeaponConfig.impactEffect, this.transform.position, this.transform.rotation);
@@ -43,13 +41,11 @@ namespace Game.Weapons{
     }
 
 	public struct ProjectileBehaviourArgs{
-		public float damageToDeal;
 		public Character shootingCharacter;
 		public Vector3 travelDirection;
-		public RangeWeaponConfig rangeWeaponConfig;
-		public ProjectileBehaviourArgs(float damageToDeal, Character shootingCharacter, Vector3 travelDirection, RangeWeaponConfig rangeWeaponConfig)
+		public WeaponConfig rangeWeaponConfig;
+		public ProjectileBehaviourArgs(Character shootingCharacter, Vector3 travelDirection, WeaponConfig rangeWeaponConfig)
 		{
-			this.damageToDeal = damageToDeal;
 			this.shootingCharacter = shootingCharacter;
 			this.travelDirection = travelDirection;
 			this.rangeWeaponConfig = rangeWeaponConfig;

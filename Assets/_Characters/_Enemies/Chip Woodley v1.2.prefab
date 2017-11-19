@@ -200,13 +200,13 @@ GameObject:
   - component: {fileID: 195370053701825886}
   - component: {fileID: 95775689470663230}
   - component: {fileID: 54956343167038702}
-  - component: {fileID: 65472083260785636}
   - component: {fileID: 114815935563954582}
   - component: {fileID: 114054130276435190}
   - component: {fileID: 114397578253322658}
   - component: {fileID: 114444526180104532}
   - component: {fileID: 114628444777842202}
   - component: {fileID: 114529411325579030}
+  - component: {fileID: 136054951018516026}
   m_Layer: 0
   m_Name: Chip Woodley v1.2
   m_TagString: Player
@@ -1580,18 +1580,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.19691369, y: 0.35367835, z: 0.1970591}
   m_Center: {x: 0.098456845, y: -0.021115392, z: -0.0061238483}
---- !u!65 &65472083260785636
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1293772889067390}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &95775689470663230
 Animator:
   serializedVersion: 3
@@ -1767,6 +1755,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.39
   m_Center: {x: 0, y: 0.43, z: 0}
+--- !u!136 &136054951018516026
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1293772889067390}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.54
+  m_Height: 1.96
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.89, z: 0}
 --- !u!136 &136185640595320970
 CapsuleCollider:
   m_ObjectHideFlags: 1

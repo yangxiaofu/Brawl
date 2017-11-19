@@ -259,7 +259,6 @@ GameObject:
   - component: {fileID: 4538358645307280}
   - component: {fileID: 65031969499069106}
   - component: {fileID: 54603635829253600}
-  - component: {fileID: 114411315152939652}
   m_Layer: 0
   m_Name: hamvee_drk_green_with_gun
   m_TagString: Untagged
@@ -571,9 +570,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1662144685809990}
-  m_LocalRotation: {x: -0.5167852, y: 0.4826314, z: 0.4826298, w: 0.5167867}
-  m_LocalPosition: {x: 69.28773, y: 2.3295314, z: 56.10319}
-  m_LocalScale: {x: 0.43585157, y: 0.43585154, z: 0.43585145}
+  m_LocalRotation: {x: -0.0812235, y: 0.7024263, z: 0.70242643, w: 0.08122354}
+  m_LocalPosition: {x: 74.64401, y: 2.3295414, z: 74.19803}
+  m_LocalScale: {x: 0.4358527, y: 0.43585223, z: 0.43585205}
   m_Children:
   - {fileID: 4151518092200530}
   - {fileID: 4397834508021038}
@@ -1060,7 +1059,7 @@ MeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
+  m_SelectedEditorRenderState: 1
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -1196,7 +1195,7 @@ MeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
+  m_SelectedEditorRenderState: 1
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -1456,18 +1455,6 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114411315152939652
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1662144685809990}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee9ba8bc19f3646eba6563fab357ec49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _impactEffect: {fileID: 100000, guid: 32aafb358d61bd14b9b27ed0871fe43b, type: 2}
 --- !u!135 &135756637901382838
 SphereCollider:
   m_ObjectHideFlags: 1

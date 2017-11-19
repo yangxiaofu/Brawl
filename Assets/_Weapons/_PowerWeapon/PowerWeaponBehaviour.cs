@@ -68,7 +68,6 @@ namespace Game.Weapons
             _released = false;
             var prefab = _config.GetItemPrefab();
             _projectileObject = Instantiate(prefab, _socket.transform.position, Quaternion.identity) as GameObject;
-			
             SetupRigidBody();
         }
 
@@ -85,6 +84,17 @@ namespace Game.Weapons
                 return;
 
             AddForceToProjectile();
+            
+            var behaviour = _projectileObject.AddComponent<ProjectileBehaviour>();
+            
+            var args = new ProjectileBehaviourArgs(
+                GetComponent<Character>(),
+                this.transform.forward * (_config as PowerWeaponConfig).forceFacter * _currentCharge, 
+                _config
+            );
+
+            behaviour.Setup(args);
+
             ResetPowerWeaponBehaviour();
         }
 
