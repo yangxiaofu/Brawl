@@ -86,6 +86,7 @@
      <Compile Include="Assets\_Core\Scripts\DestroyTimer.cs" />
      <Compile Include="Assets\_Core\Scripts\EnemyNest.cs" />
      <Compile Include="Assets\_Core\Scripts\EnemyParent.cs" />
+     <Compile Include="Assets\_Core\Scripts\Explodeable.cs" />
      <Compile Include="Assets\_Core\Scripts\Explosion.cs" />
      <Compile Include="Assets\_Core\Scripts\GameManager.cs" />
      <Compile Include="Assets\_Core\Scripts\GamePhysics.cs" />

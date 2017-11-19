@@ -18,6 +18,7 @@ MonoBehaviour:
   _shootingSound: {fileID: 8300000, guid: e5ffe5ad56ed84f80b79cf081c6d0209, type: 3}
   _chargePerSecond: 10
   _energyConsumptionPerSecond: 10
-  _forceFactor: 100
+  _forceFactor: 200
+  _explosionForceFactor: 200
   _projectileIncreasePerSecondOnCharge: 1.1
   _blastRadius: 10

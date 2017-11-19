@@ -43,7 +43,7 @@ namespace Game.Weapons
 				if (enemyObject && enemyObject.GetComponent<Enemy>().isDead)
 				{
 					float forceFactor = 0.5f;
-					var direction = (hits[i].point - this.transform.position).normalized;
+					var direction = (hits[i].collider.gameObject.transform.position - this.transform.position).normalized;
 					var forceDirection = new Vector3(direction.x, forceFactor, direction.z);
 					enemyObject.GetComponent<Rigidbody>().AddForce(forceDirection * (_weaponConfig as PowerWeaponConfig).explosionForceFactor, ForceMode.Impulse);
 				}
