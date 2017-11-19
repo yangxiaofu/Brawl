@@ -10,6 +10,10 @@ namespace Game.Core{
 		[Tooltip("Each time the player is hit, the player will scale depending on the factor provided here.")]
 		[SerializeField] float _currentHealth = 100f;
 		[SerializeField] float _startingHealth = 100f;
+		[Space]
+		[SerializeField] GameObject _killParticleEffectPrefab;
+		public GameObject killParticleEffectPrefab{get{return _killParticleEffectPrefab;}}
+		
 		HealthSystemLogic _healthSystemLogic;
 		public float healthAsPercentage{get{return _currentHealth/_startingHealth;}}
 		void Start()
@@ -20,7 +24,6 @@ namespace Game.Core{
 
 		public void DealDamage(float damage)
 		{
-			print("Deals Damage to " + this.gameObject.name);
 			_currentHealth -= damage;
 
 			if (_currentHealth <= 0)
@@ -32,6 +35,8 @@ namespace Game.Core{
 						GetComponent<NavMeshAgent>().enabled = false;
 						GetComponent<Character>().KillCharacter();
 					}
+					
+					return;
 				}
 				
 				if (GetComponent<EnemyNest>())

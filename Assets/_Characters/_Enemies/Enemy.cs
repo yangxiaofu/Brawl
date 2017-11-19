@@ -20,6 +20,7 @@ namespace Game.Characters
 		{
 			InitializeCharacterVariables();
 			_weaponSystem.InitializeWeaponSystem();
+			_anim = GetComponent<Animator>();
 		}
 
 		void Start()
@@ -31,6 +32,19 @@ namespace Game.Characters
 		{
 			Gizmos.color = Color.black;
 			Gizmos.DrawWireSphere(this.transform.position, _moveRadius);
+		}
+
+		void OnAnimatorIK(int layerIndex)
+		{
+			if (!GetComponent<EnemyAI>()) 
+				Debug.LogError("You need to keep Enemy AI on " + this.gameObject.name + " in order to use the OnAnimatorIK.");
+			
+			if (GetComponent<EnemyAI>().target == null)
+				return;
+
+			var pointDirection = (GetComponent<EnemyAI>().target.transform.position - this.transform.position).normalized;
+			LookAtTarget(pointDirection);
+			SetIKPosition(pointDirection);
 		}
 	}
 

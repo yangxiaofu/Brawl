@@ -85,6 +85,7 @@
      <Compile Include="Assets\_Core\ControllerInputs\Scripts\PS4ControllerBehaviour.cs" />
      <Compile Include="Assets\_Core\Scripts\DestroyTimer.cs" />
      <Compile Include="Assets\_Core\Scripts\EnemyNest.cs" />
+     <Compile Include="Assets\_Core\Scripts\EnemyParent.cs" />
      <Compile Include="Assets\_Core\Scripts\Explosion.cs" />
      <Compile Include="Assets\_Core\Scripts\GameManager.cs" />
      <Compile Include="Assets\_Core\Scripts\GamePhysics.cs" />

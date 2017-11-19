@@ -2,4 +2,4 @@ tree("AttackPlayer")
 	sequence
 		PlayerIsInAttackRadius
 		ShootTarget
-		Wait(1.0)
+		Wait 2.0

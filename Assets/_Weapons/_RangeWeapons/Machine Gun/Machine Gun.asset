@@ -13,10 +13,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemPrefab: {fileID: 1079323616086324, guid: 04149fecffd0a42bfbb69fa42d0f2698,
     type: 2}
-  _isWeapon: 1
-  _weaponGripTransform: {fileID: 4047349831995096, guid: 8402fb04a465d45c69c6a87ca9f9dbe0,
+  _damageToDeal: 25
+  _impactEffect: {fileID: 1773120417003876, guid: 9c3945cc8535b4fa8a535dd630fb6ef9,
     type: 2}
   _projectileConfig: {fileID: 11400000, guid: 59dfab6da796b4ae895cba7b5755f32b, type: 2}
   _startingAmmo: 100
   _projectileSpeed: 50
   _secondsBetweenShots: 0.2
+  _weaponGripTransform: {fileID: 4047349831995096, guid: 8402fb04a465d45c69c6a87ca9f9dbe0,
+    type: 2}

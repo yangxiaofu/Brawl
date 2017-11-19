@@ -7,7 +7,7 @@ using Game.Characters;
 using Game.Core;
 
 namespace Game.Weapons{
-	public class ProjectileBehaviour : MonoBehaviour, IDestructable
+	public class ProjectileBehaviour : MonoBehaviour, IProjectile
 	{
 		[HideInInspector] public Vector3 travelDirection = Vector3.zero;
 		[HideInInspector] public Character shootingCharacter;

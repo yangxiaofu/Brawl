@@ -2109,6 +2109,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentHealth: 100
   _startingHealth: 100
+  _killParticleEffectPrefab: {fileID: 1857123782690054, guid: b218dc503ea68414b97e3fd88ba97a4a,
+    type: 2}
 --- !u!114 &114800237817511252
 MonoBehaviour:
   m_ObjectHideFlags: 1

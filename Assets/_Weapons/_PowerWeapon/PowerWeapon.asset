@@ -13,9 +13,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemPrefab: {fileID: 1572153061920190, guid: e3e807b2e42d54a19b53a7ea94f58e1c,
     type: 2}
-  _isWeapon: 1
+  _damageToDeal: 100
+  _impactEffect: {fileID: 100008, guid: 7b346dd5b9c872e4f811ddc8000908a1, type: 2}
   _chargePerSecond: 10
   _energyConsumptionPerSecond: 10
-  _forceFactor: 35
-  _blastConfig: {fileID: 11400000, guid: 09b3b5a6d20ba4d25b95ac5451177bf2, type: 2}
+  _forceFactor: 100
   _projectileIncreasePerSecondOnCharge: 1.1

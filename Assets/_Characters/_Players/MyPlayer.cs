@@ -24,7 +24,6 @@ namespace Game.Characters
         {
             SetupCapsuleCollider();
 			SetupAnimator();				
-
 			InitializeCharacterVariables(); 
         }
 
@@ -196,20 +195,7 @@ namespace Game.Characters
 			}
 		}
 
-		 private void ResetLookAtWeight()
-        {
-            _anim.SetIKPositionWeight(AvatarIKGoal.RightHand, 0);
-            _anim.SetIKRotationWeight(AvatarIKGoal.RightHand, 0);
-            _anim.SetLookAtWeight(0);
-        }
-
-
-        private void SetIKPosition(Vector3 target)
-        {
-			float ikPositionGoal = 1.0f;
-            _anim.SetIKPosition(AvatarIKGoal.RightHand, target);
-            _anim.SetIKPositionWeight(AvatarIKGoal.RightHand, ikPositionGoal);
-        }
+		
 	}
 
 }

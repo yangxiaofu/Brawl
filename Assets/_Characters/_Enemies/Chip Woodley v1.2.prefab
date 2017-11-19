@@ -200,13 +200,13 @@ GameObject:
   - component: {fileID: 195370053701825886}
   - component: {fileID: 95775689470663230}
   - component: {fileID: 54956343167038702}
+  - component: {fileID: 136054951018516026}
   - component: {fileID: 114815935563954582}
   - component: {fileID: 114054130276435190}
   - component: {fileID: 114397578253322658}
   - component: {fileID: 114444526180104532}
   - component: {fileID: 114628444777842202}
   - component: {fileID: 114529411325579030}
-  - component: {fileID: 136054951018516026}
   m_Layer: 0
   m_Name: Chip Woodley v1.2
   m_TagString: Player
@@ -1637,6 +1637,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentHealth: 100
   _startingHealth: 100
+  _killParticleEffectPrefab: {fileID: 1857123782690054, guid: b218dc503ea68414b97e3fd88ba97a4a,
+    type: 2}
 --- !u!114 &114444526180104532
 MonoBehaviour:
   m_ObjectHideFlags: 1
