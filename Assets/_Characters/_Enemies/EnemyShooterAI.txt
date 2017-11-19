@@ -1,5 +1,29 @@
+//Attacks the player, but if the player gets too close, the enemy will run a further distance away.
 tree("AttackPlayer")
-	sequence
-		PlayerIsInAttackRadius
-		ShootTarget
-		Wait 2.0
+	fallback
+		repeat
+			sequence
+				PlayerIsInAttackRadius
+				PlayerIsOutsideOfRunRadius
+				FaceTarget
+				ShootTarget
+				Wait 2.0
+		tree("Runaway")
+		
+
+//Runs away and shoots the target while is running away.
+tree("Runaway")
+	parallel
+		sequence
+			HasTargetedPlayer
+			not PlayerIsOutsideOfRunRadius
+			PickPositionAwayFromPlayer
+			SetWalkAnimation
+			MoveToTargetedPosition
+			SetIdleAnimation
+			Fail
+		repeat
+			sequence
+				FindPlayer
+				ShootTarget
+				Wait 2.0

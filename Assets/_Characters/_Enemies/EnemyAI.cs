@@ -8,6 +8,7 @@ using Panda;
 
 namespace Game.Characters{
 	public class EnemyAI : MonoBehaviour {
+		[SerializeField] float _rotationSpeed = 2f;
 		Enemy _enemy;
 		NavMeshAgent _agent;
 		Animator _anim;
@@ -15,6 +16,7 @@ namespace Game.Characters{
 		const string ATTACK = "Attack";
 		List<MyPlayer> _players = new List<MyPlayer>();
 		MyPlayer _target;
+		Vector3 _targetedPos;
 		public MyPlayer target{get{return _target;}}
 		void Start()
 		{
@@ -52,6 +54,98 @@ namespace Game.Characters{
 			}
 
 			Task.current.Succeed();
+		}
+
+		[Task] 
+		void PickPositionAwayFromPlayer()
+		{
+			if (_target == null)
+			{
+				Task.current.Fail();
+				return;
+			}
+			
+			_targetedPos = new Vector3
+			(
+				this.transform.position.x + UnityEngine.Random.Range(-100f, 100f),
+				0, 
+				this.transform.position.z + UnityEngine.Random.Range(-100f, 100f)
+			);
+
+			var distance = Vector3.Distance(_target.transform.position, _targetedPos);
+
+			if (distance > _enemy.runawayDistance)
+			{
+				Task.current.Succeed();
+			}
+		}
+
+		[Task]
+		void MoveToTargetedPosition()
+		{
+			_agent.SetDestination(_targetedPos);
+
+			if (_target) //If there's a targetd player.
+			{
+				var distanceFromTarget = Vector3.Distance(this.transform.position, _target.transform.position);
+
+				if (Task.isInspected)
+					Task.current.debugInfo = string.Format(
+						"Distance From Target is {0}.  The distance from the target Position is {1}", 
+						distanceFromTarget,
+						Vector3.Distance(this.transform.position, _targetedPos)
+					);
+				
+				if (distanceFromTarget > _enemy.runawayDistance)  //If player is far enough away, then stop the enemy.
+				{
+					_agent.SetDestination(this.transform.position);
+					Task.current.Succeed();
+				} //otherwise, continue to move to the destination.
+			} 
+			else //If no targeted player, this will just move to the targeted position until it gets there. 
+			{
+				if (_agent.remainingDistance <= _agent.stoppingDistance)
+				{
+					Task.current.Succeed();
+				} 
+			}	
+		}
+
+		[Task]
+		bool HasTargetedPlayer()
+		{
+			return _target != null;
+		}
+
+		[Task]
+		void FaceTarget()
+		{
+			if (_target == null)
+			{
+				Task.current.Fail();
+				return;
+			}
+
+			Vector3 direction = (_target.transform.position - this.transform.position).normalized;
+
+			this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * _rotationSpeed);
+
+			float mininalAngle = 5f;
+			if (Vector3.Angle(this.transform.forward, direction) < mininalAngle)
+			{
+				Task.current.Succeed();
+			}
+
+		}
+
+		[Task]
+		bool PlayerIsOutsideOfRunRadius()
+		{
+			if (_target == null)
+				return false;
+
+			var distance = Vector3.Distance(this.transform.position, _target.transform.position);
+			return distance >= _enemy.runawayDistance;
 		}
 
 		[Task]

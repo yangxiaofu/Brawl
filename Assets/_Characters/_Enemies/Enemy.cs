@@ -11,10 +11,17 @@ namespace Game.Characters
 	{
 		[Space]
 		[Header("Attack Attributes")]
+		[Tooltip("The enemy will start to move towards the targeted player, if the player is within this radius.")]
 		[SerializeField] float _moveRadius = 10f;
+		public float moveRadius{get{return _moveRadius;}}	
+
+		[Tooltip("If the enemy is within this radius, they will start attacking the Player.")]
 		[SerializeField] float _attackRadius = 1f;
 		public float attackRadius{get{return _attackRadius;}}
-		public float moveRadius{get{return _moveRadius;}}	
+
+		[Tooltip("This applies to shooter enemies.  If the player is within this distance, the enemy will move away from the player.")]
+		[SerializeField] float _runawayDistance = 2f;
+		public float runawayDistance{get{return _runawayDistance;}}
 		
 		void Awake()
 		{
@@ -32,6 +39,12 @@ namespace Game.Characters
 		{
 			Gizmos.color = Color.black;
 			Gizmos.DrawWireSphere(this.transform.position, _moveRadius);
+
+			Gizmos.color = Color.green;
+			Gizmos.DrawWireSphere(this.transform.position, _attackRadius);
+
+			Gizmos.color = Color.red;
+			Gizmos.DrawWireSphere(this.transform.position, _runawayDistance);
 		}
 
 		void OnAnimatorIK(int layerIndex)

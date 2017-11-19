@@ -33,7 +33,7 @@ namespace Game.Core{
 					if (GetComponent<NavMeshAgent>())
 					{
 						GetComponent<NavMeshAgent>().enabled = false;
-						GetComponent<Character>().KillCharacter();
+						StartCoroutine(GetComponent<Character>().KillCharacter());
 					}
 					
 					return;

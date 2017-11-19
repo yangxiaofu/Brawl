@@ -12,6 +12,9 @@ namespace Game.Weapons{
 		public float damageToDeal{get{return _damageToDeal;}}
 		[SerializeField] GameObject _impactEffect;
 		public GameObject impactEffect{get{return _impactEffect;}}
+
+		[SerializeField] AudioClip _shootingSound;
+		public AudioClip GetShootingSound(){ return _shootingSound;}
     }
 }
 

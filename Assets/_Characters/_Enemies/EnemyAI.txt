@@ -11,17 +11,24 @@ tree("BeAlive")
 	while not EnemyIsDead
 		fallback
 			tree("AttackPlayer")
-			sequence 
-				FindPlayer
-				PlayerIsWithinMoveRadius	
-				tree("WalkToPlayer")
-				not PlayerIsWithinStoppingDistance
-			sequence
-				SetIdleAnimation
-				StayPut
+			tree("SearchForPlayer")
+			tree("BeIdle")
+
+tree("SearchForPlayer")
+	sequence 
+		FindPlayer
+		PlayerIsWithinMoveRadius	
+		tree("WalkToPlayer")
+		not PlayerIsWithinStoppingDistance
+
 
 tree("WalkToPlayer")
 	sequence
 		SetWalkAnimation
 		MoveToPlayer
 		PlayerIsWithinMoveRadius
+
+tree("BeIdle")
+	sequence
+		SetIdleAnimation
+		StayPut

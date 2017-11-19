@@ -9,17 +9,22 @@ using System;
 
 namespace Game.Characters
 {
+
+    //KNOWN BUGS
+    //TODO: The zombie Character drops thru the terrian for some reason upon death. 
     public class Character : MonoBehaviour
 	{
 		[Space][Header("Capsule Collider")]
 		[SerializeField] protected PhysicMaterial _physicsMaterial;
 		[SerializeField] protected Vector3 _center = new Vector3(0, 0.85f, 0);
 		[SerializeField] protected float _height = 2f;		
-        
+
 		[Space] [Header("Animator")]
 		[SerializeField] protected AnimatorOverrideController _animatorOverrideController;
 		[SerializeField] protected Avatar _avatar;
 		[SerializeField] protected AnimatorUpdateMode _animatorUpdateMode;
+        [Space]
+        [SerializeField] float _timeToDestroyCharacterAfterDeath = 8f;
 		protected bool _frozen = false;
 		public bool frozen{get{return _frozen;}}
 		protected WeaponSystem _weaponSystem;
@@ -37,6 +42,10 @@ namespace Game.Characters
         const string DEAD_TRIGGER = "Dead";
         protected void InitializeCharacterVariables()
         {
+            var audioSource = this.gameObject.AddComponent<AudioSource>();
+            audioSource.loop = false;
+            audioSource.playOnAwake = false;
+            
             _weaponSystem = GetComponent<WeaponSystem>();
             Assert.IsNotNull(_weaponSystem);
 
@@ -57,12 +66,14 @@ namespace Game.Characters
             _anim.SetLookAtPosition(targetPos);
         }
 
-		public void KillCharacter()
+		public IEnumerator KillCharacter()
         {
             _isDead = true;
             GetComponent<Animator>().SetTrigger(DEAD_TRIGGER);
             GetComponent<NavMeshAgent>().enabled = false;
             PlayBloodEffect();
+            yield return new WaitForSeconds(_timeToDestroyCharacterAfterDeath);
+            Destroy(this.gameObject);
         }
 
         private void PlayBloodEffect()

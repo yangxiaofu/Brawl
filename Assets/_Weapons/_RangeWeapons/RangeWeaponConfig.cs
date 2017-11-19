@@ -18,6 +18,7 @@ namespace Game.Weapons{
 		public float secondsBetweenShots {get{return _secondsBetweenShots;}}
 		[SerializeField] Transform _weaponGripTransform;
         public Transform weaponGripTransform { get { return _weaponGripTransform; }}
+	
 		
     }
 }

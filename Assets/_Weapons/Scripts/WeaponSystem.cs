@@ -62,15 +62,9 @@ namespace Game.Weapons{
 			{
 				GetComponent<EnemyAI>().target.GetComponent<HealthSystem>().DealDamage(_hitDamage);	
 				//TODO: Play Hit Sound
-
 				//TODO: Do some particle prefab to show a hit. 
 			} else {
-				print("missed");
-				print("Play Missed Hit Sound");
-
 				//TODO: Player Missed hit sound.
-
-
 				//TODO: Do some particle prefab to show am issed hit. 
 			}
 		}
@@ -127,7 +121,6 @@ namespace Game.Weapons{
 			);
 			
 			var projectileDirection = GetProjectileDirection(_controller);
-
 			if (projectileDirection.magnitude < rightAnalogStickThreshold)
 				return false;
 

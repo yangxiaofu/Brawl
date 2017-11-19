@@ -11,10 +11,11 @@ namespace Game.Weapons
 		public int remainingAmmo{get{return _remainingAmmo;}}
 		[SerializeField] int _startingAmmo;
 
+
 		void Start()
 		{
 			_weaponSystem = GetComponent<WeaponSystem>();
-			
+			_audioSource = GetComponent<AudioSource>();
 		}
 
 		///<summary> Used Primary for testing purposes</summary>
@@ -32,15 +33,18 @@ namespace Game.Weapons
 		}
 
 		public void Fire(Vector3 direction)
-		{
-			if (_remainingAmmo <= 0) 
-				return;
-				
-			InstantiateProjectile(direction);
-			ReduceAmmoBy(1);				
-		}
+        {
+            if (_remainingAmmo <= 0)
+                return;
 
-		public void ReduceAmmoBy(int amountToReduce)
+            InstantiateProjectile(direction);
+            PlayGunFireAudio();
+            ReduceAmmoBy(1);
+        }
+
+      
+
+        public void ReduceAmmoBy(int amountToReduce)
 		{
 			_remainingAmmo -= amountToReduce;
 			_remainingAmmo = Mathf.Clamp(_remainingAmmo, 0, _startingAmmo);		
@@ -89,6 +93,9 @@ namespace Game.Weapons
 			var physics = new GamePhysics(direction, (_config as RangeWeaponConfig).projectileSpeed);
 			var rigidBody = projectileObject.GetComponent<Rigidbody>();
             rigidBody.AddForce(physics.GetForce(), ForceMode.VelocityChange );
+
+			
+			
         }
 	}
 }

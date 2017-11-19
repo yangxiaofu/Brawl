@@ -17,6 +17,12 @@ namespace Game.Weapons
 		bool _released = false;
 		GameObject _projectileObject;
         EnergySystem _energySystem;
+
+        void Start()
+        {
+            _audioSource = GetComponent<AudioSource>();
+        }
+        
 		public void Setup(PowerWeaponConfig config)
 		{
 			_config = config;
@@ -84,6 +90,7 @@ namespace Game.Weapons
                 return;
 
             AddForceToProjectile();
+            PlayGunFireAudio();
             
             var behaviour = _projectileObject.AddComponent<ProjectileBehaviour>();
             
