@@ -15,7 +15,9 @@ MonoBehaviour:
     type: 2}
   _damageToDeal: 100
   _impactEffect: {fileID: 100008, guid: 7b346dd5b9c872e4f811ddc8000908a1, type: 2}
+  _shootingSound: {fileID: 8300000, guid: e5ffe5ad56ed84f80b79cf081c6d0209, type: 3}
   _chargePerSecond: 10
   _energyConsumptionPerSecond: 10
   _forceFactor: 100
   _projectileIncreasePerSecondOnCharge: 1.1
+  _blastRadius: 10

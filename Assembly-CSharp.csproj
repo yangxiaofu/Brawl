@@ -124,8 +124,11 @@
      <Compile Include="Assets\_Weapons\_PowerWeapon\Script\PowerWeaponConfig.cs" />
      <Compile Include="Assets\_Weapons\_PowerWeapon\Script\PowerWeaponSocket.cs" />
      <Compile Include="Assets\_Weapons\_Projectiles\IDestructable.cs" />
+     <Compile Include="Assets\_Weapons\_Projectiles\PowerProjectileBehaviour.cs" />
      <Compile Include="Assets\_Weapons\_Projectiles\ProjectileBehaviour.cs" />
+     <Compile Include="Assets\_Weapons\_Projectiles\ProjectileBehaviourArgs.cs" />
      <Compile Include="Assets\_Weapons\_Projectiles\ProjectileConfig.cs" />
+     <Compile Include="Assets\_Weapons\_Projectiles\RangeProjectileBehaviour.cs" />
      <Compile Include="Assets\_Weapons\_RangeWeapons\RangeWeaponBehaviour.cs" />
      <Compile Include="Assets\_Weapons\_RangeWeapons\RangeWeaponConfig.cs" />
      <Compile Include="Assets\_Weapons\_SpecialAbilities\FallingItemBehaviour.cs" />

@@ -18,10 +18,18 @@ namespace Game.Weapons
 			[Tooltip("The force factor is the amount of force that is applied to the projectile once it's launched from the socket it shoots from.")]
 			[SerializeField] float _forceFactor = 1000f;
 			public float forceFacter{get{return _forceFactor;}}
+			
+			[Tooltip("The explosion force is the amount of force applyed to damageable game objects once it explodes.")]
+			[SerializeField] float _explosionForceFactor = 200f;
+			public float explosionForceFactor{get{return _explosionForceFactor;}}
 
 			[Tooltip("This is the rate at which the projectile will increase speed when it's charged.")]
 			[SerializeField] float _projectileIncreasePerSecondOnCharge = 0.1f;
 			public float projectileIncreasePerSecondOnCharge{get{return _projectileIncreasePerSecondOnCharge;}}
+
+			[Tooltip("IDamageable Objects within the blast radius will see an impact when this triggers")]
+			[SerializeField] float _blastRadius = 5f;
+			public float GetBlastRadius(){return _blastRadius;}
 
 			public PowerWeaponBehaviour AddComponentTo(GameObject gameObjectToAddTo)
 			{

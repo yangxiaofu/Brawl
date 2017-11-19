@@ -73,7 +73,7 @@ namespace Game.Weapons
 			var sphereCollider = projectileObject.AddComponent<SphereCollider>();
 			sphereCollider.isTrigger = false;
 			
-			var projectileBehaviour = projectileObject.AddComponent<ProjectileBehaviour>();
+			var projectileBehaviour = projectileObject.AddComponent<RangeProjectileBehaviour>();
 
 			var args = new ProjectileBehaviourArgs(
 				GetComponent<Character>(), 

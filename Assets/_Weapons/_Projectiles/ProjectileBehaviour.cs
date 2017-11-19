@@ -11,44 +11,21 @@ namespace Game.Weapons{
 	{
 		[HideInInspector] public Vector3 travelDirection = Vector3.zero;
 		[HideInInspector] public Character shootingCharacter;
-		WeaponConfig _rangeWeaponConfig;
+		protected WeaponConfig _weaponConfig;
 		public void Setup(ProjectileBehaviourArgs args)
 		{
 			shootingCharacter = args.shootingCharacter;
-			_rangeWeaponConfig 	= args.rangeWeaponConfig;
+			_weaponConfig 	= args.rangeWeaponConfig;
 			travelDirection = args.travelDirection;
 		}
-
         public float GetDamage()
         {
-            return _rangeWeaponConfig.damageToDeal;
+            return _weaponConfig.damageToDeal;
         }
 
-		void OnTriggerEnter(Collider other)
-		{	
-			if (other.gameObject.GetComponent<Character>() != shootingCharacter)
-			{			
-				if (other.gameObject.GetComponent(typeof(IDamageable)))
-				{
-					var damageable = other.gameObject.GetComponent(typeof(IDamageable)) as IDamageable;
-					damageable.DealDamage(_rangeWeaponConfig.damageToDeal);
-				} 
-				
-				var impactEffect = Instantiate(_rangeWeaponConfig.impactEffect, this.transform.position, this.transform.rotation);
-				Destroy(this.gameObject);
-			}
-		}
+		protected GameObject PlayImpactParticleEffect()
+        {
+            return Instantiate(_weaponConfig.impactEffect, this.transform.position, this.transform.rotation);
+        }
     }
-
-	public struct ProjectileBehaviourArgs{
-		public Character shootingCharacter;
-		public Vector3 travelDirection;
-		public WeaponConfig rangeWeaponConfig;
-		public ProjectileBehaviourArgs(Character shootingCharacter, Vector3 travelDirection, WeaponConfig rangeWeaponConfig)
-		{
-			this.shootingCharacter = shootingCharacter;
-			this.travelDirection = travelDirection;
-			this.rangeWeaponConfig = rangeWeaponConfig;
-		}
-	}
 }

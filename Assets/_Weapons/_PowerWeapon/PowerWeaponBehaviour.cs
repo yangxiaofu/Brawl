@@ -92,7 +92,7 @@ namespace Game.Weapons
             AddForceToProjectile();
             PlayGunFireAudio();
             
-            var behaviour = _projectileObject.AddComponent<ProjectileBehaviour>();
+            var behaviour = _projectileObject.AddComponent<PowerProjectileBehaviour>();
             
             var args = new ProjectileBehaviourArgs(
                 GetComponent<Character>(),
