@@ -7,10 +7,21 @@ using Game.Weapons;
 namespace Game.Core{
 	public class Explodeable : MonoBehaviour {
 
+		[Tooltip("The radius of explosion.  Any rigid body within this radius is impacted. ")]
+		[SerializeField] float _explosionRadius = 10f;
+
+		[Tooltip("Tweak this to update the amount of hits on a player when hit. ")]
+		[SerializeField] float _damageUponExplosion = 50f;
+
+		[Tooltip("This is the amount of force that is applied to surrounding rigidbodies upon explosion.")]
+		[SerializeField] float _explosionForce = 100f;
+
+		[Space]
+		[Header("Explosion Prefabs")]
 		[SerializeField] GameObject _explosionEffectPrefab;
 		[SerializeField] AudioClip _explosionAudioClip;
-		[SerializeField] float _explosionRadius = 10f;
-		[SerializeField] float _damageUponExplosion = 50f;
+
+		
 		AudioSource _audioSource;
 
 		void Start()
@@ -34,7 +45,7 @@ namespace Game.Core{
                 RaycastHit[] hits = Physics.SphereCastAll(this.transform.position, _explosionRadius, Vector3.up, _explosionRadius);
 
                 DealDamageTo(hits);
-				AddForceToDead(hits);
+				AddForceToDeadHits(hits);
 
             }
         }
@@ -51,7 +62,7 @@ namespace Game.Core{
             }
         }
 
-		private void AddForceToDead(RaycastHit[] hits)
+		private void AddForceToDeadHits(RaycastHit[] hits)
 		{
 			for(int i = 0; i < hits.Length; i++)
 			{
@@ -59,8 +70,9 @@ namespace Game.Core{
 				
 				if (hits[i].collider.gameObject.GetComponent<Rigidbody>())
 				{
+					print("hitting the " + hits[i].collider.name);
 					var rb = hits[i].collider.gameObject.GetComponent<Rigidbody>();
-					rb.AddForce(direction * 100f, ForceMode.Impulse);
+					rb.AddForce(direction * _explosionForce, ForceMode.Impulse);
 				}
 			}
 		}

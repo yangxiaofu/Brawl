@@ -17,7 +17,7 @@ namespace Game.Weapons
                     damageable.DealDamage(_weaponConfig.damageToDeal);
                 }
 
-                PlayImpactParticleEffect();
+                StartCoroutine(DestroyParticleEffectOnCompletion(PlayImpactParticleEffect()));
                 Destroy(this.gameObject);
             }
         }

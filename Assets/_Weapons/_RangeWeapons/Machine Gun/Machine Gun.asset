@@ -14,7 +14,7 @@ MonoBehaviour:
   _itemPrefab: {fileID: 1079323616086324, guid: 04149fecffd0a42bfbb69fa42d0f2698,
     type: 2}
   _damageToDeal: 25
-  _impactEffect: {fileID: 1773120417003876, guid: 9c3945cc8535b4fa8a535dd630fb6ef9,
+  _impactEffect: {fileID: 1259771156944144, guid: e3d29e4f2669d44a2910c0de3ad6a10d,
     type: 2}
   _shootingSound: {fileID: 8300000, guid: f6cb1f581b7444b23a05b613a16420d5, type: 3}
   _projectileConfig: {fileID: 11400000, guid: 59dfab6da796b4ae895cba7b5755f32b, type: 2}

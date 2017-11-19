@@ -7,17 +7,17 @@ using System;
 
 namespace Game.Weapons
 {
-	//KNOWN BUGS.  The enemies explode all in the same direction for some reason. 
 	public class PowerProjectileBehaviour : ProjectileBehaviour 
 	{
 		void OnTriggerEnter(Collider other)
 		{	
 			if (other.gameObject.GetComponent<Character>() != shootingCharacter)
             {
+                
                 RaycastHit[] hits = GetHitsOnExplosion();
                 DealDamageTo(hits);
                 AddForceToDeadHits(hits);
-                PlayImpactParticleEffect();
+                StartCoroutine(DestroyParticleEffectOnCompletion(PlayImpactParticleEffect()));
                 Destroy(this.gameObject);
             }
         }
@@ -38,29 +38,45 @@ namespace Game.Weapons
         private void AddForceToDeadHits(RaycastHit[] hits)
         {
             for(int i = 0; i < hits.Length; i++)
-			{
-				var enemyObject = hits[i].collider.gameObject.GetComponent<Enemy>();
-				if (enemyObject && enemyObject.GetComponent<Enemy>().isDead)
-				{
-					float forceFactor = 0.5f;
-					var direction = (hits[i].collider.gameObject.transform.position - this.transform.position).normalized;
-					var forceDirection = new Vector3(direction.x, forceFactor, direction.z);
-					enemyObject.GetComponent<Rigidbody>().AddForce(forceDirection * (_weaponConfig as PowerWeaponConfig).explosionForceFactor, ForceMode.Impulse);
-				}
+			{ 
+                var hitCharacter = hits[i].collider.gameObject.GetComponent<Character>();  
+                if(!ThisCharacterIsShootingCharacter(hitCharacter))
+                {
+                    var enemyObject = hits[i].collider.gameObject.GetComponent<Enemy>();
+                    if (enemyObject && enemyObject.GetComponent<Enemy>().isDead)
+                    {
+                        
+                        float forceFactor = 0.5f;
+                        var direction = (hits[i].collider.gameObject.transform.position - this.transform.position).normalized;
+                        var forceDirection = new Vector3(direction.x, forceFactor, direction.z);
+                        enemyObject.GetComponent<Rigidbody>().AddForce(forceDirection * (_weaponConfig as PowerWeaponConfig).explosionForceFactor, ForceMode.Impulse);
+                    }
+                }
 			}
         }
 
         private void DealDamageTo(RaycastHit[] hits)
         {
             for (int i = 0; i < hits.Length; i++)
-            {
-                var damageable = hits[i].collider.gameObject.GetComponent<IDamageable>();
+            { 
+                var hitCharacter = hits[i].collider.gameObject.GetComponent<Character>();  
 
-                if (damageable == null)
-                    continue;
+                if (!ThisCharacterIsShootingCharacter(hitCharacter)){
+                    var damageable = hits[i].collider.gameObject.GetComponent<IDamageable>();
 
-                damageable.DealDamage(_weaponConfig.damageToDeal);
+                    if (damageable == null)
+                        continue;
+
+                    damageable.DealDamage(_weaponConfig.damageToDeal);
+                }
             }
         }
+
+        private bool ThisCharacterIsShootingCharacter(Character character)
+        {
+            return character == shootingCharacter;
+        }
+
+
     }
 }

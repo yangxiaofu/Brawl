@@ -108,7 +108,8 @@ namespace Game.Weapons
         private void AddForceToProjectile()
         {
 			Vector3 forceToAdd = (this.transform.forward * _currentCharge * (_config as PowerWeaponConfig).forceFacter);
-            _projectileObject.GetComponent<Rigidbody>().AddForce(forceToAdd, ForceMode.Impulse);
+            
+            _projectileObject.GetComponent<Rigidbody>().AddForce(forceToAdd, ForceMode.VelocityChange);
         }
 
         private void ResetPowerWeaponBehaviour()

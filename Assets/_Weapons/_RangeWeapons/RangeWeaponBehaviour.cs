@@ -6,11 +6,11 @@ using Game.Characters;
 
 namespace Game.Weapons
 {
-	public class RangeWeaponBehaviour : WeaponBehaviour{
+	public class RangeWeaponBehaviour : WeaponBehaviour
+	{
 		[SerializeField] int _remainingAmmo;
 		public int remainingAmmo{get{return _remainingAmmo;}}
 		[SerializeField] int _startingAmmo;
-
 
 		void Start()
 		{

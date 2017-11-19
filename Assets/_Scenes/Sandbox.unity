@@ -366,11 +366,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Floats:
-    - _CamFarPlaneDist: 132974.48
+    - _CamFarPlaneDist: 132985.08
     - _CellSizeX: 60.907738
     - _CellSizeZ: 41.44857
     m_Colors:
-    - _CamWorldPos: {r: 63.723526, g: 33.901558, b: 110.06267, a: 0}
+    - _CamWorldPos: {r: 55.455696, g: 24.889942, b: 32.267998, a: 0}
     - _CellOffset: {r: 0, g: 0, b: 0, a: 0}
     - _LineColor: {r: 0, g: 0, b: 0, a: 1}
     - _PlaneColor: {r: 1, g: 1, b: 1, a: 0}
@@ -4048,7 +4048,7 @@ Prefab:
     - target: {fileID: 114549490541819988, guid: d0923b5f77c914d21bcef1b1436e50ff,
         type: 2}
       propertyPath: _scriptableObjects.Array.size
-      value: 155
+      value: 145
       objectReference: {fileID: 0}
     - target: {fileID: 4305242022882946, guid: d0923b5f77c914d21bcef1b1436e50ff, type: 2}
       propertyPath: m_LocalPosition.x
@@ -34284,19 +34284,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 463032, guid: 18185af441c66854ba75ea628143147e, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -0.6292152
+      value: -0.6292151
       objectReference: {fileID: 0}
     - target: {fileID: 463032, guid: 18185af441c66854ba75ea628143147e, type: 2}
       propertyPath: m_LocalRotation.y
-      value: -0.3226271
+      value: -0.32262707
       objectReference: {fileID: 0}
     - target: {fileID: 463032, guid: 18185af441c66854ba75ea628143147e, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -0.32262716
+      value: -0.32262713
       objectReference: {fileID: 0}
     - target: {fileID: 463032, guid: 18185af441c66854ba75ea628143147e, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.6292153
+      value: 0.62921524
       objectReference: {fileID: 0}
     - target: {fileID: 463032, guid: 18185af441c66854ba75ea628143147e, type: 2}
       propertyPath: m_RootOrder
@@ -48707,6 +48707,27 @@ MonoBehaviour:
     _visibilityToggleIndent: 0
     _indentContent: 0
     _surroundWithBox: 0
+--- !u!114 &1566377710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86f6181e9e31c7745b35a4dc2be91777, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameObjects:
+    _serializedList: []
+  _view:
+    _isVisible: 1
+    _toggleVisibilityBeforeRender: 0
+    _visibilityToggleLabel: 
+    _visibilityToggleIndent: 0
+    _indentContent: 0
+    _surroundWithBox: 0
+    _viewData: {fileID: 0}
 --- !u!114 &1571009291
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54750,7 +54771,7 @@ GameObject:
   - component: {fileID: 2049876948}
   - component: {fileID: 2049876949}
   m_Layer: 0
-  m_Name: Enemies
+  m_Name: Enemies0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

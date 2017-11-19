@@ -27,5 +27,15 @@ namespace Game.Weapons{
         {
             return Instantiate(_weaponConfig.impactEffect, this.transform.position, this.transform.rotation);
         }
+
+		protected IEnumerator DestroyParticleEffectOnCompletion(GameObject particleEffectObject)
+        {
+            var particleSystem = particleEffectObject.GetComponent<ParticleSystem>();
+            var length = particleSystem.main.duration;
+
+            yield return new WaitForSeconds(length);
+
+            Destroy(particleEffectObject);
+        }
     }
 }
