@@ -92,6 +92,11 @@
      <Compile Include="Assets\_Core\Scripts\GamePhysics.cs" />
      <Compile Include="Assets\_Core\Scripts\HealthSystem.cs" />
      <Compile Include="Assets\_Core\Scripts\HealthSystemLogic.cs" />
+     <Compile Include="Assets\_Core\Scripts\Hittable\Hittable.cs" />
+     <Compile Include="Assets\_Core\Scripts\Hittable\HittableArgs.cs" />
+     <Compile Include="Assets\_Core\Scripts\Hittable\HittableCharacters.cs" />
+     <Compile Include="Assets\_Core\Scripts\Hittable\HittableObjects.cs" />
+     <Compile Include="Assets\_Core\Scripts\Hittable\IHittable.cs" />
      <Compile Include="Assets\_Core\Scripts\IDamageable.cs" />
      <Compile Include="Assets\_Core\Scripts\ItemConfig.cs" />
      <Compile Include="Assets\_Core\Scripts\ItemPickup.cs" />
@@ -108,6 +113,7 @@
      <Compile Include="Assets\_Core\Scripts\Spawner.cs" />
      <Compile Include="Assets\_Core\Scripts\SpawnerLogic.cs" />
      <Compile Include="Assets\_Core\Scripts\ThrowSocket.cs" />
+     <Compile Include="Assets\_Core\Scripts\TimeDestroy.cs" />
      <Compile Include="Assets\_Core\Tests\PhysicsApplyForce.cs" />
      <Compile Include="Assets\_Environment\Particle Systems\Scripts\AfterburnerPhysicsForce.cs" />
      <Compile Include="Assets\_Environment\Particle Systems\Scripts\ExplosionFireAndDebris.cs" />

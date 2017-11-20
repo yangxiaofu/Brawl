@@ -19,7 +19,7 @@ MonoBehaviour:
   _shootingSound: {fileID: 8300000, guid: f6cb1f581b7444b23a05b613a16420d5, type: 3}
   _projectileConfig: {fileID: 11400000, guid: 59dfab6da796b4ae895cba7b5755f32b, type: 2}
   _startingAmmo: 100
-  _projectileSpeed: 50
+  _projectileSpeed: 20
   _secondsBetweenShots: 0.2
   _weaponGripTransform: {fileID: 4047349831995096, guid: 8402fb04a465d45c69c6a87ca9f9dbe0,
     type: 2}

@@ -21,7 +21,6 @@ namespace Game.Core{
 		[SerializeField] GameObject _explosionEffectPrefab;
 		[SerializeField] AudioClip _explosionAudioClip;
 
-		
 		AudioSource _audioSource;
 
 		void Start()
@@ -38,15 +37,12 @@ namespace Game.Core{
 		{
 			if (other.gameObject.GetComponent<ProjectileBehaviour>())
             {
-                Destroy(this.gameObject);
                 _audioSource.Play();
                 StartCoroutine(PlayParticleEffect());
-
                 RaycastHit[] hits = Physics.SphereCastAll(this.transform.position, _explosionRadius, Vector3.up, _explosionRadius);
-
                 DealDamageTo(hits);
 				AddForceToDeadHits(hits);
-
+				Destroy(this.gameObject);
             }
         }
 
@@ -70,8 +66,8 @@ namespace Game.Core{
 				
 				if (hits[i].collider.gameObject.GetComponent<Rigidbody>())
 				{
-					print("hitting the " + hits[i].collider.name);
 					var rb = hits[i].collider.gameObject.GetComponent<Rigidbody>();
+					Assert.IsNotNull(rb, "There is no rigid body on " + hits[i].collider.name);
 					rb.AddForce(direction * _explosionForce, ForceMode.Impulse);
 				}
 			}

@@ -9,20 +9,18 @@ namespace Game.Weapons
 	public class RangeProjectileBehaviour : ProjectileBehaviour{
 		void OnTriggerEnter(Collider other)
 		{	
-			if (other.gameObject.GetComponent<Character>() != shootingCharacter)
+			if (IsShootingCharacter(other.gameObject.GetComponent<Character>()))
+                return;
+                
+            if (other.gameObject.GetComponent(typeof(IDamageable)))
             {
-                if (other.gameObject.GetComponent(typeof(IDamageable)))
-                {
-                    var damageable = other.gameObject.GetComponent(typeof(IDamageable)) as IDamageable;
-                    damageable.DealDamage(_weaponConfig.damageToDeal);
-                }
-
-                StartCoroutine(DestroyParticleEffectOnCompletion(PlayImpactParticleEffect()));
-                Destroy(this.gameObject);
+                var damageable = other.gameObject.GetComponent(typeof(IDamageable)) as IDamageable;
+                damageable.DealDamage(_weaponConfig.damageToDeal);
             }
-        }
 
-       
+            AddDestroyTimerToParticleEffectObject();
+            Destroy(this.gameObject);
+        }       
     }
 }
 

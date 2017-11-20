@@ -37,5 +37,17 @@ namespace Game.Weapons{
 
             Destroy(particleEffectObject);
         }
+
+        protected void AddDestroyTimerToParticleEffectObject()
+        {
+            var particleSystemObject = PlayImpactParticleEffect();
+            var timeDestroy = particleSystemObject.AddComponent<TimeDestroy>();
+            timeDestroy.DestroyIn(particleSystemObject.GetComponent<ParticleSystem>().main.duration);
+        }
+
+        protected bool IsShootingCharacter(Character character)
+        {
+            return character == shootingCharacter;
+        }
     }
 }

@@ -36,8 +36,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1330505725609504}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.9, y: 5.02, z: 24.6}
+  m_LocalRotation: {x: -1.7473552e-22, y: 0.000000024591834, z: 1.6624233e-16, w: 1}
+  m_LocalPosition: {x: -22.465263, y: 1.5000048, z: 19.050648}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -69,7 +69,7 @@ MeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
+  m_SelectedEditorRenderState: 1
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -95,11 +95,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dab3beaa0d3bc4be1875d8e511b10380, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _explosionRadius: 5
+  _damageUponExplosion: 50
+  _explosionForce: 50
   _explosionEffectPrefab: {fileID: 100010, guid: 031d08f52af1daa4f929b85221519426,
     type: 2}
   _explosionAudioClip: {fileID: 8300000, guid: b00177400ce884a1f8777420c5b09e13, type: 3}
-  _explosionRadius: 10
-  _damageUponExplosion: 50
 --- !u!136 &136036409619157120
 CapsuleCollider:
   m_ObjectHideFlags: 1
