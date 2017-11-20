@@ -5,8 +5,10 @@ tree("AttackPlayer")
 			sequence
 				PlayerIsInAttackRadius
 				PlayerIsOutsideOfRunRadius
+				SetIdleAnimation
 				FaceTarget
 				ShootTarget
+				PlayerIsOutsideOfRunRadius
 				Wait 2.0
 		tree("Runaway")
 		

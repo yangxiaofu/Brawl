@@ -133,7 +133,6 @@ namespace Game.Weapons{
         {
 			if(_weaponSystemLogic.ChargeAllowed(_energySystem.energyAsPercentage, _thresholdToAllowChargeOfPowerWeawpon, _canCharge))
 				ChargePowerWeapon();
-			
         }
 
         public void ChargePowerWeapon()

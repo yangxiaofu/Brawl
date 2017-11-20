@@ -8,7 +8,10 @@ using Panda;
 
 namespace Game.Characters{
 	public class EnemyAI : MonoBehaviour {
-		[SerializeField] float _rotationSpeed = 2f;
+		[SerializeField] float _rotationSpeed = 5f;
+
+		[Tooltip("Adjusting this will adjust the max distance the enemy will run away from the player when the shooter is too close.  This only applies to shooter enemies who run.")]
+		[SerializeField] float _targetPositionRangeOnRun = 100f;
 		Enemy _enemy;
 		NavMeshAgent _agent;
 		Animator _anim;
@@ -64,20 +67,28 @@ namespace Game.Characters{
 				Task.current.Fail();
 				return;
 			}
+
 			
-			_targetedPos = new Vector3
+
+			var randomPoint = new Vector3
 			(
-				this.transform.position.x + UnityEngine.Random.Range(-100f, 100f),
+				this.transform.position.x + UnityEngine.Random.Range(-_targetPositionRangeOnRun, _targetPositionRangeOnRun),
 				0, 
-				this.transform.position.z + UnityEngine.Random.Range(-100f, 100f)
+				this.transform.position.z + UnityEngine.Random.Range(-_targetPositionRangeOnRun, _targetPositionRangeOnRun)
 			);
 
-			var distance = Vector3.Distance(_target.transform.position, _targetedPos);
-
-			if (distance > _enemy.runawayDistance)
+			NavMeshHit hit;
+			if(NavMesh.SamplePosition(randomPoint, out hit, _targetPositionRangeOnRun, NavMesh.AllAreas))
 			{
-				Task.current.Succeed();
-			}
+				_targetedPos = hit.position;
+
+				var distance = Vector3.Distance(_target.transform.position, _targetedPos);
+
+				if (distance > _enemy.runawayDistance)
+				{
+					Task.current.Succeed();
+				}
+			} 
 		}
 
 		[Task]
