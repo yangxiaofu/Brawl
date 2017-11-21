@@ -125,6 +125,7 @@
      <Compile Include="Assets\_Environment\Particle Systems\Scripts\ParticleSystemMultiplier.cs" />
      <Compile Include="Assets\_Environment\Particle Systems\Scripts\SmokeParticles.cs" />
      <Compile Include="Assets\_Environment\Particle Systems\Scripts\WaterHoseParticles.cs" />
+     <Compile Include="Assets\_Items\HealthItemBehaviour.cs" />
      <Compile Include="Assets\_Temp\ProjectileSocket.cs" />
      <Compile Include="Assets\_Weapons\_PowerWeapon\PowerWeaponBehaviour.cs" />
      <Compile Include="Assets\_Weapons\_PowerWeapon\PowerWeaponBehaviourLogic.cs" />

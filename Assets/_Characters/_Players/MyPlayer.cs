@@ -17,7 +17,6 @@ namespace Game.Characters
 		ControllerBehaviour _controller;
 		public ControllerBehaviour controller{get{return _controller;}}
 		public void Setup(ControllerBehaviour controller){_controller = controller;}
-		
 		Movement _movement;
 
 		void Awake()

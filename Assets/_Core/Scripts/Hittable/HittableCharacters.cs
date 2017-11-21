@@ -17,7 +17,6 @@ namespace Game.Core{
         {
 			for(int i = 0; i < _hits.Length; i++)
 			{ 
-                var hitCharacter = _hits[i].collider.gameObject.GetComponent<Character>();
 				var enemyObject = _hits[i].collider.gameObject.GetComponent<Enemy>();
 				if (enemyObject && enemyObject.GetComponent<Enemy>().isDead)
 				{

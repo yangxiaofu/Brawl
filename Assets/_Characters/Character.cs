@@ -78,9 +78,16 @@ namespace Game.Characters
 
         private void PlayBloodEffect()
         {
-            var killParticleEffectObject = Instantiate(GetComponent<HealthSystem>().killParticleEffectPrefab, this.transform.position, this.transform.rotation) as GameObject;
+            var killParticleEffectObject = Instantiate(
+                GetComponent<HealthSystem>().killParticleEffectPrefab, this.transform.position, 
+                this.transform.rotation
+            ) as GameObject;
+
             var particleSystem = killParticleEffectObject.GetComponent<ParticleSystem>();
+
             particleSystem.Play();
+            var timeDestroy = killParticleEffectObject.AddComponent<TimeDestroy>();
+            timeDestroy.DestroyIn(particleSystem.main.duration);
         }
 
 		protected void ResetLookAtWeight()

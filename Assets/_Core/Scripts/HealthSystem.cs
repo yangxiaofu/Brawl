@@ -22,6 +22,12 @@ namespace Game.Core{
 			_healthSystemLogic = new HealthSystemLogic();
 		}
 
+		public void Heal(float healToAdd)
+		{
+			_currentHealth += healToAdd;
+			_currentHealth = Mathf.Clamp(_currentHealth, 0, _startingHealth);
+		}
+
 		public void DealDamage(float damage)
 		{
 			_currentHealth -= damage;

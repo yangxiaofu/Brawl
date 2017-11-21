@@ -7,8 +7,6 @@ using Game.Weapons;
 using Panda;
 
 namespace Game.Characters{
-
-	//TODO: The AI has some bugs for the shooter enemy.  the walk to player tree seems to not do much. 
 	public class EnemyAI : MonoBehaviour {
 		[SerializeField] float _rotationSpeed = 5f;
 
