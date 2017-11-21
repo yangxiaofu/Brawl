@@ -1,4 +1,7 @@
 tree("AttackPlayer")
 	sequence
-		PlayerIsInAttackRadius
-		PlayHitAnimation
+		not TargetIsDead
+		sequence
+			PlayerIsInAttackRadius
+			PlayHitAnimation
+			not TargetIsDead

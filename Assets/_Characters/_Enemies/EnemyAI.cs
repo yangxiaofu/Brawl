@@ -229,8 +229,28 @@ namespace Game.Characters{
 			if (_target == null)
 				return false;
 
+			if (_target.isDead)
+				return false;
+
 			var distanceFromPlayer = Vector3.Distance(this.transform.position, _target.transform.position);
 			return distanceFromPlayer < _enemy.attackRadius;
+		}
+
+		[Task]
+		bool TargetIsDead()
+		{
+			if (_target == null)
+				return false;
+
+			if (_target.isDead)
+			{	
+				_target = null;
+				return true;
+			} 
+			else 
+			{
+				return false;
+			}
 		}
 
 		[Task]
