@@ -112,6 +112,7 @@
      <Compile Include="Assets\_Core\Scripts\SkySpecialAbilitySocket.cs" />
      <Compile Include="Assets\_Core\Scripts\Spawner.cs" />
      <Compile Include="Assets\_Core\Scripts\SpawnerLogic.cs" />
+     <Compile Include="Assets\_Core\Scripts\SpawnPoint.cs" />
      <Compile Include="Assets\_Core\Scripts\ThrowSocket.cs" />
      <Compile Include="Assets\_Core\Scripts\TimeDestroy.cs" />
      <Compile Include="Assets\_Core\Tests\PhysicsApplyForce.cs" />

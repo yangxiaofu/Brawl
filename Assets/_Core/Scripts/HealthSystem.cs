@@ -34,13 +34,12 @@ namespace Game.Core{
 
 			if (_currentHealth <= 0)
 			{
-				if (GetComponent<Character>() && !GetComponent<Character>().isDead)
+				if (GetComponent<Character>() && !GetComponent<Character>().isDead) //If this is a character and it's not dead. 
 				{
 					if (GetComponent<NavMeshAgent>())
-					{
 						GetComponent<NavMeshAgent>().enabled = false;
-						StartCoroutine(GetComponent<Character>().KillCharacter());
-					}
+
+					StartCoroutine(GetComponent<Character>().KillCharacter());
 					
 					return;
 				}

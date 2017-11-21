@@ -9,10 +9,7 @@ using System;
 
 namespace Game.Characters
 {
-
-    //KNOWN BUGS
-    //TODO: The zombie Character drops thru the terrian for some reason upon death. 
-    public class Character : MonoBehaviour
+    public abstract class Character : MonoBehaviour
 	{
 		[Space][Header("Capsule Collider")]
 		[SerializeField] protected PhysicMaterial _physicsMaterial;
@@ -24,7 +21,7 @@ namespace Game.Characters
 		[SerializeField] protected Avatar _avatar;
 		[SerializeField] protected AnimatorUpdateMode _animatorUpdateMode;
         [Space]
-        [SerializeField] float _timeToDestroyCharacterAfterDeath = 8f;
+        [SerializeField] protected float _timeToDestroyCharacterAfterDeath = 8f;
 		protected bool _frozen = false;
 		public bool frozen{get{return _frozen;}}
 		protected WeaponSystem _weaponSystem;
@@ -36,10 +33,10 @@ namespace Game.Characters
 		public CharacterLogic logic {get{return _characterLogic;}}
 		protected bool _characterCanShoot = true;
 		public bool characterCanShoot{get{return _characterCanShoot;}}
-		bool _isDead = false;
+		protected bool _isDead = false;
 		public bool isDead {get{return _isDead;}}
 
-        const string DEAD_TRIGGER = "Dead";
+        protected const string DEAD_TRIGGER = "Dead";
         protected void InitializeCharacterVariables()
         {
             var audioSource = this.gameObject.AddComponent<AudioSource>();
@@ -66,17 +63,7 @@ namespace Game.Characters
             _anim.SetLookAtPosition(targetPos);
         }
 
-		public IEnumerator KillCharacter()
-        {
-            _isDead = true;
-            GetComponent<Animator>().SetTrigger(DEAD_TRIGGER);
-            GetComponent<NavMeshAgent>().enabled = false;
-            PlayBloodEffect();
-            yield return new WaitForSeconds(_timeToDestroyCharacterAfterDeath);
-            Destroy(this.gameObject);
-        }
-
-        private void PlayBloodEffect()
+        protected void PlayBloodEffect()
         {
             var killParticleEffectObject = Instantiate(
                 GetComponent<HealthSystem>().killParticleEffectPrefab, this.transform.position, 
@@ -103,6 +90,8 @@ namespace Game.Characters
             _anim.SetIKPosition(AvatarIKGoal.RightHand, target);
             _anim.SetIKPositionWeight(AvatarIKGoal.RightHand, ikPositionGoal);
         }
+
+        public abstract IEnumerator KillCharacter();
     }
 }
 

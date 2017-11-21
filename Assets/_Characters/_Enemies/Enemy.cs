@@ -22,17 +22,20 @@ namespace Game.Characters
 		[Tooltip("This applies to shooter enemies.  If the player is within this distance, the enemy will move away from the player.")]
 		[SerializeField] float _runawayDistance = 2f;
 		public float runawayDistance{get{return _runawayDistance;}}
+
+		NavMeshAgent _agent;
 		
 		void Awake()
 		{
 			InitializeCharacterVariables();
 			_weaponSystem.InitializeWeaponSystem();
 			_anim = GetComponent<Animator>();
+			_agent = GetComponent<NavMeshAgent>();
 		}
 
 		void Start()
 		{
-			GetComponent<NavMeshAgent>().stoppingDistance = _attackRadius;
+			_agent.stoppingDistance = _attackRadius;
 		}
 
 		void OnDrawGizmos()
@@ -59,7 +62,17 @@ namespace Game.Characters
 			LookAtTarget(pointDirection);
 			SetIKPosition(pointDirection);
 		}
-	}
+
+        public override IEnumerator KillCharacter()
+        {
+            _isDead = true;
+            _anim.SetTrigger(DEAD_TRIGGER);
+            _agent.enabled = false;
+            PlayBloodEffect();
+            yield return new WaitForSeconds(_timeToDestroyCharacterAfterDeath);
+            Destroy(this.gameObject);
+        }
+    }
 
 }
 

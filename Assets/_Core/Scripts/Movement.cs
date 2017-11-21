@@ -50,6 +50,9 @@ namespace Game.Core{
 		// Update is called once per frame
 		void Update ()
         {
+			if (_character.isDead)
+				return;
+
             CheckIfGrounded();
 
 			if(_character.logic.CanMove(_character.frozen, (_character as MyPlayer).controller))
@@ -61,11 +64,13 @@ namespace Game.Core{
 
 		void FixedUpdate()
         {
+			if (_character.isDead)
+				return;
+
             if (_character.logic.CanMove(_character.frozen, (_character as MyPlayer).controller))
 			{
 				UpdateMovementInputs();
 				UpdatePlayerMovement();
-            
 			}
         }
 

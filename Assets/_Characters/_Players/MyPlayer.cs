@@ -18,14 +18,7 @@ namespace Game.Characters
 		public ControllerBehaviour controller{get{return _controller;}}
 		public void Setup(ControllerBehaviour controller){_controller = controller;}
 		Movement _movement;
-
-		void Awake()
-        {
-            SetupCapsuleCollider();
-			SetupAnimator();				
-			InitializeCharacterVariables(); 
-        }
-
+		const string ALIVE = "Alive";
 		public void OnButtonUp(PS4_Controller_Input.Button button)
         {
             if (button == PS4_Controller_Input.Button.SQUARE)
@@ -82,29 +75,7 @@ namespace Game.Characters
 
         }
 
-		void Start()
-		{
-			 _characterRenderer = GetComponentInChildren<Renderer>();
-            Assert.IsNotNull(_characterRenderer);
 
-			_movement = GetComponent<Movement>();
-			_weaponSystem.InitializeWeaponSystem();
-			_characterLogic = new CharacterLogic(this);
-
-		}
-
-		void Update()
-		{
-			if (_characterCanShoot)
-            {
-                if(_weaponSystem.ShotIsFired(_controller))
-				{		
-					_characterCanShoot = false;
-					var secondsToDelayUpdate = (_weaponSystem.primaryWeapon as RangeWeaponConfig).secondsBetweenShots;
-					StartCoroutine(UpdateCharacterCanShootAfter(secondsToDelayUpdate));
-				}
-            }
-		}
 
 		private IEnumerator UpdateCharacterCanShootAfter(float delay)
 		{
@@ -194,7 +165,71 @@ namespace Game.Characters
 			}
 		}
 
-		
-	}
+        public override IEnumerator KillCharacter()
+        {
+			_isDead = true;
+            _anim.SetTrigger(DEAD_TRIGGER);
+			PlayBloodEffect();
+			
+			yield return new WaitForSeconds(5f);//TODO: Rmoeve Magnic Number.
+			
+			var spawnPoint = GetNearestSpawnPoint();
+			this.transform.position = spawnPoint.transform.position;
+			_isDead = false;
+			_anim.SetTrigger(ALIVE);
+        }
+
+		private SpawnPoint GetNearestSpawnPoint()
+		{
+			var spawnPoints = GameObject.FindObjectsOfType<SpawnPoint>();
+
+			var spawnPointToReturn = spawnPoints[0];
+
+			for(int i = 0; i < spawnPoints.Length; i++)
+			{
+				var newSpawnPointFromPlayer = Vector3.Distance(this.transform.position, spawnPoints[i].transform.position);
+				var currentSpawnFromPlayer = Vector3.Distance(this.transform.position, spawnPointToReturn.transform.position);
+
+				if (newSpawnPointFromPlayer < currentSpawnFromPlayer)
+				{
+					spawnPointToReturn = spawnPoints[i];
+				}
+			}
+
+			return spawnPointToReturn;
+		}
+
+
+		void Awake()
+        {
+            SetupCapsuleCollider();
+			SetupAnimator();				
+			InitializeCharacterVariables(); 
+        }
+
+		void Start()
+		{
+			 _characterRenderer = GetComponentInChildren<Renderer>();
+            Assert.IsNotNull(_characterRenderer);
+
+			_movement = GetComponent<Movement>();
+			_weaponSystem.InitializeWeaponSystem();
+			_characterLogic = new CharacterLogic(this);
+
+		}
+
+		void Update()
+		{
+			if (_characterCanShoot)
+            {
+                if(_weaponSystem.ShotIsFired(_controller))
+				{		
+					_characterCanShoot = false;
+					var secondsToDelayUpdate = (_weaponSystem.primaryWeapon as RangeWeaponConfig).secondsBetweenShots;
+					StartCoroutine(UpdateCharacterCanShootAfter(secondsToDelayUpdate));
+				}
+            }
+		}
+    }
 
 }
