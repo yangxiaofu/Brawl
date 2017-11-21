@@ -26,9 +26,8 @@ tree("WalkToPlayer")
 	sequence
 		SetWalkAnimation
 		MoveToPlayer
-		PlayerIsWithinMoveRadius
 
 tree("BeIdle")
 	sequence
 		SetIdleAnimation
-		StayPut
+		not PlayerIsWithinMoveRadius

@@ -1,15 +1,21 @@
-//Attacks the player, but if the player gets too close, the enemy will run a further distance away.
+//Attacks the player, but if the player gets too close, the enemy will run a further 
+//distance away.  If the enemy can not see the player, it will continue to walk towards the player.
 tree("AttackPlayer")
 	fallback
-		repeat
+		fallback
+			repeat
+				sequence //If the enemy can not see the target, it'll walk to the target. If it can, it'll start attacking the player. 
+					CanSeeTarget
+					PlayerIsInAttackRadius
+					PlayerIsOutsideOfRunRadius
+					SetIdleAnimation
+					FaceTarget
+					ShootTarget
+					PlayerIsOutsideOfRunRadius
+					Wait 2.0
 			sequence
-				PlayerIsInAttackRadius
-				PlayerIsOutsideOfRunRadius
-				SetIdleAnimation
-				FaceTarget
-				ShootTarget
-				PlayerIsOutsideOfRunRadius
-				Wait 2.0
+				tree("WalkToPlayer")
+				Fail
 		tree("Runaway")
 		
 

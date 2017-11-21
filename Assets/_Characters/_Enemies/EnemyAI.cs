@@ -7,6 +7,8 @@ using Game.Weapons;
 using Panda;
 
 namespace Game.Characters{
+
+	//TODO: The AI has some bugs for the shooter enemy.  the walk to player tree seems to not do much. 
 	public class EnemyAI : MonoBehaviour {
 		[SerializeField] float _rotationSpeed = 5f;
 
@@ -160,6 +162,25 @@ namespace Game.Characters{
 		}
 
 		[Task]
+		bool CanSeeTarget()
+		{
+			if (_target == null)
+				return false;
+
+			Vector3 direction = (_target.transform.position - this.transform.position).normalized;
+			RaycastHit hit;
+			if (Physics.Raycast(this.transform.position, direction, out hit, _enemy.moveRadius))
+			{
+				if (hit.collider.gameObject.GetComponent<MyPlayer>() == _target)
+				{
+					return true;
+				}
+			}
+
+			return false;			
+		}
+
+		[Task]
 		bool SetWalkAnimation()
 		{
 			_anim.SetBool(IS_WALKING, true);
@@ -181,16 +202,19 @@ namespace Game.Characters{
 		}
 	
 		[Task]
-		void MoveToPlayer()
+		bool MoveToPlayer()
 		{
+			if (_target == null)
+				return false;
+
 			if (_agent.enabled)
 			{
 				_agent.SetDestination(_target.transform.position);
-				Task.current.Succeed();
+				return true;
 			} 
 			else 
 			{
-				Task.current.Fail();
+				return false;
 			}
 		}
 
